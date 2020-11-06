@@ -1,7 +1,7 @@
 """Script to seed database."""
 
 import os
-import json
+# import json
 from random import choice, randint
 from datetime import datetime
 
@@ -20,8 +20,7 @@ for n in range(1,11):
     last_name = f'Bobby{n}'
     email = f'user{n}@test.com' # A unique email!
     password = f'test{n}'
-
-    user = crud.create_user(first_name, last_name, email, password)
+    crud.create_user(first_name, last_name, email, password)
 
 crud.create_bank("CAP", "Capital One")
 crud.create_bank("BOA", "Bank of America")
@@ -32,5 +31,16 @@ for n in range(1,5):
     user_id = n
     bank_id = n
     account_type = f'Checking{n}'
+    crud.create_account(user_id, bank_id, account_type)
 
-    account = crud.create_account(user_id, bank_id, account_type)
+for n in range (1,5):
+    account_id = n
+    date = f'11-{n+6}-20'
+    category = f'Income{n}'
+    description = f'trial {n}'
+    amount = 1000 + (n*100)
+    crud.create_entry_log(account_id, 
+                          date, 
+                          category, 
+                          description, 
+                          amount)

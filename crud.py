@@ -1,6 +1,6 @@
 """CRUD operations."""
 
-from model import db, User, Bank, Account, connect_to_db # EntryLog, RecurrentEntry
+from model import db, User, Bank, Account, EntryLog, connect_to_db # RecurrentEntry
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -43,7 +43,11 @@ def create_account(user_id, bank_id, account_type):
 def create_entry_log(account_id, date, category, description, amount):
     """Create and return an account."""
 
-    entry_log = EntryLog(account_id=account_id, date=date ,category=category, description=description, amount=amount)
+    entry_log = EntryLog(account_id = account_id, 
+                         date = date ,
+                         category = category, 
+                         description = description, 
+                         amount = amount)
 
     db.session.add(entry_log)
     db.session.commit()
@@ -56,8 +60,3 @@ if __name__ == '__main__':
 
     connect_to_db(app)
     db.create_all()
-
-
-
-    create_account(1,1,"checking")
-    create_account(4,3,"checking")

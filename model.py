@@ -58,7 +58,7 @@ class Account(db.Model):
 
     users = db.relationship('User')
     banks = db.relationship('Bank')
-#    entry_logs = db.relationship('EntryLog')
+    entry_logs = db.relationship('EntryLog')
 
     def __repr__(self):
         return f'<Account: account_id={self.account_id}, user id={self.user_id}, account type={self.account_type}>'
@@ -86,7 +86,7 @@ class EntryLog(db.Model):
     # recurrent_entries = db.relationship('RecurrentEntry')
 
     def __repr__(self):
-        return f'<Entry Log: entry_id={self.entry_id}, date={self.date}, category={self.category}, amount={self.amount}>'
+        return f'<Entry Log: entry_id={self.entry_id}, account_id={self.account_id} date={self.date}, category={self.category}, description={self.description}, amount={self.amount}>'
 
 
 # class RecurrentEntry(db.Model):
