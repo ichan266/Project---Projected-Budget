@@ -83,29 +83,26 @@ class EntryLog(db.Model):
     # comments = db.Column(db.String)
 
     accounts = db.relationship('Account')
-    # recurrent_entries = db.relationship('RecurrentEntry')
+    recurrent_entries = db.relationship('RecurrentEntry')
 
     def __repr__(self):
         return f'<Entry Log: entry_id={self.entry_id}, account_id={self.account_id} date={self.date}, category={self.category}, description={self.description}, amount={self.amount}>'
 
 
-# class RecurrentEntry(db.Model):
-#     """A recurrent entry."""
+class RecurrentEntry(db.Model):
+    """A recurrent entry."""
 
-#     __tablename__ = 'recurrent_entries'
+    __tablename__ = 'recurrent_entries'
 
-#     entry_id = db.Column(db.Integer, db.ForeignKey('entry_logs.entry_id'))
-#     start_date = db.Column(db.Date)
-#     stop_date = db.Column(db.Date)
-#     frequency = db.Column(db.Integer)
+    entry_id = db.Column(db.Integer, db.ForeignKey('entry_logs.entry_id'))
+    start_date = db.Column(db.Date)
+    stop_date = db.Column(db.Date)
+    frequency = db.Column(db.Integer)
 
-#     users = db.relationship('User')
-#     accounts = db.relationship('Account')
-#     banks = db.relationship('Bank')
-#     entry_logs = db.relationship('EntryLog')
+    entry_logs = db.relationship('EntryLog')
 
-#     def __repr__(self):
-#         return f'<Recurrent Entry: entry_id={self.entry_id}, Start Date={self.start_date}, Frequency={self.frequency}>'
+    def __repr__(self):
+        return f'<Recurrent Entry: entry_id={self.entry_id}, Start Date={self.start_date}, Stop Date ={self.stop_date}, Frequency={self.frequency}>'
 
 
 def connect_to_db(flask_app, db_uri='postgresql:///pb', echo=True):
