@@ -27,3 +27,10 @@ crud.create_bank("CAP", "Capital One")
 crud.create_bank("BOA", "Bank of America")
 crud.create_bank("JPM", "JP Morgan Chase")
 crud.create_bank("WFA", "Wells Fargo")
+
+for n in range(1,5):
+    user_id = n
+    bank_id = n
+    account_type = f'Checking{n}'
+
+    account = crud.create_account(user_id, bank_id, account_type)
