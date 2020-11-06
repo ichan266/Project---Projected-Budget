@@ -9,8 +9,21 @@ import crud
 import model
 import server
 
-os.system('dropdb ratings')
-os.system('createdb ratings')
+os.system('dropdb pb')
+os.system('createdb pb')
 
 model.connect_to_db(server.app)
 model.db.create_all()
+
+for n in range(1,11):
+    first_name = f'Bob{n}'
+    last_name = f'Bobby{n}'
+    email = f'user{n}@test.com' # A unique email!
+    password = f'test{n}'
+
+    user = crud.create_user(first_name, last_name, email, password)
+
+crud.create_bank("CAP", "Capital One")
+crud.create_bank("BOA", "Bank of America")
+crud.create_bank("JPM", "JP Morgan Chase")
+crud.create_bank("WFA", "Wells Fargo")

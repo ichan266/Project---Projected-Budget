@@ -57,15 +57,7 @@ if __name__ == '__main__':
     connect_to_db(app)
     db.create_all()
 
-    create_user("Bob1", "Bobby1", "test@test1", "test1")
-    create_user("Bob2", "Bobby2", "test@test2", "test2")
-    create_user("Bob3", "Bobby3", "test@test3", "test3")
-    create_user("Bob4", "Bobby4", "test@test4", "test4")
 
-    create_bank("CAP", "Capital One")
-    create_bank("BOA", "Bank of America")
-    create_bank("JPM", "JP Morgan Chase")
-    create_bank("WFA", "Wells Fargo")
 
     create_account(1,1,"checking")
     create_account(4,3,"checking")
