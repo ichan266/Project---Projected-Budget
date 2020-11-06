@@ -94,6 +94,10 @@ class RecurrentEntry(db.Model):
 
     __tablename__ = 'recurrent_entries'
 
+    recurrent_id = db.Column(db.Integer,
+                             primary_key=True,
+                             autoincrement=True
+                             )
     entry_id = db.Column(db.Integer, db.ForeignKey('entry_logs.entry_id'))
     start_date = db.Column(db.Date)
     stop_date = db.Column(db.Date)
@@ -102,7 +106,7 @@ class RecurrentEntry(db.Model):
     entry_logs = db.relationship('EntryLog')
 
     def __repr__(self):
-        return f'<Recurrent Entry: entry_id={self.entry_id}, Start Date={self.start_date}, Stop Date ={self.stop_date}, Frequency={self.frequency}>'
+        return f'<Recurrent Entry: recurrent_id={self.recurrent_id}, entry_id={self.entry_id}, Start Date={self.start_date}, Stop Date ={self.stop_date}, Frequency={self.frequency}>'
 
 
 def connect_to_db(flask_app, db_uri='postgresql:///pb', echo=True):
