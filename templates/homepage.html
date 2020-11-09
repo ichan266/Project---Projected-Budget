@@ -3,11 +3,10 @@
 
 {% block body %}
   <h1>Welcome!</h1><br>
+  <h3>This site can help you see your projected budget for up to 4 months!</h3>
 
-  <h2>You are see what your </h2>
-
-  <h2>Create an Account</h2>
-  <form action="/users" method="POST">
+  <!-- <h3>Create an Account</h3>
+  <form id="create_user" action="/users" method="POST">
     <p>
       Email <input type="text" name="email">
     </p>
@@ -20,9 +19,10 @@
       <input type="submit">
     </p>
   </form>
-
-  <h2>Log In</h2>
-  <form action="/handle-form-session">
+  <br>
+  <br> -->
+  <h4>Please Log In</h4>
+  <form action="/confirm_account" method="POST">
     <p>
       Email <input type="text" name="email">
     </p>
@@ -32,7 +32,7 @@
     </p>
 
     <p>
-      <input type="submit">
+      <button type="submit">Log In</button>
     </p>
   </form>
 {% endblock %}

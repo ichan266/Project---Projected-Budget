@@ -3,7 +3,8 @@
 import os
 # import json
 from random import choice, randint
-from datetime import datetime
+import datetime
+import calendar
 
 import crud
 import model
@@ -20,7 +21,7 @@ for n in range(1,11):
     
     first_name = f'Bob{n}'
     last_name = f'Bobby{n}'
-    email = f'user{n}@test.com' # A unique email!
+    email = f'test{n}@test.com' # A unique email!
     password = f'test{n}'
     crud.create_user(first_name, last_name, email, password)
 
@@ -54,9 +55,10 @@ for n in range (1,5):
     """Seeding recurrent_entries table."""
 
     entry_id = n
-    start_date = f'11-{n+6}-20'
-    stop_date = f'11-{n+8}-20'
-    frequency = 10
+    today = datetime.date.today()
+    start_date = today + datetime.timedelta(days=n)
+    frequency = 100
+    stop_date = start_date + datetime.timedelta(days=frequency)
     crud.create_recurrent_entry(entry_id,
                                 start_date,
                                 stop_date,

@@ -1,7 +1,8 @@
 """CRUD operations."""
 
 from model import db, User, Bank, Account, EntryLog, RecurrentEntry, connect_to_db
-from flask_sqlalchemy import SQLAlchemy
+from datetime import (date, timedelta)
+# from flask_sqlalchemy import SQLAlchemy
 
 
 def create_user(first_name, last_name, email, password):
@@ -67,8 +68,12 @@ def create_recurrent_entry(entry_id, start_date, stop_date, frequency):
     return recurrent_entry
 
 
+def get_user_by_email(email):
+    """Return a user by email."""
+
+    return User.query.filter(User.email == email).first()
+
+
 if __name__ == '__main__':
     from server import app
-
     connect_to_db(app)
-    db.create_all()
