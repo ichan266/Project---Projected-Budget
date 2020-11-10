@@ -2,26 +2,11 @@
 {% block title %}Projected Budget Home{% endblock %}
 
 {% block body %}
-  <h1>Welcome!</h1><br>
+  <h1>Welcome to My First Project Website!</h1>
   <h3>This site can help you see your projected budget for up to 4 months!</h3>
-
-  <!-- <h3>Create an Account</h3>
-  <form id="create_user" action="/users" method="POST">
-    <p>
-      Email <input type="text" name="email">
-    </p>
-
-    <p>
-      Password <input type="password" name="password">
-    </p>
-
-    <p>
-      <input type="submit">
-    </p>
-  </form>
   <br>
-  <br> -->
-  <h4>Please Log In</h4>
+  <br>
+  <h3>Please Log In</h3>
   <form action="/confirm_account" method="POST">
     <p>
       Email <input type="text" name="email">
@@ -33,6 +18,27 @@
 
     <p>
       <button type="submit">Log In</button>
+    </p>
+  </form>
+  <br>
+  <h3>Create a New Account</h3>
+  <form id="create_user" action="/create_user" method="POST">
+    <p>
+      First Name <input type="text" name="first_name" required='true'>
+    </p>
+    <p>
+      Last Name <input type="text" name="last_name" required='true'>
+    </p>
+    <p>
+      Email <input type="text" name="email" required='true'>
+    </p>
+
+    <p>
+      Password <input type="password" name="password" required='true'>
+    </p>
+
+    <p>
+      <input type="submit">
     </p>
   </form>
 {% endblock %}

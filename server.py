@@ -19,22 +19,22 @@ def homepage():
     return render_template('homepage.html')
 
 
-# @app.route('/users', methods=['POST'])
-# def register_user():
-#     """Create a new user."""
+@app.route('/create_user', methods=['POST'])
+def register_user():
+    """Create a new user."""
 
-#     email = request.form.get('email')
-#     password = request.form.get('password')
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    email = request.form['email']
+    password = request.form['password']
 
-#     user = crud.get_user_by_email(email)
-#     if user:
-#         flash('Cannot create an account with that email. Try again.')
-#     else:
-#         crud.create_user(email, password)
-#         flash('Account created! Please log in.')
-#         # render_template()  # Need to write a page to take user to a page to add first name and last name
+    if email == crud.get_user_by_email(email).email:
+        flash("Account already existed. Please try again.")
+    else:
+        new_user = crud.create_user(first_name, last_name, email, password)
+        flash("Account Created!")
 
-#     return redirect('/')
+    return redirect('/')
 
 
 @app.route('/confirm_account', methods=['POST'])

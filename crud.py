@@ -81,6 +81,7 @@ def get_account_by_account_id(account_id):
 
 
 def get_bank_name_by_bank_id(bank_id):
+    """Return bank name by bank_id in Bank (table: banks)."""
 
     return Bank.query.filter(Bank.bank_id == bank_id).one()
 
