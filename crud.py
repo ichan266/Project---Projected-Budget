@@ -32,9 +32,9 @@ def create_bank(bank_code, bank_name):
 def create_account(user_id, bank_id, account_type):
     """Create and return an account."""
 
-    account = Account(user_id = user_id, 
-                      bank_id = bank_id ,
-                      account_type = account_type)
+    account = Account(user_id=user_id, 
+                      bank_id=bank_id ,
+                      account_type=account_type)
     db.session.add(account)
     db.session.commit()
 
@@ -44,11 +44,11 @@ def create_account(user_id, bank_id, account_type):
 def create_entry_log(account_id, date, category, description, amount):
     """Create and return an entry."""
 
-    entry_log = EntryLog(account_id = account_id, 
-                         date = date ,
-                         category = category, 
-                         description = description, 
-                         amount = amount)
+    entry_log = EntryLog(account_id=account_id, 
+                         date=date ,
+                         category=category, 
+                         description=description, 
+                         amount=amount)
     db.session.add(entry_log)
     db.session.commit()
 
@@ -58,10 +58,10 @@ def create_entry_log(account_id, date, category, description, amount):
 def create_recurrent_entry(entry_id, start_date, stop_date, frequency):
     """ Create and return a recurrent entry."""
 
-    recurrent_entry = RecurrentEntry(entry_id = entry_id,
-                                     start_date = start_date,
-                                     stop_date = stop_date,
-                                     frequency = frequency)
+    recurrent_entry = RecurrentEntry(entry_id=entry_id,
+                                     start_date=start_date,
+                                     stop_date=stop_date,
+                                     frequency=frequency)
     db.session.add(recurrent_entry)
     db.session.commit()
 

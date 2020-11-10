@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Profile{% endblock %}
 
-{%block body%}
+{% block body %}
 <h1>Hi! {{ session['user_name'] }}</h1>
 <h2>Your User ID is {{ session['user_id'] }}</h2>
 <h3>Account ID: {{ account_id }}</h3>
@@ -27,5 +27,19 @@
       {% set ns.balance = entry.amount + ns.balance %}  
     {% endfor %}  
   </table>
+<br>
+<br>
+<!-- Create a new bank account -->
+<h3>Enter a New Bank Account</h3>
+<form id="create_bank_account" action="/create_bank_account" method="POST">
+  <p>
+    Bank Name <input type="text" name="bank_name" required>
+  </p>
+<form id="create_account" action="/"
 
-{% endblock %}
+  
+</form>
+
+
+  {% endblock %}
+
