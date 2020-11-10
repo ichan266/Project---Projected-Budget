@@ -50,15 +50,29 @@ def check_account():
     else:
         flash('Successfully logged in!')
         session['user_name'] = f'{user.first_name} {user.last_name}'
-        session['user_id'] = user.user_id
+        session['user_id'] = user.user_id        
         
-        
-        print(f"THE SESSION IS {session['user_name']}")
+        print(f"THE SESSION FOR USER NAME IS {session['user_name']}")
         print(f"THE SESSION FOR USER ID IS {session['user_id']}")
         
+        # get all the entry logs associated with a particular account
         entries = crud.get_entry_logs_by_account_id(session['user_id'])
 
-        return render_template('welcome.html', entries=entries)
+        # use the first entry in entry log's account id to find the type of account
+        account = crud.get_account_by_account_id(entries[0].account_id)
+        account_id = account.account_id
+        account_type = account.account_type
+        bank_id = account.bank_id
+
+        # get the bank name by using bank id from account
+        bank = crud.get_bank_name_by_bank_id(bank_id)
+        bank_name = bank.bank_name
+
+        return render_template('welcome.html', 
+                                entries=entries, 
+                                account_type=account_type,
+                                account_id=account_id,
+                                bank_name=bank_name)
 
     return redirect('/')
 

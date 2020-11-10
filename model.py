@@ -63,7 +63,7 @@ class Account(db.Model):
     entry_logs = db.relationship('EntryLog')
 
     def __repr__(self):
-        return f'<Account: account_id={self.account_id}, user id={self.user_id}, account type={self.account_type}>'
+        return f'<Account: account_id={self.account_id}, user id={self.user_id}, bank_id={self.bank_id}, account type={self.account_type}>'
 
 
 class EntryLog(db.Model):

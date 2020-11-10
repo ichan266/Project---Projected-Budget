@@ -74,6 +74,17 @@ def get_user_by_email(email):
     return User.query.filter(User.email == email).first()
 
 
+def get_account_by_account_id(account_id):
+    """Return a specific account info with account_id."""
+
+    return Account.query.filter(Account.account_id == account_id).first()
+
+
+def get_bank_name_by_bank_id(bank_id):
+
+    return Bank.query.filter(Bank.bank_id == bank_id).one()
+
+
 def get_entry_logs_by_account_id(account_id):
     """Return all the entry logs associated with a particular account."""
 

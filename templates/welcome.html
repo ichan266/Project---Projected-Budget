@@ -2,25 +2,29 @@
 {% block title %}Profile{% endblock %}
 
 {%block body%}
-<h2>Hi! {{ session['user_name'] }}</h2>
-
-<h3>Your User ID is {{ session['user_id'] }}</h3>
-
-<h4>Here are your accounts</h4>
+<h1>Hi! {{ session['user_name'] }}</h1>
+<h2>Your User ID is {{ session['user_id'] }}</h2>
+<h3>Account ID: {{ account_id }}</h3>
+<h3>Account Type: {{ account_type }}</h3>
+<h3>Bank: {{ bank_name }}</h3>
   <table>
     <tr>
       <th>Date</th>
       <th>Amount</th>
       <th>Projected Balance</th>
+      <th>Category</th>
       <th>Description</th>
     </tr>
+    {% set ns = namespace(balance=0) %}
     {% for entry in entries %}
       <tr>
         <td>{{ entry.date }}</td>
         <td>${{ entry.amount }}</td>
-        <td>${{ entry.amount + 100 }}</td> <!-- I can do simple math here! Need to figure out how to change it-->
+        <td>${{ entry.amount + ns.balance }}</td>
+        <td>{{ entry.category }}</td>
         <td>{{ entry.description }}</td>
       </tr>
+      {% set ns.balance = entry.amount + ns.balance %}  
     {% endfor %}  
   </table>
 

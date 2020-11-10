@@ -33,7 +33,7 @@ for n in range(1,5):
     """Seeding accounts table."""
     
     user_id = 1
-    bank_id = 2
+    bank_id = n
     account_type = 'Checking'
     crud.create_account(user_id, bank_id, account_type)
 
