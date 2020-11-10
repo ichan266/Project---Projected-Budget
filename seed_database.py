@@ -2,7 +2,6 @@
 
 import os
 # import json
-from random import choice, randint
 import datetime
 import calendar
 
@@ -33,18 +32,31 @@ crud.create_bank("WFA", "Wells Fargo")
 for n in range(1,5):
     """Seeding accounts table."""
     
-    user_id = n
-    bank_id = n
-    account_type = f'Checking{n}'
+    user_id = 1
+    bank_id = 2
+    account_type = 'Checking'
     crud.create_account(user_id, bank_id, account_type)
 
 for n in range (1,5):
     """Seeding entry_logs table."""
-    account_id = n
-    date = f'11-{n+6}-20'
-    category = f'Income{n}'
+    account_id = 1
+    date = datetime.date.today() + datetime.timedelta(days=n*10)
+    category = 'Income'
     description = f'trial {n}'
     amount = 1000 + (n*100)
+    crud.create_entry_log(account_id, 
+                          date, 
+                          category, 
+                          description, 
+                          amount)
+
+for n in range (5,10):
+    """Seeding entry_logs table."""
+    account_id = 2
+    date = datetime.date.today() + datetime.timedelta(days=n*21)
+    category = 'Income'
+    description = f'trial {n}'
+    amount = 2000 + (n*200)
     crud.create_entry_log(account_id, 
                           date, 
                           category, 

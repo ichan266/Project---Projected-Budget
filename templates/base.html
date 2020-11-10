@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width"> -->
     <title>
       {% block title %}{% endblock %}
     </title>
@@ -24,18 +22,22 @@
       fieldset label {
         font-weight: bold;
       }
+
+      table, th, td {
+        border: 1px solid black;
+      }
     </style>
     {% block head %}{% endblock %}
   </head>
   <body>
-    {% block body %}{% endblock %}
-
-    {% block after_body %}{% endblock %}
-
     {% for msg in get_flashed_messages() %}
       <p class="flash-msg">
         {{ msg }}
       </p>
     {% endfor %}
+    
+    {% block body %}{% endblock %}
+
+    {% block after_body %}{% endblock %}
   </body>
 </html>

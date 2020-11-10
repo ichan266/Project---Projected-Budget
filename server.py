@@ -50,11 +50,17 @@ def check_account():
     else:
         flash('Successfully logged in!')
         session['user_name'] = f'{user.first_name} {user.last_name}'
+        session['user_id'] = user.user_id
+        
+        
         print(f"THE SESSION IS {session['user_name']}")
-        return render_template('welcome.html')
+        print(f"THE SESSION FOR USER ID IS {session['user_id']}")
+        
+        entries = crud.get_entry_logs_by_account_id(session['user_id'])
+
+        return render_template('welcome.html', entries=entries)
 
     return redirect('/')
-
 
 
 if __name__ == '__main__':

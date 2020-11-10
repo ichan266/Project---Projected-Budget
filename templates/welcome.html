@@ -1,4 +1,27 @@
 {% extends 'base.html' %}
-{% block title %}Welcome!{% endblock %}
+{% block title %}Profile{% endblock %}
 
-{%block body%}Welcome! {{ session['user_name'] }}{% endblock %}
+{%block body%}
+<h2>Hi! {{ session['user_name'] }}</h2>
+
+<h3>Your User ID is {{ session['user_id'] }}</h3>
+
+<h4>Here are your accounts</h4>
+  <table>
+    <tr>
+      <th>Date</th>
+      <th>Amount</th>
+      <th>Projected Balance</th>
+      <th>Description</th>
+    </tr>
+    {% for entry in entries %}
+      <tr>
+        <td>{{ entry.date }}</td>
+        <td>${{ entry.amount }}</td>
+        <td>${{ entry.amount + 100 }}</td> <!-- I can do simple math here! Need to figure out how to change it-->
+        <td>{{ entry.description }}</td>
+      </tr>
+    {% endfor %}  
+  </table>
+
+{% endblock %}

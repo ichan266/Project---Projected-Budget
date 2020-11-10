@@ -69,9 +69,15 @@ def create_recurrent_entry(entry_id, start_date, stop_date, frequency):
 
 
 def get_user_by_email(email):
-    """Return a user by email."""
+    """Return a user by email. Used with '/confirm_account' when logging in."""
 
     return User.query.filter(User.email == email).first()
+
+
+def get_entry_logs_by_account_id(account_id):
+    """Return all the entry logs associated with a particular account."""
+
+    return EntryLog.query.filter(EntryLog.account_id == account_id).all()
 
 
 if __name__ == '__main__':
