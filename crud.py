@@ -1,10 +1,11 @@
 """CRUD operations."""
 
-from model import db, User, Bank, Account, EntryLog, RecurrentEntry, connect_to_db
+from model import (db, User, Account, EntryLog, connect_to_db) #Bank, RecurrentEntry
 from datetime import (date, timedelta)
 # from flask_sqlalchemy import SQLAlchemy
 
 
+### class User ###
 def create_user(first_name, last_name, email, password):
     """Create and return a new user."""
 
@@ -18,60 +19,47 @@ def create_user(first_name, last_name, email, password):
     return user
 
 
-def create_bank(bank_code, bank_name):
-    """Create and return a bank."""
+def get_user_by_email(email):
+    """Return a user by email."""
 
-    bank = Bank(bank_code=bank_code, 
-                bank_name=bank_name)
-    db.session.add(bank)
-    db.session.commit()
-
-    return bank
+    return User.query.filter(User.email == email).first()
 
 
-def create_account(user_id, bank_id, account_type):
+# ### class Bank ###
+# def create_bank(bank_code, bank_name):
+#     """Create and return a bank."""
+
+#     bank = Bank(bank_code=bank_code, 
+#                 bank_name=bank_name)
+#     db.session.add(bank)
+#     db.session.commit()
+
+#     return bank
+
+
+# def get_bank_name_by_bank_id(bank_id):
+#     """Return bank name by bank id."""
+
+#     return Bank.query.filter(Bank.bank_id == bank_id).one()
+
+
+# def get_bank_id_by_bank_name(bank_name):
+#     """Return bank id by bank name."""
+
+#     return Bank.query.filter
+
+
+### class Account ###
+def create_account(user_id, account_type, account_nickname):
     """Create and return an account."""
 
-    account = Account(user_id=user_id, 
-                      bank_id=bank_id ,
-                      account_type=account_type)
+    account = Account(user_id = user_id, 
+                      account_type = account_type,
+                      account_nickname = account_nickname)
     db.session.add(account)
     db.session.commit()
 
     return account
-
-
-def create_entry_log(account_id, date, category, description, amount):
-    """Create and return an entry."""
-
-    entry_log = EntryLog(account_id=account_id, 
-                         date=date ,
-                         category=category, 
-                         description=description, 
-                         amount=amount)
-    db.session.add(entry_log)
-    db.session.commit()
-
-    return entry_log
-
-
-def create_recurrent_entry(entry_id, start_date, stop_date, frequency):
-    """ Create and return a recurrent entry."""
-
-    recurrent_entry = RecurrentEntry(entry_id=entry_id,
-                                     start_date=start_date,
-                                     stop_date=stop_date,
-                                     frequency=frequency)
-    db.session.add(recurrent_entry)
-    db.session.commit()
-
-    return recurrent_entry
-
-
-def get_user_by_email(email):
-    """Return a user by email. Used with '/confirm_account' when logging in."""
-
-    return User.query.filter(User.email == email).first()
 
 
 def get_account_by_account_id(account_id):
@@ -80,16 +68,39 @@ def get_account_by_account_id(account_id):
     return Account.query.filter(Account.account_id == account_id).first()
 
 
-def get_bank_name_by_bank_id(bank_id):
-    """Return bank name by bank_id in Bank (table: banks)."""
+### class EntryLog ###
+def create_entry_log(account_id, date, category, description, amount):
+    """Create and return an entry."""
 
-    return Bank.query.filter(Bank.bank_id == bank_id).one()
+    entry_log = EntryLog(account_id = account_id, 
+                         date = date,
+                         category = category, 
+                         description = description, 
+                         amount = amount)
+    db.session.add(entry_log)
+    db.session.commit()
+
+    return entry_log
 
 
 def get_entry_logs_by_account_id(account_id):
     """Return all the entry logs associated with a particular account."""
 
     return EntryLog.query.filter(EntryLog.account_id == account_id).all()
+
+
+# ### class RecurrentEntry ###
+# def create_recurrent_entry(entry_id, start_date, stop_date, frequency):
+#     """ Create and return a recurrent entry."""
+
+#     recurrent_entry = RecurrentEntry(entry_id=entry_id,
+#                                      start_date=start_date,
+#                                      stop_date=stop_date,
+#                                      frequency=frequency)
+#     db.session.add(recurrent_entry)
+#     db.session.commit()
+
+#     return recurrent_entry
 
 
 if __name__ == '__main__':

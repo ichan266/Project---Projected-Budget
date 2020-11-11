@@ -6,7 +6,6 @@
 <h2>Your User ID is {{ session['user_id'] }}</h2>
 <h3>Account ID: {{ account_id }}</h3>
 <h3>Account Type: {{ account_type }}</h3>
-<h3>Bank: {{ bank_name }}</h3>
   <table>
     <tr>
       <th>Date</th>
@@ -29,12 +28,25 @@
   </table>
 <br>
 <br>
-<!-- Create a new bank account -->
-<h3>Enter a New Bank Account</h3>
-<form id="create_bank_account" action="/create_bank_and_transaction" method="POST">
+
+<!-- Create a new bank -->
+<!-- <h3>Select a Bank</h3>
+<form id="select_bank" action="/select_bank" method="POST">
   <p>
-    Bank Name <input type="text" name="bank_name" required>
+    Bank <select name="account_type">
+      <option value="">Checking</option>
+      <option value="saving">Saving</option>
+      <option value="other">Other</option>
+    </select>
   </p>
+  <p>
+    <input type="submit">  
+  </p>
+</form> -->
+<!-- Create a new account and transaction -->
+<br>
+<h3>Create a New Transaction</h3>
+<form id="create_transaction" action="/create_transaction" method="POST">  
   <p>
     Account Type <select name="account_type">
       <option value="checking">Checking</option>
@@ -43,10 +55,11 @@
     </select>
   </p>
   <p>
-    Transaction <input type="number" name="amount">
+    Account Nickname (Optional) <input type="text" name="account_nickname">  
   </p>
-  <p id='Note'>
-    Note: Income = positive number; Expense = negative number  
+  <p>
+    Transaction <input type="number" name="amount" required>
+    <span id='note'>Note: Income = positive number; Expense = negative number</span>
   </p>
   <p>
     Transaction Date <input type="date" name="transac_date"> 

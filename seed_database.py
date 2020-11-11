@@ -24,21 +24,22 @@ for n in range(1,11):
     password = f'test{n}'
     crud.create_user(first_name, last_name, email, password)
 
-crud.create_bank("CAP", "Capital One")
-crud.create_bank("BOA", "Bank of America")
-crud.create_bank("JPM", "JP Morgan Chase")
-crud.create_bank("WFA", "Wells Fargo")
+# crud.create_bank("CAP", "Capital One")
+# crud.create_bank("BOA", "Bank of America")
+# crud.create_bank("JPM", "JP Morgan Chase")
+# crud.create_bank("WEL", "Wells Fargo")
 
 for n in range(1,5):
     """Seeding accounts table."""
     
     user_id = 1
-    bank_id = n
-    account_type = 'Checking'
-    crud.create_account(user_id, bank_id, account_type)
+    # bank_id = n
+    account_type = "Checking"
+    account_nickname = f"Nickname{n}"
+    crud.create_account(user_id, account_type, account_nickname) #(bank_id)
 
 for n in range (1,5):
-    """Seeding entry_logs table."""
+    """Seeding entry_logs table with account_id #1."""
     account_id = 1
     date = datetime.date.today() + datetime.timedelta(days=n*10)
     category = 'Income'
@@ -51,7 +52,7 @@ for n in range (1,5):
                           amount)
 
 for n in range (5,10):
-    """Seeding entry_logs table."""
+    """Seeding entry_logs table with account_id #2."""
     account_id = 2
     date = datetime.date.today() + datetime.timedelta(days=n*21)
     category = 'Income'
@@ -63,15 +64,15 @@ for n in range (5,10):
                           description, 
                           amount)
 
-for n in range (1,5):
-    """Seeding recurrent_entries table."""
+# for n in range (1,5):
+#     """Seeding recurrent_entries table."""
 
-    entry_id = n
-    today = datetime.date.today()
-    start_date = today + datetime.timedelta(days=n)
-    frequency = 100
-    stop_date = start_date + datetime.timedelta(days=frequency)
-    crud.create_recurrent_entry(entry_id,
-                                start_date,
-                                stop_date,
-                                frequency)
+#     entry_id = n
+#     today = datetime.date.today()
+#     start_date = today + datetime.timedelta(days=n)
+#     frequency = 100
+#     stop_date = start_date + datetime.timedelta(days=frequency)
+#     crud.create_recurrent_entry(entry_id,
+#                                 start_date,
+#                                 stop_date,
+#                                 frequency)

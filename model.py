@@ -27,22 +27,23 @@ class User(db.Model):
         return f'<User: user_id={self.user_id}, User Name={self.first_name} {self.last_name}, email={self.email}>'
 
 
-class Bank(db.Model):
-    """A bank."""
+# class Bank(db.Model):
+#     """A bank."""
 
-    __tablename__ = 'banks'
+#     __tablename__ = 'banks'
 
-    bank_id = db.Column(db.Integer,
-                        primary_key=True,
-                        autoincrement=True
-                        )
-    bank_code = db.Column(db.String(3))
-    bank_name = db.Column(db.String(50))
+#     bank_id = db.Column(db.Integer,
+#                         primary_key=True,
+#                         autoincrement=True
+#                         )
+#     bank_code = db.Column(db.String(3))
+#     bank_name = db.Column(db.String(50))
 
-    accounts = db.relationship('Account')
+#     accounts = db.relationship('Account')
 
-    def __repr__(self):
-        return f'<Bank: bank id={self.bank_id}, bank code={self.bank_code}, bank name={self.bank_name}>'
+#     def __repr__(self):
+#         return f'<Bank: bank id={self.bank_id}, bank code={self.bank_code}, 
+#                   bank name={self.bank_name}>'
 
 
 class Account(db.Model):
@@ -55,15 +56,16 @@ class Account(db.Model):
                            autoincrement=True
                            )
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    bank_id = db.Column(db.Integer, db.ForeignKey('banks.bank_id'))
+    # bank_id = db.Column(db.Integer, db.ForeignKey('banks.bank_id'))
     account_type = db.Column(db.String)
+    account_nickname = db.Column(db.String)
 
     users = db.relationship('User')
-    banks = db.relationship('Bank')
+    # banks = db.relationship('Bank')
     entry_logs = db.relationship('EntryLog')
 
     def __repr__(self):
-        return f'<Account: account_id={self.account_id}, user id={self.user_id}, bank_id={self.bank_id}, account type={self.account_type}>'
+        return f'<Account: account_id={self.account_id}, user id={self.user_id}, account type={self.account_type}>'
 
 
 class EntryLog(db.Model):
@@ -85,30 +87,32 @@ class EntryLog(db.Model):
     # comments = db.Column(db.String)
 
     accounts = db.relationship('Account')
-    recurrent_entries = db.relationship('RecurrentEntry')
+    # recurrent_entries = db.relationship('RecurrentEntry')
 
     def __repr__(self):
-        return f'<Entry Log: entry_id={self.entry_id}, account_id={self.account_id} date={self.date}, category={self.category}, description={self.description}, amount={self.amount}>'
+        return f'<Entry Log: entry_id={self.entry_id}, account_id={self.account_id}, date={self.date}, category={self.category}, description={self.description}, amount={self.amount}>'
 
 
-class RecurrentEntry(db.Model):
-    """A recurrent entry."""
+# class RecurrentEntry(db.Model):
+#     """A recurrent entry."""
 
-    __tablename__ = 'recurrent_entries'
+#     __tablename__ = 'recurrent_entries'
 
-    recurrent_id = db.Column(db.Integer,
-                             primary_key=True,
-                             autoincrement=True
-                             )
-    entry_id = db.Column(db.Integer, db.ForeignKey('entry_logs.entry_id'))
-    start_date = db.Column(db.Date)
-    stop_date = db.Column(db.Date)
-    frequency = db.Column(db.Integer)
+#     recurrent_id = db.Column(db.Integer,
+#                              primary_key=True,
+#                              autoincrement=True
+#                              )
+#     entry_id = db.Column(db.Integer, db.ForeignKey('entry_logs.entry_id'))
+#     start_date = db.Column(db.Date)
+#     stop_date = db.Column(db.Date)
+#     frequency = db.Column(db.Integer)
 
-    entry_logs = db.relationship('EntryLog')
+#     entry_logs = db.relationship('EntryLog')
 
-    def __repr__(self):
-        return f'<Recurrent Entry: recurrent_id={self.recurrent_id}, entry_id={self.entry_id}, Start Date={self.start_date}, Stop Date ={self.stop_date}, Frequency={self.frequency}>'
+#     def __repr__(self):
+#         return f'<Recurrent Entry: recurrent_id={self.recurrent_id}, 
+#                   entry_id={self.entry_id}, Start Date={self.start_date}, 
+#                   Stop Date ={self.stop_date}, Frequency={self.frequency}>'
 
 
 def connect_to_db(flask_app, db_uri='postgresql:///pb', echo=True):
@@ -121,9 +125,8 @@ def connect_to_db(flask_app, db_uri='postgresql:///pb', echo=True):
 
     print('Connected to the db!')
 
+
 if __name__ == '__main__':
     from server import app
 
     connect_to_db(app)
-    
-

@@ -55,39 +55,47 @@ def check_account():
         print(f"THE SESSION FOR USER NAME IS {session['user_name']}")
         print(f"THE SESSION FOR USER ID IS {session['user_id']}")
         
+        #! Can I move this to a different @app.route('/welcome')? # 
         # get all the entry logs associated with a particular account
         entries = crud.get_entry_logs_by_account_id(session['user_id'])
 
         # use the first entry in entry log's account id to find the type of account
-        account = crud.get_account_by_account_id(entries[0].account_id)
+        account = crud.get_account_by_account_id(entries[0].account_id) #it won't work for users with no bank account. 
         account_id = account.account_id
         account_type = account.account_type
-        bank_id = account.bank_id
+        # bank_id = account.bank_id
 
-        # get the bank name by using bank id from account
-        bank = crud.get_bank_name_by_bank_id(bank_id)
-        bank_name = bank.bank_name
+        # # get the bank name by using bank id from account
+        # bank = crud.get_bank_name_by_bank_id(bank_id)
+        # bank_name = bank.bank_name
 
         return render_template('welcome.html', 
                                 entries=entries, 
                                 account_type=account_type,
-                                account_id=account_id,
-                                bank_name=bank_name)
+                                account_id=account_id) #bank_name=bank_name
 
     return redirect('/')
 
 
-@app.route('/create_bank_and_transaction', methods=['POST'])
-def create_bank_and_transaction():
-    """User to create bank and transaction info."""
+# @app.route('/create_bank', methods=['POST'])
+# def create_bank():
+#     """User to create bank info."""
 
-    bank_name = request.form['bank_name']
-    bank_code = bank_name[:3].upper()
-    account_type = request.form['account_type']
-    date = request.form['transac_date']
-    category = request.form['category']
-    description = request.form['description']
-    amount = request.form['transaction']
+#     bank_name = request.form['bank_name']
+#     bank_code = bank_name[:3].upper()
+
+#     if bank_code
+
+# @app.route('create_transaction', methods=['POST'])
+# def create_transaction():
+#     """User to create transaction."""
+
+#     account_type = request.form['account_type']
+#     date = request.form['transac_date']
+#     category = request.form['category']
+#     description = request.form['description']
+#     amount = request.form['transaction']
+
     
 
 
