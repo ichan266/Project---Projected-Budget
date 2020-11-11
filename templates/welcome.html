@@ -29,20 +29,6 @@
 <br>
 <br>
 
-<!-- Create a new bank -->
-<!-- <h3>Select a Bank</h3>
-<form id="select_bank" action="/select_bank" method="POST">
-  <p>
-    Bank <select name="account_type">
-      <option value="">Checking</option>
-      <option value="saving">Saving</option>
-      <option value="other">Other</option>
-    </select>
-  </p>
-  <p>
-    <input type="submit">  
-  </p>
-</form> -->
 <!-- Create a new account and transaction -->
 <br>
 <h3>Create a New Transaction</h3>
@@ -62,10 +48,10 @@
     <span id='note'>Note: Income = positive number; Expense = negative number</span>
   </p>
   <p>
-    Transaction Date <input type="date" name="transac_date"> 
+    Transaction Date <input type="date" name="date" required> 
   </p>
   <p>
-    Category <select name="category">
+    Category <select name="category" required>
       <option value="income">Income</option>
       <option value="expense">Expense</option>
     </select>  
@@ -77,7 +63,5 @@
     <input type="submit">  
   </p>
 </form>
-
-
   {% endblock %}
 

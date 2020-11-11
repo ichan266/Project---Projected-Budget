@@ -25,30 +25,6 @@ def get_user_by_email(email):
     return User.query.filter(User.email == email).first()
 
 
-# ### class Bank ###
-# def create_bank(bank_code, bank_name):
-#     """Create and return a bank."""
-
-#     bank = Bank(bank_code=bank_code, 
-#                 bank_name=bank_name)
-#     db.session.add(bank)
-#     db.session.commit()
-
-#     return bank
-
-
-# def get_bank_name_by_bank_id(bank_id):
-#     """Return bank name by bank id."""
-
-#     return Bank.query.filter(Bank.bank_id == bank_id).one()
-
-
-# def get_bank_id_by_bank_name(bank_name):
-#     """Return bank id by bank name."""
-
-#     return Bank.query.filter
-
-
 ### class Account ###
 def create_account(user_id, account_type, account_nickname):
     """Create and return an account."""

@@ -8,7 +8,7 @@ from jinja2 import StrictUndefined
 import datetime 
 
 app = Flask(__name__)
-app.secret_key = 'dev'
+app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
 
@@ -63,38 +63,25 @@ def check_account():
         account = crud.get_account_by_account_id(entries[0].account_id) #it won't work for users with no bank account. 
         account_id = account.account_id
         account_type = account.account_type
-        # bank_id = account.bank_id
-
-        # # get the bank name by using bank id from account
-        # bank = crud.get_bank_name_by_bank_id(bank_id)
-        # bank_name = bank.bank_name
 
         return render_template('welcome.html', 
                                 entries=entries, 
                                 account_type=account_type,
-                                account_id=account_id) #bank_name=bank_name
+                                account_id=account_id)
 
     return redirect('/')
 
 
-# @app.route('/create_bank', methods=['POST'])
-# def create_bank():
-#     """User to create bank info."""
+@app.route('/create_transaction', methods=['POST'])
+def create_transaction():
+    """User to create transaction."""
 
-#     bank_name = request.form['bank_name']
-#     bank_code = bank_name[:3].upper()
-
-#     if bank_code
-
-# @app.route('create_transaction', methods=['POST'])
-# def create_transaction():
-#     """User to create transaction."""
-
-#     account_type = request.form['account_type']
-#     date = request.form['transac_date']
-#     category = request.form['category']
-#     description = request.form['description']
-#     amount = request.form['transaction']
+    account_type = request.form['account_type']
+    account_nickname = request.form['account_nickname']
+    date = request.form['date']
+    category = request.form['category']
+    description = request.form['description']
+    amount = request.form['transaction']
 
     
 
@@ -102,3 +89,4 @@ def check_account():
 if __name__ == '__main__':
     connect_to_db(app)
     app.run(debug=True, host='0.0.0.0')
+

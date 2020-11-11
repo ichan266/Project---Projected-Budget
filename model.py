@@ -27,25 +27,6 @@ class User(db.Model):
         return f'<User: user_id={self.user_id}, User Name={self.first_name} {self.last_name}, email={self.email}>'
 
 
-# class Bank(db.Model):
-#     """A bank."""
-
-#     __tablename__ = 'banks'
-
-#     bank_id = db.Column(db.Integer,
-#                         primary_key=True,
-#                         autoincrement=True
-#                         )
-#     bank_code = db.Column(db.String(3))
-#     bank_name = db.Column(db.String(50))
-
-#     accounts = db.relationship('Account')
-
-#     def __repr__(self):
-#         return f'<Bank: bank id={self.bank_id}, bank code={self.bank_code}, 
-#                   bank name={self.bank_name}>'
-
-
 class Account(db.Model):
     """An account."""
 
@@ -56,12 +37,10 @@ class Account(db.Model):
                            autoincrement=True
                            )
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    # bank_id = db.Column(db.Integer, db.ForeignKey('banks.bank_id'))
     account_type = db.Column(db.String)
     account_nickname = db.Column(db.String)
 
     users = db.relationship('User')
-    # banks = db.relationship('Bank')
     entry_logs = db.relationship('EntryLog')
 
     def __repr__(self):
@@ -80,11 +59,8 @@ class EntryLog(db.Model):
     account_id = db.Column(db.Integer, db.ForeignKey('accounts.account_id'))
     date = db.Column(db.Date)
     category = db.Column(db.String)
-    # is_first_entry = db.Column(db.Boolean)
-    # is_recurrent = db.Column(db.Boolean)
     description = db.Column(db.String)
     amount = db.Column(db.Integer)
-    # comments = db.Column(db.String)
 
     accounts = db.relationship('Account')
     # recurrent_entries = db.relationship('RecurrentEntry')
@@ -105,7 +81,7 @@ class EntryLog(db.Model):
 #     entry_id = db.Column(db.Integer, db.ForeignKey('entry_logs.entry_id'))
 #     start_date = db.Column(db.Date)
 #     stop_date = db.Column(db.Date)
-#     frequency = db.Column(db.Integer)
+#     frequency = db.Column(db.Interval) # Interval is equivalent to datetime.timedelta
 
 #     entry_logs = db.relationship('EntryLog')
 
