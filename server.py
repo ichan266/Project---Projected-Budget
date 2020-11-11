@@ -29,7 +29,7 @@ def register_user():
     password = request.form['password']
 
     if crud.get_user_by_email(email) != None:
-        flash("Account already existed. Please try again.")
+        flash("Account already exists. Please try again.")
     else:
         crud.create_user(first_name, last_name, email, password)
         flash("Account Created!")
@@ -75,6 +75,20 @@ def check_account():
                                 bank_name=bank_name)
 
     return redirect('/')
+
+
+@app.route('/create_bank_and_transaction', methods=['POST'])
+def create_bank_and_transaction():
+    """User to create bank and transaction info."""
+
+    bank_name = request.form['bank_name']
+    bank_code = bank_name[:3].upper()
+    account_type = request.form['account_type']
+    date = request.form['transac_date']
+    category = request.form['category']
+    description = request.form['description']
+    amount = request.form['transaction']
+    
 
 
 if __name__ == '__main__':
