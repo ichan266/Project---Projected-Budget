@@ -31,10 +31,22 @@ def register_user():
     if crud.get_user_by_email(email) != None:
         flash("Account already exists. Please try again.")
     else:
-        crud.create_user(first_name, last_name, email, password)
+        user = crud.create_user(first_name, last_name, email, password)
+        session['user_name'] = f"{user.first_name} {user.last_name}"
+        session['user_id'] = user.user_id
         flash("Account Created!")
+        return redirect("/profile")
 
     return redirect("/")
+
+
+@app.route("/profile")
+def show_profile():
+    """Show user profile."""
+
+    accounts = crud.get_accounts_by_user_id(session['user_id'])
+
+    return render_template("profile.html", accounts=accounts)
 
 
 @app.route("/confirm_account", methods=["POST"])
@@ -55,9 +67,11 @@ def check_account():
         print(f"THE SESSION FOR USER NAME IS {session['user_name']}")
         print(f"THE SESSION FOR USER ID IS {session['user_id']}")
         
-        accounts = crud.get_accounts_by_user_id(session['user_id'])
+        # accounts = crud.get_accounts_by_user_id(session['user_id'])
 
-        return render_template("profile.html", accounts=accounts)
+        # return render_template("profile.html", accounts=accounts)
+
+        return redirect("/profile")
 
     return redirect("/")
 
