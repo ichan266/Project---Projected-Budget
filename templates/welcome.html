@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Profile{% endblock %}
+{% block title %}Account Details{% endblock %}
 
 {% block body %}
 <h1>Hi! {{ session['user_name'] }}</h1>
@@ -35,15 +35,15 @@
 <form id="create_transaction" action="/create_transaction" method="POST">  
   <p>
     Account Type <select name="account_type">
-      <option value="checking">Checking</option>
-      <option value="saving">Saving</option>
-      <option value="other">Other</option>
+      <option value="Checking">Checking</option>
+      <option value="Saving">Saving</option>
+      <option value="Other">Other</option>
     </select>
   </p>
   <p>
     Account Nickname (Optional) <input type="text" name="account_nickname">  
   </p>
-  <p>
+  <!-- <p>
     Transaction <input type="number" name="amount" required>
     <span id='note'>Note: Income = positive number; Expense = negative number</span>
   </p>
@@ -58,7 +58,7 @@
   </p>
   <p>
     Description <input type="text" name="description">  
-  </p>
+  </p> -->
   <p>
     <input type="submit">  
   </p>

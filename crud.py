@@ -44,6 +44,12 @@ def get_account_by_account_id(account_id):
     return Account.query.filter(Account.account_id == account_id).first()
 
 
+def get_accounts_by_user_id(user_id):
+    """Return a list of accounts by searching with user_id."""
+
+    return Account.query.filter(Account.user_id == user_id).all()
+
+
 ### class EntryLog ###
 def create_entry_log(account_id, date, category, description, amount):
     """Create and return an entry."""

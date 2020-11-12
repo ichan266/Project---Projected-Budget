@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Account Details{% endblock %}
+
+{% block body %}
+<h1>Hi! {{ session['user_name'] }}</h1>
+<h3>Account ID: {{ account.account_id }}</h3>
+<h3>Account Type: {{ account.account_type }}</h3>
+<h3>Account Nickname: {{ account.account_nickname }}</h3>
+  <table>
+    <tr>
+      <th>Date</th>
+      <th>Amount</th>
+      <th>Projected Balance</th>
+      <th>Category</th>
+      <th>Description</th>
+    </tr>
+    {% set ns = namespace(balance=0) %}
+    {% for entry in entries %}
+      <tr>
+        <td>{{ entry.date }}</td>
+        <td>${{ entry.amount }}</td>
+        <td>${{ entry.amount + ns.balance }}</td>
+        <td>{{ entry.category }}</td>
+        <td>{{ entry.description }}</td>
+      </tr>
+      {% set ns.balance = entry.amount + ns.balance %}  
+    {% endfor %}  
+  </table>
+  <br>
+<h3>Create a New Transaction</h3>
+<form id="create_transaction" action="/create_transaction" method="POST">  
+  <input type="hidden" name="account_id" value="{{ account.account_id }}">
+  <p>
+    Transaction <input type="number" name="amount" required>
+  <span id='note'>Note: Income = positive number; Expense = negative number</span>
+  </p>
+  <p>
+    Transaction Date <input type="date" name="date" required> 
+  </p>
+  <p>
+    Category <select name="category" required>
+      <option value="income">Income</option>
+      <option value="expense">Expense</option>
+    </select>  
+  </p>
+  <p>
+    Description <input type="text" name="description">  
+  </p>
+  <p>
+    <input type="submit">  
+  </p>
+</form>
+{% endblock %}

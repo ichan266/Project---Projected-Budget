@@ -15,6 +15,8 @@ os.system('createdb pb')
 model.connect_to_db(server.app)
 model.db.create_all()
 
+
+### Seeding User ###
 for n in range(1,11):
     """Seeding users table."""
     
@@ -24,20 +26,26 @@ for n in range(1,11):
     password = f'test{n}'
     crud.create_user(first_name, last_name, email, password)
 
-# crud.create_bank("CAP", "Capital One")
-# crud.create_bank("BOA", "Bank of America")
-# crud.create_bank("JPM", "JP Morgan Chase")
-# crud.create_bank("WEL", "Wells Fargo")
-
+### Seeding Account ###
 for n in range(1,5):
-    """Seeding accounts table."""
+    """Seeding accounts table for user_id 1."""
     
     user_id = 1
-    # bank_id = n
     account_type = "Checking"
     account_nickname = f"Nickname{n}"
-    crud.create_account(user_id, account_type, account_nickname) #(bank_id)
+    crud.create_account(user_id, account_type, account_nickname)
 
+
+for n in range(5,9):
+    """Seeding accounts table for user_id 1."""
+    
+    user_id = 2
+    account_type = "Checking"
+    account_nickname = f"Nickname{n}"
+    crud.create_account(user_id, account_type, account_nickname) 
+
+
+### Seeding EntryLog ###
 for n in range (1,5):
     """Seeding entry_logs table with account_id #1."""
     account_id = 1
