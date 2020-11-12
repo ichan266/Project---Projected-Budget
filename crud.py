@@ -69,6 +69,12 @@ def get_entry_logs_by_account_id(account_id):
     """Return all the entry logs associated with a particular account."""
 
     return EntryLog.query.filter(EntryLog.account_id == account_id).all()
+    
+
+def sort_entry_logs(account_id):
+    """Return sorted entry logs."""
+
+    return EntryLog.query.filter(EntryLog.account_id == account_id).order_by("date").all()
 
 
 # ### class RecurrentEntry ###

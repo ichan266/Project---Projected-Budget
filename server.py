@@ -62,17 +62,31 @@ def check_account():
     return redirect("/")
 
 
+@app.route("/create_account", methods=["POST"])
+def create_account():
+    """Create an account."""
+
+    account_type = request.form["account_type"]
+    account_nickname = request.form["account_nickname"]
+
+    crud.create_account(user_id = session['user_id'],
+                         account_type = account_type,
+                         account_nickname = account_nickname)
+
+    return redirect("/profile")
+
+
 @app.route("/profile/<account_id>")
 def show_budget(account_id):
     """Show projected budget for a particular account."""
 
-    entries = crud.get_entry_logs_by_account_id(account_id)
     account = crud.get_account_by_account_id(account_id)
-    session['account_id'] = account_id
+    sort_entries = crud.sort_entry_logs(account_id)
+
 
     return render_template("account_details.html",
                             account = account,
-                            entries = entries)
+                            entries = sort_entries)
 
 
 @app.route("/create_transaction", methods=["POST"])
@@ -99,27 +113,3 @@ def create_transaction():
 if __name__ == "__main__":
     connect_to_db(app)
     app.run(debug=True, host="0.0.0.0")
-
-
-
-# @app.route("/profile", methods=["POST"])
-# def show_all_account():
-#     """Show user's profile with user's accounts."""
-
-#     return redirect("/")
-
-    #     #! Can I move this to a different @app.route("/welcome")? # 
-    #     # get all the entry logs associated with a particular account
-    #     entries = crud.get_entry_logs_by_account_id(session["user_id"])
-
-    #     # use the first entry in entry log's account id to find the type of account
-    #     account = crud.get_account_by_account_id(entries[0].account_id) #it won't work for users with no bank account. 
-    #     account_id = account.account_id
-    #     account_type = account.account_type
-
-    #     return render_template("welcome.html", 
-    #                             entries=entries, 
-    #                             account_type=account_type,
-    #                             account_id=account_id)
-
-    # return redirect("/")
