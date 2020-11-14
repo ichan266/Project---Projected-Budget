@@ -21,19 +21,21 @@
 </ul>
 <h3>Create a New Account</h3>
 <form id="create_account" action="/create_account" method="POST">  
-  <p>
-    Account Type <select name="account_type">
-      <option value="Checking">Checking</option>
-      <option value="Saving">Saving</option>
-      <option value="Other">Other</option>
-    </select>
-  </p>
-  <p>
-    Account Nickname (Optional) <input type="text" name="account_nickname">  
-  </p>
-  <p>
-    <input type="submit">  
-  </p>
+  <div class="forms">
+    <p>
+      Account Type <select name="account_type">
+        <option value="Checking">Checking</option>
+        <option value="Saving">Saving</option>
+        <option value="Other">Other</option>
+      </select>
+    </p>
+    <p>
+      Account Nickname (Optional) <input type="text" name="account_nickname">  
+    </p>
+    <p>
+      <input type="submit">  
+    </p>
+  </div>  
 </form>
 {% endblock %}
 

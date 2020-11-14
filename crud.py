@@ -41,7 +41,7 @@ def create_account(user_id, account_type, account_nickname):
 def get_account_by_account_id(account_id):
     """Return a specific account info with account_id."""
 
-    return Account.query.filter(Account.account_id == account_id).first()
+    return Account.query.filter(Account.account_id == account_id).one()
 
 
 def get_accounts_by_user_id(user_id):
@@ -72,7 +72,7 @@ def get_entry_logs_by_account_id(account_id):
     
 
 def sort_entry_logs(account_id):
-    """Return sorted entry logs."""
+    """Return entry logs sorted by date."""
 
     return EntryLog.query.filter(EntryLog.account_id == account_id).order_by("date").all()
 

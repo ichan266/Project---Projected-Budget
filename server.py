@@ -1,22 +1,55 @@
 """Server for Projected Budget app."""
 
 from flask import (Flask, render_template, request, flash, session,
-                   redirect)
+                   redirect, url_for)
 from model import connect_to_db
 import crud
 from jinja2 import StrictUndefined
-import datetime 
+import datetime
+import os
 
 app = Flask(__name__)
-app.secret_key = "dev"
+if "SECRET_KEY" in os.environ:
+    app.secret_key = os.environ["SECRET_KEY"]
+else:
+    app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
-
+# In order to use the secret key, I need to type in "source secrets.sh"
+# in the terminal before I start the server
 
 @app.route("/")
 def homepage():
     """Render homepage."""
 
     return render_template("homepage.html")
+
+
+@app.route("/confirm_account", methods=["POST"])
+def check_account():
+    """Confirm account and take user to welcome page."""
+
+    email = request.form["email"]
+    password = request.form["password"]
+    user = crud.get_user_by_email(email)
+    
+    if  user == None or password != user.password:
+        flash("Email and password did not match our records. Please try again.")
+    else:
+        flash("Successfully logged in!")
+        session['user_name'] = f"{user.first_name} {user.last_name}"
+        session['user_id'] = user.user_id
+        
+        print(f"THE SESSION FOR USER NAME IS {session['user_name']}")
+        print(f"THE SESSION FOR USER ID IS {session['user_id']}")
+        print(f"THE SESSION IS {session}")
+        
+        # accounts = crud.get_accounts_by_user_id(session['user_id'])
+
+        # return render_template("profile.html", accounts=accounts)
+
+        return redirect("/profile")
+
+    return redirect("/")
 
 
 @app.route("/create_user", methods=["POST"])
@@ -47,33 +80,6 @@ def show_profile():
     accounts = crud.get_accounts_by_user_id(session['user_id'])
 
     return render_template("profile.html", accounts=accounts)
-
-
-@app.route("/confirm_account", methods=["POST"])
-def check_account():
-    """Confirm account and take user to welcome page."""
-
-    email = request.form["email"]
-    password = request.form["password"]
-    user = crud.get_user_by_email(email)
-    
-    if  user == None or password != user.password:
-        flash("Email and password did not match our records. Please try again.")
-    else:
-        flash("Successfully logged in!")
-        session['user_name'] = f"{user.first_name} {user.last_name}"
-        session['user_id'] = user.user_id
-        
-        print(f"THE SESSION FOR USER NAME IS {session['user_name']}")
-        print(f"THE SESSION FOR USER ID IS {session['user_id']}")
-        
-        # accounts = crud.get_accounts_by_user_id(session['user_id'])
-
-        # return render_template("profile.html", accounts=accounts)
-
-        return redirect("/profile")
-
-    return redirect("/")
 
 
 @app.route("/create_account", methods=["POST"])
@@ -123,6 +129,21 @@ def create_transaction():
 
     return redirect(f"/profile/{account_id}")
     
+
+@app.route("/logout")
+def process_logout():
+
+    session.pop("user_name", None)
+    session.pop("user_id", None)
+    print(f"SESSION SHOULD BE RESEST TO {session}")
+
+    return redirect("/")
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return "Oops. You got to the 404 page..."
+
 
 if __name__ == "__main__":
     connect_to_db(app)

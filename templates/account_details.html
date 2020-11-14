@@ -29,25 +29,27 @@
   <br>
 <h3>Create a New Transaction</h3>
 <form id="create_transaction" action="/create_transaction" method="POST">  
-  <input type="hidden" name="account_id" value="{{ account.account_id }}">
-  <p>
-    Transaction <input type="number" name="amount" required>
-  <span id='note'>Note: Income = positive number; Expense = negative number</span>
-  </p>
-  <p>
-    Transaction Date <input type="date" name="date" required> 
-  </p>
-  <p>
-    Category <select name="category" required>
-      <option value="Income">Income</option>
-      <option value="Expense">Expense</option>
-    </select>  
-  </p>
-  <p>
-    Description <input type="text" name="description">  
-  </p>
-  <p>
-    <input type="submit">  
-  </p>
+  <div class="forms">
+    <input type="hidden" name="account_id" value="{{ account.account_id }}">
+    <p>
+      Transaction <input type="number" name="amount" required>
+    <span id='note'>Note: Income = positive number; Expense = negative number</span>
+    </p>
+    <p>
+      Transaction Date <input type="date" name="date" required> 
+    </p>
+    <p>
+      Category <select name="category" required>
+        <option value="Income">Income</option>
+        <option value="Expense">Expense</option>
+      </select>  
+    </p>
+    <p>
+      Description <input type="text" name="description">  
+    </p>
+    <p>
+      <input type="submit">  
+    </p>
+  </div>
 </form>
 {% endblock %}
