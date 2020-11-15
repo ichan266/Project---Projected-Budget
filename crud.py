@@ -41,7 +41,7 @@ def create_account(user_id, account_type, account_nickname):
 def get_account_by_account_id(account_id):
     """Return a specific account info with account_id."""
 
-    return Account.query.filter(Account.account_id == account_id).one()
+    return Account.query.filter(Account.account_id == account_id).first()
 
 
 def get_accounts_by_user_id(user_id):

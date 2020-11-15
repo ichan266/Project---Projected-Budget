@@ -99,10 +99,13 @@ def create_account():
 @app.route("/profile/<account_id>")
 def show_budget(account_id):
     """Show projected budget for a particular account."""
-
+      
     account = crud.get_account_by_account_id(account_id)
+    if account == None or session['user_id'] != account.user_id:
+        flash("Access denied!!!")
+        return redirect('/profile')
+    
     sort_entries = crud.sort_entry_logs(account_id)
-
 
     return render_template("account_details.html",
                             account = account,
