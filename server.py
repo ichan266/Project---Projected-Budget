@@ -138,6 +138,7 @@ def process_logout():
 
     session.pop("user_name", None)
     session.pop("user_id", None)
+    flash("You are logged out.")
     print(f"SESSION SHOULD BE RESEST TO {session}")
 
     return redirect("/")

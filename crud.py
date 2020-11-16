@@ -50,6 +50,12 @@ def get_accounts_by_user_id(user_id):
     return Account.query.filter(Account.user_id == user_id).all()
 
 
+def remove_account_by_account_id(account_id):
+    """Remove an account by account_id."""
+
+    Account.query.filter(Account.account_id == account_id).delete()
+
+
 ### class EntryLog ###
 def create_entry_log(account_id, date, category, description, amount):
     """Create and return an entry."""
@@ -75,6 +81,12 @@ def sort_entry_logs(account_id):
     """Return entry logs sorted by date."""
 
     return EntryLog.query.filter(EntryLog.account_id == account_id).order_by("date").all()
+
+
+def remove_entry_by_entry_id(entry_id):
+    """Remove an entry by entry_id."""
+
+    EntryLog.query.filter(EntryLog.entry_id == entry_id).delete()
 
 
 # ### class RecurrentEntry ###
