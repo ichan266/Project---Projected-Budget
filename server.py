@@ -28,8 +28,8 @@ def homepage():
 def check_account():
     """Confirm account and take user to welcome page."""
 
-    email = request.form["email"]
-    password = request.form["password"]
+    email = request.form.get("email")
+    password = request.form.get("password")
     user = crud.get_user_by_email(email)
     
     if  user == None or password != user.password:
@@ -56,10 +56,10 @@ def check_account():
 def register_user():
     """Create a new user."""
 
-    first_name = request.form["first_name"]
-    last_name = request.form["last_name"]
-    email = request.form["email"]
-    password = request.form["password"]
+    first_name = request.form.get("first_name")
+    last_name = request.form.get("last_name")
+    email = request.form.get("email")
+    password = request.form.get("password")
 
     if crud.get_user_by_email(email) != None:
         flash("Account already exists. Please try again.")
@@ -116,11 +116,11 @@ def show_budget(account_id):
 def create_transaction():
     """User to create transactions in account_details.html."""
 
-    account_id = request.form['account_id']
-    date = request.form["date"]
-    category = request.form["category"]
-    description = request.form["description"]
-    amount = request.form["amount"]
+    account_id = request.form.get('account_id')
+    date = request.form.get("date")
+    category = request.form.get("category")
+    description = request.form.get("description")
+    amount = request.form.get("amount")
 
     crud.create_entry_log(account_id, 
                           date, 
