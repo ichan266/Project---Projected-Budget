@@ -13,6 +13,7 @@
       <th>Projected Balance</th>
       <th>Category</th>
       <th>Description</th>
+      <th></th>
     </tr>
     {% set ns = namespace(balance=0) %}
     {% for entry in entries %}
@@ -22,6 +23,12 @@
         <td>${{ entry.amount + ns.balance }}</td>
         <td>{{ entry.category }}</td>
         <td>{{ entry.description }}</td>
+        <td>
+          <form class="remove_button" action="/handle_entry_removal">
+            <input type="hidden" name="account_id" value="{{ account.account_id }}">
+            <button type="submit" name="entry_id" value="{{ entry.entry_id }}">Remove</button>
+          </form>
+        </td>
       </tr>
       {% set ns.balance = entry.amount + ns.balance %}  
     {% endfor %}  

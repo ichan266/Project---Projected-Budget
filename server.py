@@ -75,7 +75,7 @@ def register_user():
 
 @app.route("/profile")
 def show_profile():
-    """Show user profile."""
+    """Show user profile with all user's accounts."""
 
     accounts = crud.get_accounts_by_user_id(session['user_id'])
 
@@ -86,12 +86,25 @@ def show_profile():
 def create_account():
     """Create an account."""
 
-    account_type = request.form["account_type"]
-    account_nickname = request.form["account_nickname"]
+    account_type = request.form.get("account_type")
+    account_nickname = request.form.get("account_nickname")
 
     crud.create_account(user_id = session['user_id'],
                          account_type = account_type,
                          account_nickname = account_nickname)
+
+    return redirect("/profile")
+
+
+@app.route("/handle_account_removal")
+def remove_account():
+    """Remove an account."""
+
+    account_id = request.args.get("account_id")
+
+    print(f'Account_id is {account_id}')
+
+    crud.remove_account_by_account_id(account_id)
 
     return redirect("/profile")
 
@@ -132,6 +145,21 @@ def create_transaction():
 
     return redirect(f"/profile/{account_id}")
     
+
+@app.route("/handle_entry_removal")
+def remove_entry():
+    """Remove an entry."""
+
+    entry_id = request.args.get('entry_id')
+    account_id = request.args.get('account_id')
+
+    print(f'entry_id is {entry_id}')
+    print(f'account_id is {account_id}')
+
+    crud.remove_entry_by_entry_id(entry_id)
+
+    return redirect(f"/profile/{account_id}")
+
 
 @app.route("/logout")
 def process_logout():

@@ -10,10 +10,14 @@
   <ul>
   {% for account in accounts %}
       <li>
-      <a href="/profile/{{ account.account_id }}">
+        <a href="/profile/{{ account.account_id }}">
           {{ account.account_nickname }} - {{account.account_type}}
-      </a>  
+        </a>  
+        <form class="remove_button" action="/handle_account_removal">
+          <button type="submit" name="account_id" value="{{ account.account_id }}">Remove</button>
+        </form>
       </li>
+      <br>
   {% endfor %}
 {% else %}
 <div class="nothing">You currently do not have any accounts. Please add an account.</div>
