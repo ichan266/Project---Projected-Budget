@@ -1,7 +1,7 @@
 """CRUD operations."""
 
 from model import (db, User, Account, EntryLog, connect_to_db)
-from datetime import (date, timedelta)
+import datetime
 # from flask_sqlalchemy import SQLAlchemy
 
 
@@ -82,6 +82,17 @@ def get_entry_logs_by_account_id(account_id):
 
     return EntryLog.query.filter(EntryLog.account_id == account_id).all()
     
+
+def convert_frequency_to_num_of_day(frequency_int, frequency_unit):
+    """Return number of days from number of weeks for timedelta for recurrent entries."""
+    
+    if frequency_unit == "weeks":
+        num_of_days = 7 * frequency_int
+    elif frequency_unit == "days":
+        num_of_days = frequency_int
+
+    return datetime.timedelta(num_of_days)
+
 
 def sort_entry_logs(account_id):
     """Return entry logs sorted by date."""

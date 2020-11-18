@@ -37,7 +37,7 @@ for n in range(1,5):
 
 
 for n in range(5,9):
-    """Seeding accounts table for user_id 1."""
+    """Seeding accounts table for user_id 2."""
     
     user_id = 2
     account_type = "Checking"
@@ -72,15 +72,20 @@ for n in range (5,10):
                           description, 
                           amount)
 
-# for n in range (1,5):
-#     """Seeding recurrent_entries table."""
 
-#     entry_id = n
-#     today = datetime.date.today()
-#     start_date = today + datetime.timedelta(days=n)
-#     frequency = 100
-#     stop_date = start_date + datetime.timedelta(days=frequency)
-#     crud.create_recurrent_entry(entry_id,
-#                                 start_date,
-#                                 stop_date,
-#                                 frequency)
+for n in range (11,15):
+    """Seeding recurrent entries into entry_logs table with account_id #3."""
+    account_id = 8
+    date = datetime.date.today() + datetime.timedelta(days=n+50)
+    category = 'Income'
+    description = f'trial {n}'
+    amount = 10000 + (n*200)
+    stop_date = datetime.date.today() + datetime.timedelta(days=n+80)
+    frequency = datetime.timedelta(weeks=2) #? SQL Alchemy will change this to days
+    crud.create_entry_log(account_id, 
+                          date, 
+                          category, 
+                          description, 
+                          amount,
+                          stop_date,
+                          frequency)

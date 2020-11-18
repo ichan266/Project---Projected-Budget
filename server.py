@@ -134,12 +134,19 @@ def create_transaction():
     category = request.form.get("category")
     description = request.form.get("description")
     amount = request.form.get("amount")
+    stop_date = request.form.get("stop_date")
+    frequency_int = int(request.form.get("frequency_int"))
+    frequency_unit = request.form.get("frequency_unit")
+
+    frequency = crud.convert_frequency_to_num_of_day(frequency_int, frequency_unit)
 
     crud.create_entry_log(account_id, 
                           date, 
                           category, 
                           description, 
-                          amount)
+                          amount,
+                          stop_date,
+                          frequency)
 
     crud.sort_entry_logs(account_id)
 
