@@ -3,6 +3,7 @@
 
 {% block body %}
 <h1>Hi! {{ session['user_name'] }}</h1>
+{% if entries %}
 <h3>Account ID: {{ account.account_id }}</h3>
 <h3>Account Type: {{ account.account_type }}</h3>
 <h3>Account Nickname: {{ account.account_nickname }}</h3>
@@ -33,7 +34,10 @@
       {% set ns.balance = entry.amount + ns.balance %}  
     {% endfor %}  
   </table>
-  <br>
+{% else %}
+<div class="nothing">You currently do not have any entries. Please add an entry.</div>
+<br>
+{% endif %}
 <h3>Create a New Transaction</h3>
 <form id="create_transaction" action="/create_transaction" method="POST">  
   <div class="forms">
@@ -54,9 +58,33 @@
     <p>
       Description <input type="text" name="description">  
     </p>
+    <br>
+    <h4>If Recurrent Entry, please fill out the form below:</h4>
+    <p>
+      Stop Date <input type="date" name="stop_date"> 
+    </p>
+    <p>
+      Frequency (How often?): Every <input type="number" step=1>
+      <select name="frequency">
+        <option value="week">week</option>
+      </select>
+    </p>
     <p>
       <input type="submit">  
     </p>
   </div>
 </form>
+
+{% endblock %}
+
+{% block after_body %}
+<div>
+  <a href="/profile">Return to Profile</a>
+</div>
+<br>
+<div>
+  <form action="/logout">
+    <button type="submit" name="logout">Log Out</button>
+  </form>
+</div>
 {% endblock %}

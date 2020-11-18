@@ -141,7 +141,25 @@ def create_transaction():
                           description, 
                           amount)
 
-    print(request.form['account_id'])
+    crud.sort_entry_logs(account_id)
+
+    return redirect(f"/profile/{account_id}")
+    
+
+@app.route("/create_recurrent_entry", methods=["POST"])
+def create_recurrent_entry():
+    """User to create transactions in account_details.html."""
+
+    account_id = request.form.get('account_id')
+    entry_id = request.form.get('entry_id')
+    start_date = request.form.get('start_date')
+    stop_date = request.form.get("stop_date")
+    frequency = request.form.get("frequency")
+
+    crud.create_recurrent_entry(entry_id, 
+                                start_date, 
+                                stop_date, 
+                                frequency)
 
     return redirect(f"/profile/{account_id}")
     

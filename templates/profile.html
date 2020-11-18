@@ -43,3 +43,10 @@
 </form>
 {% endblock %}
 
+{% block after_body %}
+<div>
+  <form action="/logout">
+    <button type="submit" name="logout">Log Out</button>
+  </form>
+</div>
+{% endblock %}

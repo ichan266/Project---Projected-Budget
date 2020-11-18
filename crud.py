@@ -1,6 +1,6 @@
 """CRUD operations."""
 
-from model import (db, User, Account, EntryLog, connect_to_db) #Bank, RecurrentEntry
+from model import (db, User, Account, EntryLog, connect_to_db)
 from datetime import (date, timedelta)
 # from flask_sqlalchemy import SQLAlchemy
 
@@ -51,7 +51,8 @@ def get_accounts_by_user_id(user_id):
 
 
 def remove_account_by_account_id(account_id):
-    """Remove an account by account_id."""
+    """Remove an account by account_id. 
+       Note: this action will remove account even if there are entries in it."""
 
     EntryLog.query.filter(EntryLog.account_id == account_id).delete()
     db.session.commit()
@@ -60,14 +61,16 @@ def remove_account_by_account_id(account_id):
 
 
 ### class EntryLog ###
-def create_entry_log(account_id, date, category, description, amount):
+def create_entry_log(account_id, date, category, description, amount, stop_date=None, frequency=None):
     """Create and return an entry."""
 
     entry_log = EntryLog(account_id = account_id, 
                          date = date,
                          category = category, 
                          description = description, 
-                         amount = amount)
+                         amount = amount,
+                         stop_date = stop_date,
+                         frequency = frequency) #! stop_date and frequency added to consolidate tables
     db.session.add(entry_log)
     db.session.commit()
 
@@ -91,19 +94,6 @@ def remove_entry_by_entry_id(entry_id):
 
     EntryLog.query.filter(EntryLog.entry_id == entry_id).delete()
     db.session.commit()
-
-# ### class RecurrentEntry ###
-# def create_recurrent_entry(entry_id, start_date, stop_date, frequency):
-#     """ Create and return a recurrent entry."""
-
-#     recurrent_entry = RecurrentEntry(entry_id=entry_id,
-#                                      start_date=start_date,
-#                                      stop_date=stop_date,
-#                                      frequency=frequency)
-#     db.session.add(recurrent_entry)
-#     db.session.commit()
-
-#     return recurrent_entry
 
 
 if __name__ == '__main__':
