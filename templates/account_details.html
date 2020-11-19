@@ -59,15 +59,16 @@
       Description <input type="text" name="description">  
     </p>
     <br>
+    <!-- Recurrent Entry -->
     <h4>If Recurrent Entry, please fill out the form below:</h4>
     <p>
       Stop Date <input type="date" name="stop_date"> 
     </p>
     <p>
-      Frequency (How often?): Every <input type="number" name="frequency_int" step=1>
+      Frequency (How often?): Every <input type="number" name="frequency_int" step=1 value=0>
       <select name="frequency_unit">
-        <option value="weeks">week(s)</option>
-        <option value="days">day(s)</option>
+        <option value="days" value=0>day(s)</option>
+        <option value="weeks" value=0>week(s)</option>
       </select>
     </p>
     <p>
@@ -79,6 +80,9 @@
 {% endblock %}
 
 {% block after_body %}
+<br>
+<br>
+<br>
 <div>
   <a href="/profile">Return to Profile</a>
 </div>

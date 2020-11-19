@@ -5,7 +5,7 @@ import datetime
 # from flask_sqlalchemy import SQLAlchemy
 
 
-### class User ###
+##### class User #####
 def create_user(first_name, last_name, email, password):
     """Create and return a new user."""
 
@@ -25,7 +25,7 @@ def get_user_by_email(email):
     return User.query.filter(User.email == email).first()
 
 
-### class Account ###
+##### class Account #####
 def create_account(user_id, account_type, account_nickname):
     """Create and return an account."""
 
@@ -38,16 +38,16 @@ def create_account(user_id, account_type, account_nickname):
     return account
 
 
-def get_account_by_account_id(account_id):
-    """Return a specific account info with account_id."""
-
-    return Account.query.filter(Account.account_id == account_id).first()
-
-
 def get_accounts_by_user_id(user_id):
     """Return a list of accounts by searching with user_id."""
 
     return Account.query.filter(Account.user_id == user_id).all()
+
+
+def get_account_by_account_id(account_id):
+    """Return a specific account info with account_id."""
+
+    return Account.query.filter(Account.account_id == account_id).first()
 
 
 def remove_account_by_account_id(account_id):
@@ -60,7 +60,7 @@ def remove_account_by_account_id(account_id):
     db.session.commit()
 
 
-### class EntryLog ###
+##### class EntryLog #####
 def create_entry_log(account_id, date, category, description, amount, stop_date=None, frequency=None):
     """Create and return an entry."""
 
@@ -81,17 +81,6 @@ def get_entry_logs_by_account_id(account_id):
     """Return all the entry logs associated with a particular account."""
 
     return EntryLog.query.filter(EntryLog.account_id == account_id).all()
-    
-
-def convert_frequency_to_num_of_day(frequency_int, frequency_unit):
-    """Return number of days from number of weeks for timedelta for recurrent entries."""
-    
-    if frequency_unit == "weeks":
-        num_of_days = 7 * frequency_int
-    elif frequency_unit == "days":
-        num_of_days = frequency_int
-
-    return datetime.timedelta(num_of_days)
 
 
 def sort_entry_logs(account_id):
@@ -105,6 +94,46 @@ def remove_entry_by_entry_id(entry_id):
 
     EntryLog.query.filter(EntryLog.entry_id == entry_id).delete()
     db.session.commit()
+
+
+#* recurrent entries *#
+def convert_frequency_to_num_of_day(frequency_int, frequency_unit):
+    """Return # of days from # of weeks for or just # of days in timedelta 
+        for recurrent entries."""
+    
+    if frequency_unit == "weeks":
+        num_of_days = 7 * frequency_int
+    elif frequency_unit == "days":
+        num_of_days = frequency_int
+
+    return datetime.timedelta(num_of_days)
+
+
+def retrieve_newest_entry():
+    """ Use it to find the entry_id for the newest entry."""
+
+    last_entry = EntryLog.query.all()[-1]
+    entry_id = last_entry.entry_id
+
+    return entry_id
+
+
+# def get_entry_logs_by_entry_id(entry_id): #! How?
+
+
+def list_dates(start_date, stop_date, frequency): #frequency in datetime.timedelta
+    """If recurrent entries, return a list of dates."""
+
+    list_of_dates = []
+    while start_date <= stop_date:
+        date = start_date + frequency
+        if date <= stop_date:
+            list_of_dates.append(date)
+            start_date = date
+        else:
+            break
+
+    return list_of_dates
 
 
 if __name__ == '__main__':

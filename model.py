@@ -67,7 +67,7 @@ class EntryLog(db.Model):
     accounts = db.relationship('Account')
 
     def __repr__(self):
-        return f'<Entry Log: entry_id={self.entry_id}, account_id={self.account_id}, date={self.date}, category={self.category}, description={self.description}, amount={self.amount}>'
+        return f'<Entry Log: entry_id={self.entry_id}, account_id={self.account_id}, date={self.date}, category={self.category}, description={self.description}, amount={self.amount}, stop date={self.stop_date}, frequency={self.frequency}>'
 
 
 def connect_to_db(flask_app, db_uri='postgresql:///pb', echo=True):

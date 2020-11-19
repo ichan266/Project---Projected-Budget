@@ -135,9 +135,10 @@ def create_transaction():
     description = request.form.get("description")
     amount = request.form.get("amount")
     stop_date = request.form.get("stop_date")
+    if stop_date == "":
+        stop_date = datetime.date.today()
     frequency_int = int(request.form.get("frequency_int"))
     frequency_unit = request.form.get("frequency_unit")
-
     frequency = crud.convert_frequency_to_num_of_day(frequency_int, frequency_unit)
 
     crud.create_entry_log(account_id, 
@@ -148,28 +149,17 @@ def create_transaction():
                           stop_date,
                           frequency)
 
-    crud.sort_entry_logs(account_id)
+    # #TODO: Once entry is created, need to create multiple entries for recurrent entries
+    # #TODO: Step 1: Find the entry
+    # new_recurrent_entry = crud.retrieve_newest_entry
+    # print(f"THE RECURRENT ENTRY ID IS {new_recurrent_entry}")
+    # #if frequency:
+    #     #crud.
+
+    crud.sort_entry_logs(account_id) #TODO: will need to rethink about what argument to pass to it
 
     return redirect(f"/profile/{account_id}")
-    
-
-@app.route("/create_recurrent_entry", methods=["POST"])
-def create_recurrent_entry():
-    """User to create transactions in account_details.html."""
-
-    account_id = request.form.get('account_id')
-    entry_id = request.form.get('entry_id')
-    start_date = request.form.get('start_date')
-    stop_date = request.form.get("stop_date")
-    frequency = request.form.get("frequency")
-
-    crud.create_recurrent_entry(entry_id, 
-                                start_date, 
-                                stop_date, 
-                                frequency)
-
-    return redirect(f"/profile/{account_id}")
-    
+   
 
 @app.route("/handle_entry_removal")
 def remove_entry():
