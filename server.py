@@ -108,7 +108,6 @@ def remove_account():
 
     return redirect("/profile")
 
-
 @app.route("/profile/<account_id>")
 def show_budget(account_id):
     """Show projected budget for a particular account."""
@@ -117,12 +116,21 @@ def show_budget(account_id):
     if account == None or session['user_id'] != account.user_id:
         flash("Access denied!!!")
         return redirect('/profile')
+   
+    list_of_recurrent_entries = crud.retrieve_recurrent_entries_by_account_id(account_id)
+    all_recurrent_entries_list = crud.list_of_recurrent_entries_with_all_dates(list_of_recurrent_entries)
     
-    sort_entries = crud.sort_entry_logs(account_id)
+    single_entries = crud.sort_entry_logs(account_id)
+    complete_list = single_entries + all_recurrent_entries_list
+
+    def sortfxn(entry):
+        return entry.date
+    
+    complete_list.sort(key=sortfxn)
 
     return render_template("account_details.html",
                             account = account,
-                            entries = sort_entries)
+                            entries = complete_list)
 
 
 @app.route("/create_transaction", methods=["POST"])
@@ -136,10 +144,12 @@ def create_transaction():
     amount = request.form.get("amount")
     stop_date = request.form.get("stop_date")
     if stop_date == "":
-        stop_date = datetime.date.today()
+        stop_date = date
     frequency_int = int(request.form.get("frequency_int"))
     frequency_unit = request.form.get("frequency_unit")
     frequency = crud.convert_frequency_to_num_of_day(frequency_int, frequency_unit)
+    if frequency_int == 0:
+        frequency = None
 
     crud.create_entry_log(account_id, 
                           date, 
@@ -148,16 +158,7 @@ def create_transaction():
                           amount,
                           stop_date,
                           frequency)
-
-    # #TODO: Once entry is created, need to create multiple entries for recurrent entries
-    # #TODO: Step 1: Find the entry
-    # new_recurrent_entry = crud.retrieve_newest_entry
-    # print(f"THE RECURRENT ENTRY ID IS {new_recurrent_entry}")
-    # #if frequency:
-    #     #crud.
-
-    crud.sort_entry_logs(account_id) #TODO: will need to rethink about what argument to pass to it
-
+  
     return redirect(f"/profile/{account_id}")
    
 

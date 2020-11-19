@@ -2,6 +2,7 @@
 
 from model import (db, User, Account, EntryLog, connect_to_db)
 import datetime
+import copy
 # from flask_sqlalchemy import SQLAlchemy
 
 
@@ -109,16 +110,47 @@ def convert_frequency_to_num_of_day(frequency_int, frequency_unit):
     return datetime.timedelta(num_of_days)
 
 
-def retrieve_newest_entry():
-    """ Use it to find the entry_id for the newest entry."""
+def retrieve_recurrent_entries_by_account_id(account_id):
+    """ Find all the recurrent entries and return in a list of object."""
 
-    last_entry = EntryLog.query.all()[-1]
-    entry_id = last_entry.entry_id
+    # Objects are mutable. We need to make a copy of the instances
+    copy_of_recurrent_entries = EntryLog.query.filter(EntryLog.account_id == account_id, EntryLog.frequency != None).all()
 
-    return entry_id
+    return copy_of_recurrent_entries
 
 
-# def get_entry_logs_by_entry_id(entry_id): #! How?
+def find_all_dates(start_date, stop_date, frequency):
+    """ Return a list of dates based on one single entry's dates and frequency."""
+
+    list_of_dates = []
+    while start_date <= stop_date:
+        date = start_date + frequency
+        if date <= stop_date:
+            list_of_dates.append(date)
+            start_date = date
+        else:
+            break
+
+    return list_of_dates
+
+
+def list_of_recurrent_entries_with_all_dates(list_of_recurrent_entries):
+    """ Return a list of recurrent entries associated with all dates based on frequency."""
+
+    updated_entry_list_with_new_dates = []
+    
+    for entry in list_of_recurrent_entries:
+        date = entry.date
+        stop_date = entry.stop_date
+        frequency = entry.frequency
+        list_of_dates = find_all_dates(date, stop_date, frequency)
+        for date in list_of_dates:
+            entry_copy = copy.deepcopy(entry)
+            entry_copy.date = date
+            updated_entry_list_with_new_dates.append(entry_copy)
+
+    return updated_entry_list_with_new_dates
+
 
 
 def list_dates(start_date, stop_date, frequency): #frequency in datetime.timedelta

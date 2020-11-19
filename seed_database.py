@@ -76,7 +76,7 @@ for n in range (5,10):
 for n in range (11,15):
     """Seeding recurrent entries into entry_logs table with account_id #3."""
     account_id = 8
-    date = datetime.date.today() + datetime.timedelta(days=n+50)
+    date = datetime.date.today() + datetime.timedelta(n)
     category = 'Income'
     description = f'trial {n}'
     amount = 10000 + (n*200)
