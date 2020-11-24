@@ -7,23 +7,25 @@
 <h3>Account ID: {{ account.account_id }}</h3>
 <h3>Account Type: {{ account.account_type }}</h3>
 <h3>Account Nickname: {{ account.account_nickname }}</h3>
-  <table>
+  <table id="transaction_table">
     <tr>
       <th>Date</th>
       <th>Amount</th>
       <th>Projected Balance</th>
       <th>Category</th>
       <th>Description</th>
+      <th style="display:none;"></th>
       <th></th>
     </tr>
     {% set ns = namespace(balance=0) %}
     {% for entry in entries %}
-      <tr>
+      <tr class="specific_row">
         <td>{{ entry.date }}</td>
         <td>${{ entry.amount }}</td>
         <td>${{ entry.amount + ns.balance }}</td>
         <td>{{ entry.category }}</td>
         <td>{{ entry.description }}</td>
+        <td id="entry_id" style="display:none;">{{ entry.entry_id }}</td>
         <td>
           <form class="remove_form" action="/handle_entry_removal">
             <input type="hidden" name="account_id" value="{{ account.account_id }}">

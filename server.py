@@ -108,6 +108,7 @@ def remove_account():
 
     return redirect("/profile")
 
+
 @app.route("/profile/<account_id>")
 def show_budget(account_id):
     """Show projected budget for a particular account."""
