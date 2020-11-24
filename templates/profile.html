@@ -13,7 +13,7 @@
         <a href="/profile/{{ account.account_id }}">
           {{ account.account_nickname }} - {{account.account_type}}
         </a>  
-        <form class="remove_button" action="/handle_account_removal">
+        <form class="remove_form" action="/handle_account_removal">
           <button type="submit" name="account_id" value="{{ account.account_id }}">Remove</button>
         </form>
       </li>

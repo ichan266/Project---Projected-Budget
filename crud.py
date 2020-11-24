@@ -120,7 +120,8 @@ def retrieve_recurrent_entries_by_account_id(account_id):
 
 
 def find_all_dates(start_date, stop_date, frequency):
-    """ Return a list of dates based on one single entry's dates and frequency."""
+    """ Return a list of dates based on one single entry's dates and frequency.
+        Frequency is in datetime.timedelta"""
 
     list_of_dates = []
     while start_date <= stop_date:
@@ -150,22 +151,6 @@ def list_of_recurrent_entries_with_all_dates(list_of_recurrent_entries):
             updated_entry_list_with_new_dates.append(entry_copy)
 
     return updated_entry_list_with_new_dates
-
-
-
-def list_dates(start_date, stop_date, frequency): #frequency in datetime.timedelta
-    """If recurrent entries, return a list of dates."""
-
-    list_of_dates = []
-    while start_date <= stop_date:
-        date = start_date + frequency
-        if date <= stop_date:
-            list_of_dates.append(date)
-            start_date = date
-        else:
-            break
-
-    return list_of_dates
 
 
 if __name__ == '__main__':

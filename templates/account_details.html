@@ -25,9 +25,9 @@
         <td>{{ entry.category }}</td>
         <td>{{ entry.description }}</td>
         <td>
-          <form class="remove_button" action="/handle_entry_removal">
+          <form class="remove_form" action="/handle_entry_removal">
             <input type="hidden" name="account_id" value="{{ account.account_id }}">
-            <button type="submit" name="entry_id" value="{{ entry.entry_id }}">Remove</button>
+            <button class="remove_button" type="submit" name="entry_id" value="{{ entry.entry_id }}">Remove</button>
           </form>
         </td>
       </tr>
