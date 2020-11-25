@@ -7,21 +7,21 @@ $('.remove_form').submit( (evt) => {
   }
 });
 
-$('.specific_row').hover(
-  function() {
-    $(this).css('background-color', 'yellow');
-  }, function() {
-    $(this).css('background-color', 'white');
-  }
-);
+// Highlight entries with the same entry_id
+const entryRows= $('tr.entry_rows');
+for (const item of entryRows) {
+  let sameEntryId = [];
+  $(item).hover(
+    function() {
+      for (entry of entryRows) {
+        if (item.cells.entry_id.innerText === entry.cells.entry_id.innerText) {
+          sameEntryId.push(entry);
+        };
+      }
+      $(sameEntryId).css('background-color', '#3399ff');
+    }, function() {
+      $(sameEntryId).css('background-color', 'white');
+    }
+  );
+}
 
-
-// This below current find all the entry_id and put into a set
-const allEntryId = document.querySelectorAll('#entry_id');
-const setOfEntryId = new Set ();
-for (const item of allEntryId) {
-  setOfEntryId.add(item.innerHTML);
-};
-console.log(setOfEntryId); 
-// if the entry that is currently hovered has the same entry.entry_id
-// highlight them in the same color

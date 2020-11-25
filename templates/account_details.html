@@ -19,7 +19,7 @@
     </tr>
     {% set ns = namespace(balance=0) %}
     {% for entry in entries %}
-      <tr class="specific_row">
+      <tr class="entry_rows">
         <td>{{ entry.date }}</td>
         <td>${{ entry.amount }}</td>
         <td>${{ entry.amount + ns.balance }}</td>
