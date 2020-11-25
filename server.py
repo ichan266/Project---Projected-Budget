@@ -43,10 +43,6 @@ def check_account():
         print(f"THE SESSION FOR USER ID IS {session['user_id']}")
         print(f"THE SESSION IS {session}")
         
-        # accounts = crud.get_accounts_by_user_id(session['user_id'])
-
-        # return render_template("profile.html", accounts=accounts)
-
         return redirect("/profile")
 
     return redirect("/")
@@ -121,7 +117,7 @@ def show_budget(account_id):
     list_of_recurrent_entries = crud.retrieve_recurrent_entries_by_account_id(account_id)
     all_recurrent_entries_list = crud.list_of_recurrent_entries_with_all_dates(list_of_recurrent_entries)
     
-    single_entries = crud.sort_entry_logs(account_id)
+    single_entries = crud.get_entry_logs_by_account_id(account_id)
     complete_list = single_entries + all_recurrent_entries_list
 
     def sortfxn(entry):

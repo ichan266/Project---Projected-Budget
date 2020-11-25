@@ -79,15 +79,18 @@ def create_entry_log(account_id, date, category, description, amount, stop_date=
 
 
 def get_entry_logs_by_account_id(account_id):
-    """Return all the entry logs associated with a particular account."""
+    """Return all the entry logs associated with a particular account. Limit to
+        maximum of one year for display."""
 
-    return EntryLog.query.filter(EntryLog.account_id == account_id).all()
-
-
-def sort_entry_logs(account_id):
-    """Return entry logs sorted by date."""
-
-    return EntryLog.query.filter(EntryLog.account_id == account_id).order_by("date").all()
+    all_entries = EntryLog.query.filter(EntryLog.account_id == account_id).all()
+    entries_within_a_year = []
+    today = datetime.date.today()
+    a_year_later = today + datetime.timedelta(365)
+    for entry in all_entries:
+        if entry.date <= a_year_later:
+            entries_within_a_year.append(entry)
+   
+    return entries_within_a_year
 
 
 def remove_entry_by_entry_id(entry_id):
@@ -120,10 +123,14 @@ def retrieve_recurrent_entries_by_account_id(account_id):
 
 
 def find_all_dates(start_date, stop_date, frequency):
-    """ Return a list of dates based on one single entry's dates and frequency.
-        Frequency is in datetime.timedelta"""
+    """ Return a list of dates based on one single recurrent entry's dates and frequency.
+        Frequency is in datetime.timedelta. Limited to one year max."""
 
     list_of_dates = []
+    today = datetime.date.today()
+    a_year_later = today + datetime.timedelta(365)
+    if stop_date > a_year_later or stop_date == None:
+        stop_date = a_year_later
     while start_date <= stop_date:
         date = start_date + frequency
         if date <= stop_date:
