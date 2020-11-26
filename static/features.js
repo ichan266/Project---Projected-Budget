@@ -7,8 +7,12 @@ $('.remove_form').submit( (evt) => {
   }
 });
 
-// Highlight entries with the same entry_id
+
+/// *** Account Details Page *** ///
+// Assign rows of entries into a variable, entryRows
 const entryRows= $('tr.entry_rows');
+
+// Highlight entries with the same entry_id
 for (const item of entryRows) {
   let sameEntryId = [];
   $(item).hover(
@@ -24,3 +28,17 @@ for (const item of entryRows) {
     }
   );
 }
+
+// // AJAX:Handle Entry Amount Edit
+// $('edit_form').on('click', () => {
+//   for (const item of entryRows) {
+//     $('#amount').replaceWith('<form><input id="amount" type="number" name="new_amount" placeholder="New Amount"><input type="submit"></form>');
+//     $.get('/handle_entry_edit', (response) => {
+//       for (entry of entryRows) {
+//         $('#amount').text(response);
+//       };
+//     }); 
+//   };
+// });
+
+

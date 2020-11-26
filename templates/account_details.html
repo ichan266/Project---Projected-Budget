@@ -12,6 +12,7 @@
       <th>Date</th>
       <th>Amount</th>
       <th>Projected Balance</th>
+      <th></th>
       <th>Category</th>
       <th>Description</th>
       <th style="display:none;"></th>
@@ -21,8 +22,12 @@
     {% for entry in entries %}
       <tr class="entry_rows">
         <td>{{ entry.date }}</td>
-        <td>${{ entry.amount }}</td>
+        <td id='amount'>${{ entry.amount }}</td>
         <td>${{ entry.amount + ns.balance }}</td>
+        <td>
+          <input type="hidden" name="account_id" value="{{ account.account_id }}">
+          <button class="edit_button" type="submit" name="amount" value="{{ entry.amount }}">Edit</button>
+        </td>
         <td>{{ entry.category }}</td>
         <td>{{ entry.description }}</td>
         <td id="entry_id" style="display:none;">{{ entry.entry_id }}</td>

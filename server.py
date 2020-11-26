@@ -164,8 +164,8 @@ def create_transaction():
 # def edit_entry():
 #     """Edit an entry."""
 
-    
-    
+#     crud.edit_entry_amount_by_entry_id(entry_id, new_amount)    
+
 #     return
 
 
