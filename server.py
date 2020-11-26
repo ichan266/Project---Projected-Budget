@@ -105,6 +105,7 @@ def remove_account():
     return redirect("/profile")
 
 
+### Account Details ###
 @app.route("/profile/<account_id>")
 def show_budget(account_id):
     """Show projected budget for a particular account."""
@@ -158,6 +159,15 @@ def create_transaction():
   
     return redirect(f"/profile/{account_id}")
    
+
+# @app.route("/handle_entry_edit")
+# def edit_entry():
+#     """Edit an entry."""
+
+    
+    
+#     return
+
 
 @app.route("/handle_entry_removal")
 def remove_entry():

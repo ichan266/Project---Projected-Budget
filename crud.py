@@ -26,6 +26,20 @@ def get_user_by_email(email):
     return User.query.filter(User.email == email).first()
 
 
+# def edit_user_by_user_id(user_id, 
+#                          new_first_name, 
+                        #  new_last_name,
+#                          new_email, 
+#                          new_password):
+#     """Edit user's information by user_id."""
+
+#   user = User.query.filter(User.user_id == user_id)  
+#   user.update({User.first_name: new_first_name})
+#   user.update({User.last_name: new_last_name})
+#   user.update({User.email: new_email})
+#   user.update({User.password: new_password})
+
+
 ##### class Account #####
 def create_account(user_id, account_type, account_nickname):
     """Create and return an account."""
@@ -49,6 +63,13 @@ def get_account_by_account_id(account_id):
     """Return a specific account info with account_id."""
 
     return Account.query.filter(Account.account_id == account_id).first()
+
+
+# def edit_account_by_account_id(account_id, new_account_type, new_account_nickname):
+#     """Edit an account by account_id."""
+
+#   account = Account.query.filter(Account.account_id == account_id)  
+#   account.update({Account.account_type: new_account_type})
 
 
 def remove_account_by_account_id(account_id):
@@ -91,6 +112,14 @@ def get_entry_logs_by_account_id(account_id):
             entries_within_a_year.append(entry)
    
     return entries_within_a_year
+
+
+def edit_entry_amount_by_entry_id(entry_id,
+                           new_amount):
+    """Edit an entry by entry_id."""
+
+    entry = EntryLog.query.filter(EntryLog.entry_id == entry_id)
+    entry.update({EntryLog.amount: new_amount})
 
 
 def remove_entry_by_entry_id(entry_id):

@@ -61,8 +61,8 @@ class EntryLog(db.Model):
     category = db.Column(db.String)
     description = db.Column(db.String)
     amount = db.Column(db.Integer)
-    stop_date = db.Column(db.Date) # new for recurrent entries
-    frequency = db.Column(db.Interval) # new for recurrent entries
+    stop_date = db.Column(db.Date, nullable=True) # new for recurrent entries
+    frequency = db.Column(db.Interval, nullable=True) # new for recurrent entries
 
     accounts = db.relationship('Account')
 

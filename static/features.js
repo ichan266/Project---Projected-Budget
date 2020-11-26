@@ -1,4 +1,4 @@
-// Remove specific account or entry
+// Confirm window for removing specific account or entry
 $('.remove_form').submit( (evt) => {  
   const removeMessage = confirm('Warning! You are about to remove this permanently!');
   removeMessage;
@@ -24,4 +24,3 @@ for (const item of entryRows) {
     }
   );
 }
-
