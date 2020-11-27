@@ -33,7 +33,8 @@ for (const item of entryRows) {
 for (const item of $('.amount')) {   
   $(item).on('click', (evt) => {
     $(this).attr('style', "None");
-    const singleForm = $(evt.target.firstElementChild);
+    const singleForm = $(evt.target.querySelector('#amount_form'));
+    console.log(`singleForm = `, singleForm)
     singleForm.show();
   });
 };
@@ -42,7 +43,17 @@ for (const item of $('.edit_form')) {
   $(item).submit( (evt) => {
     evt.preventDefault();
     const formInputs = $(evt.target).serialize();
-    console.log(formInputs);
-    $.post('/handle_entry_edit', formInputs, (res) => {});
+    $.post('/handle_entry_edit', formInputs, (res) => {
+      // console.log(`evt.target = `, evt.target);
+      // console.log($('.amount'));
+      console.log(evt.target.parentElement);
+      console.log(res)
+      evt.target.parentElement.innerText = res;
+      //! Above replaces the text but remove the form.
+      // TODO: Once new amount is submitted, need to figure out how to add the form back
+      // TODO: recalculate projected balance
+      // evt.target.parentElement.querySelector('#amount_text').innerText = res;
+      $('#amount_form').hide();
+    });
   });
-}
+};

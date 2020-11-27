@@ -22,6 +22,7 @@
       <tr class="entry_rows">
         <td class="entry_date">{{ entry.date }}</td>
         <td class="amount">${{ entry.amount }}
+          <!-- add span after $?  -->
           <form id="amount_form" style="display:none;" class="edit_form" method="POST">
             <input id = "entry_id_edit" type="hidden" name="entry_id" value="{{ entry.entry_id }}">
             <input id ="new_amount" name="amount" type="number" placeholder="Please enter a new amount">

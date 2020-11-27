@@ -168,7 +168,7 @@ def edit_entry():
     new_amount = request.form.get('amount')
     crud.edit_entry_amount_by_entry_id(entry_id, new_amount)    
 
-    return "something"
+    return new_amount
 
 
 @app.route("/handle_entry_removal")
