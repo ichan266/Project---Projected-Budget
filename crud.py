@@ -120,6 +120,7 @@ def edit_entry_amount_by_entry_id(entry_id,
 
     entry = EntryLog.query.filter(EntryLog.entry_id == entry_id)
     entry.update({EntryLog.amount: new_amount})
+    db.session.commit()
 
 
 def remove_entry_by_entry_id(entry_id):

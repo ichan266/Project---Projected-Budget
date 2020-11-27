@@ -29,16 +29,20 @@ for (const item of entryRows) {
   );
 }
 
-// // AJAX:Handle Entry Amount Edit
-// $('edit_form').on('click', () => {
-//   for (const item of entryRows) {
-//     $('#amount').replaceWith('<form><input id="amount" type="number" name="new_amount" placeholder="New Amount"><input type="submit"></form>');
-//     $.get('/handle_entry_edit', (response) => {
-//       for (entry of entryRows) {
-//         $('#amount').text(response);
-//       };
-//     }); 
-//   };
-// });
+// AJAX:Handle Entry Amount Edit
+for (const item of $('.amount')) {   
+  $(item).on('click', (evt) => {
+    $(this).attr('style', "None");
+    const singleForm = $(evt.target.firstElementChild);
+    singleForm.show();
+  });
+};
 
-
+for (const item of $('.edit_form')) {
+  $(item).submit( (evt) => {
+    evt.preventDefault();
+    const formInputs = $(evt.target).serialize();
+    console.log(formInputs);
+    $.post('/handle_entry_edit', formInputs, (res) => {});
+  });
+}

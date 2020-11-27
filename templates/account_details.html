@@ -12,7 +12,6 @@
       <th>Date</th>
       <th>Amount</th>
       <th>Projected Balance</th>
-      <th></th>
       <th>Category</th>
       <th>Description</th>
       <th style="display:none;"></th>
@@ -21,13 +20,15 @@
     {% set ns = namespace(balance=0) %}
     {% for entry in entries %}
       <tr class="entry_rows">
-        <td>{{ entry.date }}</td>
-        <td id='amount'>${{ entry.amount }}</td>
-        <td>${{ entry.amount + ns.balance }}</td>
-        <td>
-          <input type="hidden" name="account_id" value="{{ account.account_id }}">
-          <button class="edit_button" type="submit" name="amount" value="{{ entry.amount }}">Edit</button>
+        <td class="entry_date">{{ entry.date }}</td>
+        <td class="amount">${{ entry.amount }}
+          <form id="amount_form" style="display:none;" class="edit_form" method="POST">
+            <input id = "entry_id_edit" type="hidden" name="entry_id" value="{{ entry.entry_id }}">
+            <input id ="new_amount" name="amount" type="number" placeholder="Please enter a new amount">
+            <button type="submit" name="save_button" value="{{ entry.amount }}">Save</button>
+          </form>
         </td>
+        <td>${{ entry.amount + ns.balance }}</td>
         <td>{{ entry.category }}</td>
         <td>{{ entry.description }}</td>
         <td id="entry_id" style="display:none;">{{ entry.entry_id }}</td>
@@ -51,7 +52,7 @@
     <input type="hidden" name="account_id" value="{{ account.account_id }}">
     <p>
       Transaction <input type="number" name="amount" required>
-    <span id='note'>Note: Income = positive number; Expense = negative number</span>
+    <span id="note">Note: Income = positive number; Expense = negative number</span>
     </p>
     <p>
       Transaction Date <input type="date" name="date" required> 

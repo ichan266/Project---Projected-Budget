@@ -160,13 +160,15 @@ def create_transaction():
     return redirect(f"/profile/{account_id}")
    
 
-# @app.route("/handle_entry_edit")
-# def edit_entry():
-#     """Edit an entry."""
+@app.route("/handle_entry_edit", methods=["POST"])
+def edit_entry():
+    """Edit an entry."""
 
-#     crud.edit_entry_amount_by_entry_id(entry_id, new_amount)    
+    entry_id = request.form.get('entry_id')
+    new_amount = request.form.get('amount')
+    crud.edit_entry_amount_by_entry_id(entry_id, new_amount)    
 
-#     return
+    return "something"
 
 
 @app.route("/handle_entry_removal")
