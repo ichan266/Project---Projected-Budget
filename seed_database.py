@@ -3,11 +3,10 @@
 import os
 # import json
 import datetime
-import calendar
+# import calendar
 
-import crud
-import model
-import server
+import crud, model, server
+
 
 os.system('dropdb pb')
 os.system('createdb pb')

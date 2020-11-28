@@ -2,7 +2,7 @@
 
 from flask import (Flask, render_template, request, flash, session,
                    redirect, url_for)
-from model import connect_to_db
+from model import connect_to_db, db
 import crud
 from jinja2 import StrictUndefined
 import datetime
@@ -188,9 +188,11 @@ def remove_entry():
 
 @app.route("/logout")
 def process_logout():
+    """Log user out."""
 
-    session.pop("user_name", None)
-    session.pop("user_id", None)
+    db.session.remove()
+    # session.pop("user_name", None)
+    # session.pop("user_id", None)
     flash("You are logged out.")
     print(f"SESSION SHOULD BE RESEST TO {session}")
 

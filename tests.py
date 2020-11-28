@@ -24,8 +24,8 @@ class ProjectTestsHomepage(TestCase):
         self.assertIn(b"Welcome to My First Project Website!", result.data)
 
 
-class ProjectTestsDatabaseAndProfile(TestCase):
-    """Test database."""
+class ProjectTestsLogInAndProfilePage(TestCase):
+    """Test Login, create new user, and profile page."""
 
     def setUp(self):
         """Setup database test."""
@@ -37,21 +37,67 @@ class ProjectTestsDatabaseAndProfile(TestCase):
         os.system("createdb testpb")
         
         model.connect_to_db(app, "postgresql:///testpb")
-
         model.db.create_all()
         mock_data()
+
+
+    def test_successful_login(self):
+        """Test login with matched email and password for successful login."""
+
+        model.db.session.remove()
+        result = self.client.post("/confirm_account",
+                                  data={"email": "randomly@random", "password": "randomly123"},
+                                  follow_redirects=True)
+        self.assertIn(b"Successfully logged in!", result.data)
+        self.assertNotIn(b"Email and password did not match our records. Please try again.", result.data)
+        
+    
+    def test_failed_login(self):
+        """Test login with unmatched email and password for unsuccessful login."""
+
+        model.db.session.remove()
+        result = self.client.post("/confirm_account",
+                                  data={"email": "jon@jon", "password": "abc"},
+                                  follow_redirects=True)
+        self.assertIn(b"Email and password did not match our records. Please try again.", result.data)
+        self.assertNotIn(b"Successfully logged in!", result.data)
+
+
+    def test_successful_creating_new_user(self):
+        """Test to successfully create a new user."""
+
+        model.db.session.remove()
+        result = self.client.post("/create_user",
+                                  data={"first_name": "Honey", "last_name": "Dew", "email": "honey@dew", "password": "honey123"},
+                                  follow_redirects=True)
+        self.assertIn(b"Account Created!", result.data)
+        self.assertNotIn(b"Account already exists. Please try again.", result.data)
+
+
+    def test_failed_creating_user(self):
+        """Test to unsuccessfully create new account (email already in database)."""
+
+        model.db.session.remove()
+        result = self.client.post("/create_user",
+                                  data={"first_name": "Water", "last_name": "Melon", "email": "johnny@john", "password": "water123"},
+                                  follow_redirects=True)
+        self.assertIn(b"Account already exists. Please try again.", result.data)
+        self.assertNotIn(b"Account Created!", result.data)
+
+
+    def test_profile_page(self):
+        """Test successful login and redirect to profile page."""
 
         with self.client as test_client:
             with test_client.session_transaction() as sess:
                 sess["user_name"] = "Jane Doe"
                 sess["user_id"] = 2
 
-    def test_profile_page(self):
-        """Test profile page."""
-
         result = self.client.get("/profile")
-        self.assertIn(b"Hi! Jane Doe", result.data)  
-   
+        self.assertIn(b"Hi! Jane Doe", result.data)
+        self.assertIn(b"Your User ID is 2", result.data)  
+        
+
     def tearDown(self):
         """Tear down test."""
 
