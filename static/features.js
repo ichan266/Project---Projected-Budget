@@ -39,7 +39,7 @@ for (const item of $('.amount')) {
   });
 };
 
-for (const item of $('.edit_form')) {
+for (const item of $('#amount_form')) {
   $(item).submit( (evt) => {
     evt.preventDefault();
     const formInputs = $(evt.target).serialize();
