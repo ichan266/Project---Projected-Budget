@@ -68,7 +68,7 @@ class ProjectTestsLogInAndProfilePage(TestCase):
 
         model.db.session.remove()
         result = self.client.post("/create_user",
-                                  data={"first_name": "Honey", "last_name": "Dew", "email": "honey@dew", "password": "honey123"},
+                                  data={"first_name": "Water", "last_name": "Melon", "email": "water@melon", "password": "water123"},
                                   follow_redirects=True)
         self.assertIn(b"Account Created!", result.data)
         self.assertNotIn(b"Account already exists. Please try again.", result.data)
@@ -95,8 +95,67 @@ class ProjectTestsLogInAndProfilePage(TestCase):
 
         result = self.client.get("/profile")
         self.assertIn(b"Hi! Jane Doe", result.data)
-        self.assertIn(b"Your User ID is 2", result.data)  
+        self.assertIn(b"Your User ID is 2", result.data)
+
+
+    def test_profile_page_with_account_name(self):
+        """Test to see if correct account name and account name displays on profile page correctly."""
+
+        model.db.session.remove()
+        with self.client as test_client:
+            with test_client.session_transaction() as sess:
+                sess["user_name"] = "Randomly Random"
+                sess["user_id"] = 3
         
+        result = self.client.get("/profile")
+        self.assertIn(b"Hi! Randomly Random", result.data)
+        self.assertIn(b"testing3 - Other", result.data)
+
+
+    def test_profile_page_with_no_account(self):
+
+        model.db.session.remove()
+        with self.client as test_client:
+            with test_client.session_transaction() as sess:
+                sess["user_name"] = "Honey Dew"
+                sess["user_id"] = 4
+        
+        result = self.client.get("/profile")
+        self.assertIn(b"Hi! Honey Dew", result.data)
+        self.assertIn(b"You currently do not have any accounts. Please add an account.", result.data)
+
+
+    def test_creating_new_account(self):
+        """Test to successfully create a new account."""
+
+        model.db.session.remove()
+        with self.client as test_client:
+            with test_client.session_transaction() as sess:
+                sess["user_name"] = "Honey Dew"
+                sess["user_id"] = 4
+
+        result = self.client.post("/create_account",
+                                  data={"account_type": "Saving", "account_nickname": "Honey"},
+                                  follow_redirects=True)
+        self.assertIn(b"Honey", result.data)
+        self.assertNotIn(b"You currently do not have any accounts. Please add an account.", result.data)
+
+
+    ###* This one doesn't work because there is a confirmation step *###
+    # def test_removing_account(self):
+    #     """Test to successfully removing an account."""
+
+    #     model.db.session.remove()
+    #     with self.client as test_client:
+    #         with test_client.session_transaction() as sess:
+    #             sess["user_name"] = "Johnny John"
+    #             sess["user_id"] = 1
+
+    #     result = self.client.get("/handle_account_removal",
+    #                               data={"account_id": 1},
+    #                               follow_redirects=True)
+    #     self.assertNotIn(b"testing1", result.data)
+      
 
     def tearDown(self):
         """Tear down test."""
@@ -113,16 +172,18 @@ def mock_data():
     crud.create_user("Johnny", "John", "johnny@john", "john123")
     crud.create_user("Jane", "Doe", "jane@doe", "jane123")
     crud.create_user("Randomly", "Random", "randomly@random", "randomly123")
+    crud.create_user("Honey", "Dew", "honey@dew", "honey123")
 
     crud.create_account(1, "Saving", "testing1")
     crud.create_account(2, "Checking", "testing2")
     crud.create_account(3, "Other", "testing3")
 
     n = datetime.date.today()
+    future_date = datetime.date.today() + datetime.timedelta(120)
 
-    crud.create_entry_log(1, n, "Income", "desc-testing1", 500)
-    crud.create_entry_log(2, n, "Income", "desc-testing2", 1000, datetime.date(2021, 3, 31), datetime.timedelta(20))
-    crud.create_entry_log(3, n, "Income", "desc-testing3", -500)
+    crud.create_entry_log(1, n, "Income", "testing1: x1", 500)
+    crud.create_entry_log(2, n, "Income", "testing2: with q20Days", 1000, future_date, datetime.timedelta(20))
+    crud.create_entry_log(3, n, "Expense", "desc-testing3", -500)
 
 
 # Automate all test
