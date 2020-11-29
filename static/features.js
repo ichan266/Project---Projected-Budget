@@ -33,27 +33,26 @@ for (const item of entryRows) {
 for (const item of $('.amount')) {   
   $(item).on('click', (evt) => {
     $(this).attr('style', "None");
-    const singleForm = $(evt.target.querySelector('#amount_form'));
+    const singleForm = $(evt.target.querySelector('.amount_form'));
     console.log(`singleForm = `, singleForm)
     singleForm.show();
+    
   });
 };
 
-for (const item of $('#amount_form')) {
+for (const item of $('.amount_form')) {
   $(item).submit( (evt) => {
     evt.preventDefault();
     const formInputs = $(evt.target).serialize();
     $.post('/handle_entry_edit', formInputs, (res) => {
-      // console.log(`evt.target = `, evt.target);
-      // console.log($('.amount'));
-      console.log(evt.target.parentElement);
-      console.log(res)
-      evt.target.parentElement.innerText = res;
-      //! Above replaces the text but remove the form.
-      // TODO: Once new amount is submitted, need to figure out how to add the form back
-      // TODO: recalculate projected balance
-      // evt.target.parentElement.querySelector('#amount_text').innerText = res;
-      $('#amount_form').hide();
+      evt.target.parentElement.querySelector('.amount_value').innerText = res;
+      let balance = 0;
+      for (const item of document.querySelectorAll('.entry_rows')) {
+        let current_amount = Number(item.querySelector('.amount_value').innerText);
+        balance = current_amount + balance;
+        item.querySelector('.projected_balance').innerText = balance;
+      };
+      $('.amount_form').hide();
     });
   });
 };
