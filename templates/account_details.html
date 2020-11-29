@@ -22,14 +22,13 @@
       <tr class="entry_rows">
         <td class="entry_date">{{ entry.date }}</td>
         <td class="amount">$<span class="amount_value" style="pointer-events: none">{{ entry.amount }}</span>
-          <!-- add span after $?  -->
           <form class="amount_form" style="display:none;" method="POST">
-            <input id = "entry_id_edit" type="hidden" name="entry_id" value="{{ entry.entry_id }}">
-            <input id ="new_amount" name="amount" type="number" placeholder="Please enter a new amount">
+            <input class = "entry_id_edit" type="hidden" name="entry_id" value="{{ entry.entry_id }}">
+            <input class ="new_amount" name="amount" type="number" placeholder="Please enter a new amount">
             <button type="submit" name="save_button" value="{{ entry.amount }}">Save</button>
           </form>
         </td>
-        <td class="projected_balance">{{ entry.amount + ns.balance }}</td>
+        <td class="projected_balance">${{ entry.amount + ns.balance }}</td>
         <td>{{ entry.category }}</td>
         <td>{{ entry.description }}</td>
         <td id="entry_id" style="display:none;">{{ entry.entry_id }}</td>
@@ -43,6 +42,9 @@
       {% set ns.balance = entry.amount + ns.balance %}  
     {% endfor %}  
   </table>
+  <div>
+    Note: Click on amount to edit.
+  </div>
 {% else %}
 <div class="nothing">You currently do not have any entries. Please add an entry.</div>
 <br>

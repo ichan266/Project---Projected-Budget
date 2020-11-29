@@ -22,24 +22,27 @@ for (const item of entryRows) {
           sameEntryId.push(entry);
         };
       }
-      $(sameEntryId).css('background-color', '#3399ff');
+      $(sameEntryId).css('background-color', '#00CED1');
     }, function() {
       $(sameEntryId).css('background-color', 'white');
     }
   );
 }
 
-// AJAX:Handle Entry Amount Edit
+// Edit Entry Form Part 1: 
+// Show the form
 for (const item of $('.amount')) {   
   $(item).on('click', (evt) => {
     $(this).attr('style', "None");
     const singleForm = $(evt.target.querySelector('.amount_form'));
-    console.log(`singleForm = `, singleForm)
+    console.log(`singleForm = `, singleForm);
     singleForm.show();
-    
+    $(evt.target.querySelector('.new_amount')).focus();
   });
 };
 
+// Edit Entry Form Part 2: 
+// Use AJAX to submit data and recalculate projected balance
 for (const item of $('.amount_form')) {
   $(item).submit( (evt) => {
     evt.preventDefault();
@@ -50,7 +53,7 @@ for (const item of $('.amount_form')) {
       for (const item of document.querySelectorAll('.entry_rows')) {
         let current_amount = Number(item.querySelector('.amount_value').innerText);
         balance = current_amount + balance;
-        item.querySelector('.projected_balance').innerText = balance;
+        item.querySelector('.projected_balance').innerText = `$${balance}`;
       };
       $('.amount_form').hide();
     });
