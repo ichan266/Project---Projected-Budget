@@ -229,6 +229,22 @@ class ProjectTestsLogInProfileAccountDetails(TestCase):
         self.assertNotIn(b"testing2", result.data)
 
 
+    ### Log Out ###
+    def test_logout(self):
+        """Test logout route."""
+
+        with self.client as test_client:
+            with test_client.session_transaction() as sess:
+                sess["user_name"] = "Randomly Random"
+                sess["user_id"] = 3
+
+            result = self.client.get("/logout", follow_redirects=True)
+
+            self.assertNotIn(b'user_name', sess)
+            self.assertNotIn(b"user_id", sess)
+            self.assertIn(b'You are logged out.', result.data)
+    
+    
     def tearDown(self):
         """Tear down test."""
 
