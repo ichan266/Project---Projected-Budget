@@ -10,7 +10,11 @@ $('.remove_form').submit( (evt) => {
 
 /// *** Account Details Page *** ///
 // Assign rows of entries into a variable, entryRows
-const entryRows= $('tr.entry_rows');
+const entryRows = $('tr.entry_rows');
+
+// Assign projected balances into a variable, projectedBalance
+const projectedBalances = $('td.projected_balance');
+
 
 // Highlight entries with the same entry_id
 for (const item of entryRows) {
@@ -28,6 +32,18 @@ for (const item of entryRows) {
     }
   );
 }
+
+
+// Highlight projected balances that are below zero
+const highlightBalanceBelowZero = () => {
+  for (const item of projectedBalances) {
+    if ((Number(item.innerText.slice(1))) <= 0) {
+      $(item).css('color', 'red');
+    };
+  };
+};
+
+highlightBalanceBelowZero();
 
 // Edit Entry Form Part 1: 
 // Show the form
@@ -55,6 +71,7 @@ for (const item of $('.amount_form')) {
         balance = current_amount + balance;
         item.querySelector('.projected_balance').innerText = `$${balance}`;
       };
+      highlightBalanceBelowZero();
       $('.amount_form').hide();
     });
   });

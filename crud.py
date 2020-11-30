@@ -74,7 +74,8 @@ def get_account_by_account_id(account_id):
 
 def remove_account_by_account_id(account_id):
     """Remove an account by account_id. 
-       Note: this action will remove account even if there are entries in it."""
+       Note: this action will remove all entries in the account,
+       followed by removing the account."""
 
     EntryLog.query.filter(EntryLog.account_id == account_id).delete()
     db.session.commit()
