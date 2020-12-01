@@ -2,11 +2,15 @@
 
 from flask import (Flask, render_template, request, flash, session,
                    redirect, url_for)
-from model import connect_to_db, db
-import crud
 from jinja2 import StrictUndefined
 import datetime
 import os
+
+from model import connect_to_db, db
+import crud
+
+#! In order to use the secret key, I need to type in "source secrets.sh"
+#! in the terminal before starting the server
 
 app = Flask(__name__)
 if "SECRET_KEY" in os.environ:
@@ -14,8 +18,7 @@ if "SECRET_KEY" in os.environ:
 else:
     app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
-# In order to use the secret key, I need to type in "source secrets.sh"
-# in the terminal before I start the server
+
 
 @app.route("/")
 def homepage():
