@@ -2,40 +2,45 @@
 {% block title %}Profile{% endblock %}
 
 {% block body %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Profile</li>
+  </ol>
+</nav>
 <h1>Hi! {{ session['user_name'] }}</h1>
-<h2>Your User ID is {{ session['user_id'] }}</h2>
 <br>
 {% if accounts %}
 <h3>Your Accounts</h3>
-  <ul>
+  <div class="list-group">
   {% for account in accounts %}
-      <li>
-        <a href="/profile/{{ account.account_id }}">
+      <li class="list-group ">
+        <a href="/profile/{{ account.account_id }}" class="list-group-item list-group-item-action list-group-item-info">
           {{ account.account_nickname }} - {{account.account_type}}
         </a>  
         <form class="remove_form" action="/handle_account_removal">
-          <button type="submit" name="account_id" value="{{ account.account_id }}">Remove</button>
+          <button class="btn-sm btn-outline-danger" type="submit" name="account_id" value="{{ account.account_id }}">Remove</button>
         </form>
       </li>
       <br>
   {% endfor %}
 {% else %}
-<div class="nothing">You currently do not have any accounts. Please add an account.</div>
+    <div class="nothing">You currently do not have any accounts. Please add an account.</div>
 {% endif %}  
-</ul>
+  </div>
 <h3>Create a New Account</h3>
 <form id="create_account" action="/create_account" method="POST">  
-  <div class="forms">
-    <p>
-      Account Type <select name="account_type">
-        <option value="Checking">Checking</option>
-        <option value="Saving">Saving</option>
-        <option value="Other">Other</option>
-      </select>
-    </p>
-    <p>
-      Account Nickname (Optional) <input type="text" name="account_nickname">  
-    </p>
+  <div class="dropdown">
+    Account Type <select name="account_type">
+      <option value="Checking">Checking</option>
+      <option value="Saving">Saving</option>
+      <option value="Other">Other</option>
+    </select>
+  </div>
+  <br>
+  <div>
+    <label for="account_nickname">Account Nickname (Optional)</label>
+    <input type="text" class="form-control" name="account_nickname" placeholder="Account Nickname">
+  </div>
     <p>
       <input type="submit">  
     </p>
