@@ -2,19 +2,22 @@
 {% block title %}Account Details{% endblock %}
 
 {% block body %}
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/profile">Profile</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Account Details</li>
-  </ol>
-</nav>
-
-<h1>Hi! {{ session['user_name'] }}</h1>
+<div class="font-up-bold text-uppercase alert-info">
+  <nav class="navbar justify-content-between" aria-label="breadcrumb">
+    <ol class="breadcrumb align-items-center">
+      <li class="breadcrumb-item"><a href="/profile">Profile</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Account Details</li>
+    </ol>
+    <form class="form-inline" action="/logout">
+      <button type="submit" class="btn btn-secondary my-2 my-sm-0" name="logout">Log Out</button>
+    </form>  
+  </nav>
+</div>
+<h1>Welcome! {{ session['user_name'] }}</h1>
 {% if entries %}
-<h3>Account ID: {{ account.account_id }}</h3>
-<h3>Account Type: {{ account.account_type }}</h3>
-<h3>Account Nickname: {{ account.account_nickname }}</h3>
-  <table id="transaction_table" class="table table-bordered">
+<h3>{{ account.account_nickname }} - {{ account.account_type }}</h3>
+<!-- <h3>Account ID: {{ account.account_id }}</h3> -->
+  <table id="transaction_table" class="table table-bordered table-sm">
     <caption>Note: Click on amount to edit.</caption> 
     <thead>
       <tr>
@@ -58,59 +61,52 @@
 <div class="nothing">You currently do not have any entries. Please add an entry.</div>
 <br>
 {% endif %}
-<h3>Create a New Transaction</h3>
+<h4>Create a New Transaction</h4>
 <form id="create_transaction" action="/create_transaction" method="POST">  
-  <div class="forms">
+  <div class="form-group">
     <input type="hidden" name="account_id" value="{{ account.account_id }}">
-    <p>
-      Transaction <input type="number" name="amount" required>
-    <span id="note">Note: Income = positive number; Expense = negative number</span>
-    </p>
-    <p>
-      Transaction Date <input type="date" name="date" required> 
-    </p>
-    <p>
-      Category <select name="category" required>
+  </div>
+  <div class="form-row align-items-center">
+    <div class="col-auto my-2">
+      <label class="mr-sm-2" for="inlineFormCustomSelect">Category</label>
+      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="category">
+        <option selected>Choose one</option>  
         <option value="Income">Income</option>
         <option value="Expense">Expense</option>
       </select>  
-    </p>
-    <p>
-      Description <input type="text" name="description">  
-    </p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="transaction">Transaction</label>
+    <input type="number" name="amount" required>
+    <span id="note">Note: Income = positive number; Expense = negative number</span>
+  </div>
+  <div class="form-group">
+    <label for="transaction">Transaction Date</label>
+    <input type="date" name="date" required> 
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <input type="text" name="description">  
+  </div>
     <br>
     
-    <!-- Recurrent Entry -->
-    <h4>If Recurrent Entry, please fill out the form below:</h4>
-    <p>
-      Stop Date <input type="date" name="stop_date"> 
-    </p>
-    <p>
-      Frequency (How often?): Every <input type="number" name="frequency_int" step=1 value=0>
+  <!-- Recurrent Entry -->
+  <h4>If Recurrent Entry, please fill out the form below:</h4>
+  <div class="form-group">
+    <label for="stop_date">Stop Date</label>
+    <input type="date" name="stop_date"> 
+  </div>
+  <div class="form-group">
+      Frequency (How often?): Every <input type="number" name="frequency_int" step=1 value=0 min=0>
       <select name="frequency_unit">
         <option value="days" value=0>day(s)</option>
         <option value="weeks" value=0>week(s)</option>
       </select>
-    </p>
-    <p>
-      <input type="submit">  
-    </p>
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-success mb-2">Submit</button>
   </div>
 </form>
 
-{% endblock %}
-
-{% block after_body %}
-<br>
-<br>
-<br>
-<div>
-  <a href="/profile">Return to Profile</a>
-</div>
-<br>
-<div>
-  <form action="/logout">
-    <button type="submit" name="logout">Log Out</button>
-  </form>
-</div>
 {% endblock %}

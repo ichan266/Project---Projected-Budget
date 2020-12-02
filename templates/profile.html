@@ -2,14 +2,20 @@
 {% block title %}Profile{% endblock %}
 
 {% block body %}
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page">Profile</li>
-  </ol>
-</nav>
-<h1>Hi! {{ session['user_name'] }}</h1>
-<br>
+<div class="font-up-bold text-uppercase alert-info">
+  <nav class="navbar justify-content-between" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">Profile</li>
+    </ol>
+    <form class="form-inline" action="/logout">
+      <button type="submit" class="btn btn-secondary my-2 my-sm-0" name="logout">Log Out</button>
+    </form>
+  </nav>
+</div>
+<h2>Hi! {{ session['user_name'] }}</h2>
 {% if accounts %}
+<h5>Please select an account to see transactions</h5>
+<br>
 <h3>Your Accounts</h3>
   <div class="list-group">
   {% for account in accounts %}
@@ -28,23 +34,26 @@
 {% endif %}  
   </div>
 <h3>Create a New Account</h3>
-<form id="create_account" action="/create_account" method="POST">  
-  <div class="dropdown">
-    Account Type <select name="account_type">
-      <option value="Checking">Checking</option>
-      <option value="Saving">Saving</option>
-      <option value="Other">Other</option>
-    </select>
+<form id="create_account" action="/create_account" method="POST">
+  <div class="form-row align-items-center">
+    <div class="col-auto my-2">
+      <label class="mr-sm-2" for="inlineFormCustomSelect">Account Type</label>
+      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="account_type">
+        <option selected>Choose one</option>  
+        <option value="Checking">Checking</option>
+        <option value="Saving">Saving</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <br>
+    <div class="col-auto my-2">
+      <label class="mr-sm-2" for="account_nickname">Account Nickname (Optional)</label>
+      <input type="text" class="form-control" name="account_nickname" placeholder="Account Nickname">
+    </div>
   </div>
-  <br>
-  <div>
-    <label for="account_nickname">Account Nickname (Optional)</label>
-    <input type="text" class="form-control" name="account_nickname" placeholder="Account Nickname">
-  </div>
-    <p>
-      <input type="submit">  
-    </p>
-  </div>  
+    <div class="col-auto my-2">
+      <button type="submit" class="btn btn-success mb-2">Submit</button>
+    </div>
 </form>
 {% endblock %}
 
