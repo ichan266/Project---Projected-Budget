@@ -2,7 +2,7 @@
 {% block title %}Profile{% endblock %}
 
 {% block body %}
-<div class="font-up-bold text-uppercase alert-info">
+<div class="font-up-bold text-uppercase alert-success">
   <nav class="navbar justify-content-between" aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item active" aria-current="page">Profile</li>
@@ -57,10 +57,3 @@
 </form>
 {% endblock %}
 
-{% block after_body %}
-<div>
-  <form action="/logout">
-    <button type="submit" name="logout">Log Out</button>
-  </form>
-</div>
-{% endblock %}
