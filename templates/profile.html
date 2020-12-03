@@ -4,7 +4,7 @@
 {% block body %}
 <div class="font-up-bold text-uppercase alert-success">
   <nav class="navbar justify-content-between" aria-label="breadcrumb">
-    <ol class="breadcrumb">
+    <ol class="breadcrumb m-0 alert-success align-items-center">
       <li class="breadcrumb-item active" aria-current="page">Profile</li>
     </ol>
     <form class="form-inline" action="/logout">
@@ -18,21 +18,25 @@
 <br>
 <h3>Your Accounts</h3>
   <div class="list-group">
+    <ol class="p-0">
   {% for account in accounts %}
-      <li class="list-group ">
-        <a href="/profile/{{ account.account_id }}" class="list-group-item list-group-item-action list-group-item-info">
+      <li class="list-group list-group-item list-group-item-action list-group-item-info">
+        <a href="/profile/{{ account.account_id }}" class="text-dark">
           {{ account.account_nickname }} - {{account.account_type}}
-        </a>  
-        <form class="remove_form" action="/handle_account_removal">
+        </a>
+        <form class="remove_form form-inline" action="/handle_account_removal">
           <button class="btn-sm btn-outline-danger" type="submit" name="account_id" value="{{ account.account_id }}">Remove</button>
         </form>
       </li>
       <br>
   {% endfor %}
+    </ol>
 {% else %}
     <div class="nothing">You currently do not have any accounts. Please add an account.</div>
 {% endif %}  
   </div>
+<br>
+<br>
 <h3>Create a New Account</h3>
 <form id="create_account" action="/create_account" method="POST">
   <div class="form-row align-items-center">

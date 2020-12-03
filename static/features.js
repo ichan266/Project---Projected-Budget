@@ -30,7 +30,7 @@ for (const item of entryRows) {
           sameEntryId.push(entry);
         };
       }
-      $(sameEntryId).css('background-color', '#00CED1');
+      $(sameEntryId).css('background-color', '#7fe6e8');
     }, function() {
       $(sameEntryId).css('background-color', 'white');
     }
@@ -43,6 +43,8 @@ const highlightBalanceBelowZero = () => {
   for (const item of projectedBalances) {
     if ((Number(item.innerText.slice(1))) <= 0) {
       $(item).css('color', 'red');
+    } else {
+      $(item).css('color', 'black');
     };
   };
 };

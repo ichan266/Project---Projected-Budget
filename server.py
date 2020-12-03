@@ -76,8 +76,12 @@ def register_user():
 def show_profile():
     """Show user profile with all user's accounts."""
 
-    accounts = crud.get_accounts_by_user_id(session['user_id'])
+    if session.get("user_id") == None:
+        flash("Please Log In")
+        return redirect("/")
 
+    accounts = crud.get_accounts_by_user_id(session['user_id'])
+    
     return render_template("profile.html", accounts=accounts)
 
 
@@ -193,9 +197,8 @@ def remove_entry():
 def process_logout():
     """Log user out."""
 
-    db.session.remove()
-    # session.pop("user_name", None)
-    # session.pop("user_id", None)
+    session.pop("user_name", None)
+    session.pop("user_id", None)
     flash("You are logged out.")
     print(f"SESSION SHOULD BE RESEST TO {session}")
 

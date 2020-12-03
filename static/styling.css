@@ -1,5 +1,7 @@
 body {
   font-family: sans-serif;
+  /* background: url(/static/Thistle.jpg) no-repeat center center;
+  background-size: cover; */
 }
 
 fieldset {
@@ -16,15 +18,27 @@ fieldset label {
   color:rgb(20, 67, 220);
 }
 
+.form {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+form .remove_form {
+    display: inline-block;
+  }
+
 #note {
   font-size: smaller;
 }
 
 .nothing {
-  font-size: large;
+  font-size: x-large;
   color:deeppink;
 }
 
-form .remove_form {
-  display: inline-block;
+.title {
+  font: bold;
+  color: rgb(111, 25, 151)
 }

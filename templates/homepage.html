@@ -1,40 +1,34 @@
 {% extends 'base.html' %}
-{% block title %}Projected Budget Home{% endblock %}
+{% block title %}Thistle{% endblock %}
 
 {% block body %}
-  <h1>Welcome to My First Project Website!</h1>
-  <h3>This site can help you see your projected budget for up to 4 months!</h3>
+<body class="text-center">
+  <h1 class="title">Thistle</h1>
+  <h4>Empower You to Better Foresee Your Financial Future</h4>
   <br>
   <br>
-  <h3>Please Log In</h3>
-  <form action="/confirm_account" method="POST">
-    <p>
-      Email <input type="text" name="email" required>
-    </p>
-    <p>
-      Password <input type="password" name="password" required>
-    </p>
-    <p>
-      <button type="submit">Log In</button>
-    </p>
+  <form class="form" action="/confirm_account" method="POST">
+    <h3>Please Sign In</h3>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+    <button class="btn btn-lg btn-success btn-block" type="submit">Sign In</button>
   </form>
   <br>
-  <h3>Create a New Account</h3>
-  <form id="create_user" action="/create_user" method="POST">
-    <p>
-      First Name <input type="text" name="first_name" required>
-    </p>
-    <p>
-      Last Name <input type="text" name="last_name" required>
-    </p>
-    <p>
-      Email <input type="email" name="email" required>
-    </p>
-    <p>
-      Password <input type="password" name="password" required>
-    </p>
-    <p>
-      <input type="submit">
-    </p>
+  <br>
+  <br>
+  <h3>Sign Up Here</h3>
+  <form id="create_user" class="form" action="/create_user" method="POST">
+    <label for="inputFirstName" class="sr-only">First Name</label>
+    <input type="text" id="inputFirstName" class="form-control" name="first_name" placeholder="First Name" required>
+    <label for="inputLastName" class="sr-only">Last Name</label>
+    <input type="text" id="inputLastName" class="form-control" name="last_name" placeholder="Last Name" required>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
   </form>
+</body>
 {% endblock %}

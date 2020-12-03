@@ -4,11 +4,11 @@
 {% block body %}
 <div class="font-up-bold text-uppercase alert-success">
   <nav class="navbar justify-content-between" aria-label="breadcrumb">
-    <ol class="breadcrumb align-items-center">
+    <ol class="breadcrumb m-0 alert-success align-items-center">
       <li class="breadcrumb-item"><a href="/profile">Profile</a></li>
       <li class="breadcrumb-item active" aria-current="page">Account Details</li>
     </ol>
-    <form class="form-inline" action="/logout">
+    <form class="form-inline m-10" action="/logout">
       <button type="submit" class="btn btn-secondary my-2 my-sm-0" name="logout">Log Out</button>
     </form>  
   </nav>
@@ -62,7 +62,7 @@
 <br>
 {% endif %}
 <h4>Create a New Transaction</h4>
-<form id="create_transaction" action="/create_transaction" method="POST">  
+<form id="create_transaction" class="form-new-transaction" action="/create_transaction" method="POST">  
   <div class="form-group">
     <input type="hidden" name="account_id" value="{{ account.account_id }}">
   </div>
@@ -76,37 +76,27 @@
       </select>  
     </div>
   </div>
-  <div class="form-group">
-    <label for="transaction">Transaction</label>
-    <input type="number" name="amount" required>
-    <span id="note">Note: Income = positive number; Expense = negative number</span>
-  </div>
-  <div class="form-group">
-    <label for="transaction">Transaction Date</label>
-    <input type="date" name="date" required> 
-  </div>
-  <div class="form-group">
-    <label for="description">Description</label>
-    <input type="text" name="description">  
-  </div>
-    <br>
+  <label for="inputTransaction" class="sr-only">Transaction</label>
+  <input type="number" id="inputTransaction" class="form-control" name="amount" placeholder="Amount: positive number for income; negative number for expense" required>
+  <label for="inputStartDate" class="sr-only">Date</label>
+  <input type="date" id="inputStartDate" class="form-control" name="date" placeholder="Date">
+  <label for="inputDescription" class="sr-only">Description</label>
+  <input type="text" id="inputDescription" class="form-control" name="description" placeholder="Description (optional)">
+  <br>
     
   <!-- Recurrent Entry -->
   <h4>If Recurrent Entry, please fill out the form below:</h4>
-  <div class="form-group">
-    <label for="stop_date">Stop Date</label>
-    <input type="date" name="stop_date"> 
-  </div>
-  <div class="form-group">
-      Frequency (How often?): Every <input type="number" name="frequency_int" step=1 value=0 min=0>
-      <select name="frequency_unit">
+  <label for="inputStopDate" class="sr-only">Stop Date</label>
+  <input type="date" id="inputStopDate" class="form-control" name="stop_date" placeholder="Date">
+  <span class="form-group">
+      Frequency (How often?): Every 
+      <input type="number" id="inputFrequencyInt" class="form-control" name="frequency_int" step=1 value=0 min=0>
+      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="frequency_unit">
         <option value="days" value=0>day(s)</option>
         <option value="weeks" value=0>week(s)</option>
       </select>
-  </div>
-  <div class="col-auto">
-    <button type="submit" class="btn btn-success mb-2">Submit</button>
-  </div>
+  </span>
+  <button type="submit" class="btn btn-success mb-2">Submit</button>
 </form>
 
 {% endblock %}
