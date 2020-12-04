@@ -62,12 +62,12 @@
 <br>
 {% endif %}
 <h4>Create a New Transaction</h4>
-<form id="create_transaction" class="form-new-transaction" action="/create_transaction" method="POST">  
+<form id="create_transaction" class="form" action="/create_transaction" method="POST">  
   <div class="form-group">
     <input type="hidden" name="account_id" value="{{ account.account_id }}">
   </div>
   <div class="form-row align-items-center">
-    <div class="col-auto my-2">
+    <div class="col-auto">
       <label class="mr-sm-2" for="inlineFormCustomSelect">Category</label>
       <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="category">
         <option selected>Choose one</option>  
@@ -77,25 +77,26 @@
     </div>
   </div>
   <label for="inputTransaction" class="sr-only">Transaction</label>
-  <input type="number" id="inputTransaction" class="form-control" name="amount" placeholder="Amount: positive number for income; negative number for expense" required>
+  <input type="number" id="inputTransaction" class="form-control col-auto my-2" name="amount" placeholder="Amount: positive number for income; negative number for expense" required>
   <label for="inputStartDate" class="sr-only">Date</label>
-  <input type="date" id="inputStartDate" class="form-control" name="date" placeholder="Date">
+  <input type="date" id="inputStartDate" class="form-control col-auto my-2" name="date" placeholder="Date">
   <label for="inputDescription" class="sr-only">Description</label>
-  <input type="text" id="inputDescription" class="form-control" name="description" placeholder="Description (optional)">
+  <input type="text" id="inputDescription" class="form-control col-auto my-2" name="description" placeholder="Description (optional)">
   <br>
     
   <!-- Recurrent Entry -->
-  <h4>If Recurrent Entry, please fill out the form below:</h4>
+  <h5>If Recurrent Entry, please fill out the form below:</h5>
   <label for="inputStopDate" class="sr-only">Stop Date</label>
-  <input type="date" id="inputStopDate" class="form-control" name="stop_date" placeholder="Date">
+  <input type="date" id="inputStopDate" class="form-control col-auto my-2" name="stop_date" placeholder="Date">
   <span class="form-group">
       Frequency (How often?): Every 
-      <input type="number" id="inputFrequencyInt" class="form-control" name="frequency_int" step=1 value=0 min=0>
+      <input type="number" id="inputFrequencyInt" class="form-control col-auto my-2" name="frequency_int" step=1 value=0 min=0>
       <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="frequency_unit">
         <option value="days" value=0>day(s)</option>
         <option value="weeks" value=0>week(s)</option>
       </select>
   </span>
+  <br>
   <button type="submit" class="btn btn-success mb-2">Submit</button>
 </form>
 

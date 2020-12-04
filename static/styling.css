@@ -25,9 +25,17 @@ fieldset label {
   margin: auto;
 }
 
-form .remove_form {
+.remove_form {
     display: inline-block;
   }
+
+#create_transaction {
+  width: 100%;
+  max-width: 555px;
+  padding: 0;
+  margin: 0;
+}
+
 
 #note {
   font-size: smaller;

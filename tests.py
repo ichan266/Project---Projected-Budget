@@ -21,7 +21,7 @@ class ProjectTestsHomepage(TestCase):
         """Test homepage page."""
 
         result = self.client.get("/")
-        self.assertIn(b"Welcome to My First Project Website!", result.data)
+        self.assertIn(b"Empower You to Better Foresee Your Financial Future", result.data)
 
 
 class ProjectTestsLogInProfileAccountDetails(TestCase):
@@ -111,7 +111,6 @@ class ProjectTestsLogInProfileAccountDetails(TestCase):
 
         result = self.client.get("/profile")
         self.assertIn(b"Hi! Jane Doe", result.data)
-        self.assertIn(b"Your User ID is 2", result.data)
 
 
     def test_profile_page_with_account_name(self):
