@@ -61,43 +61,79 @@
 <div class="nothing">You currently do not have any entries. Please add an entry.</div>
 <br>
 {% endif %}
-<h4>Create a New Transaction</h4>
+<br>
+
+<h4 class="title">Create a New Transaction</h4>
 <form id="create_transaction" class="form" action="/create_transaction" method="POST">  
   <div class="form-group">
     <input type="hidden" name="account_id" value="{{ account.account_id }}">
   </div>
   <div class="form-row align-items-center">
-    <div class="col-auto">
-      <label class="mr-sm-2" for="inlineFormCustomSelect">Category</label>
-      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="category">
-        <option selected>Choose one</option>  
-        <option value="Income">Income</option>
-        <option value="Expense">Expense</option>
-      </select>  
+
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <span class="input-group-text" for="inlineFormCustomSelect">Category</span>
+      </div>
+        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="category">
+          <option selected>Choose one</option>  
+          <option value="Income">Income</option>
+          <option value="Expense">Expense</option>
+        </select>  
     </div>
-  </div>
-  <label for="inputTransaction" class="sr-only">Transaction</label>
-  <input type="number" id="inputTransaction" class="form-control col-auto my-2" name="amount" placeholder="Amount: positive number for income; negative number for expense" required>
-  <label for="inputStartDate" class="sr-only">Date</label>
-  <input type="date" id="inputStartDate" class="form-control col-auto my-2" name="date" placeholder="Date">
-  <label for="inputDescription" class="sr-only">Description</label>
-  <input type="text" id="inputDescription" class="form-control col-auto my-2" name="description" placeholder="Description (optional)">
-  <br>
     
-  <!-- Recurrent Entry -->
-  <h5>If Recurrent Entry, please fill out the form below:</h5>
-  <label for="inputStopDate" class="sr-only">Stop Date</label>
-  <input type="date" id="inputStopDate" class="form-control col-auto my-2" name="stop_date" placeholder="Date">
-  <span class="form-group">
-      Frequency (How often?): Every 
-      <input type="number" id="inputFrequencyInt" class="form-control col-auto my-2" name="frequency_int" step=1 value=0 min=0>
-      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="frequency_unit">
-        <option value="days" value=0>day(s)</option>
-        <option value="weeks" value=0>week(s)</option>
-      </select>
-  </span>
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <label for="inputTransaction" class="sr-only">Amount</label>
+        <span class="input-group-text" for="inlineForm">Amount</span>
+      </div>
+        <input type="number" id="inputTransaction" class="form-control mr-sm-2" name="amount" placeholder="positive number for income; negative number for expense" required>
+    </div>
+  
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <label for="inputStartDate" class="sr-only">Date</label>
+        <span class="input-group-text" for="inlineForm">Date</span>
+      </div>
+        <input type="date" id="inputStartDate" class="form-control mr-sm-2" name="date">
+    </div>
+    
+    <div class="input-group mb-5">
+      <div class="input-group-prepend">
+        <label for="inputDescription" class="sr-only">Description</label>
+        <span class="input-group-text" for="inlineForm">Description</span>
+      </div>
+        <input type="text" id="inputDescription" class="form-control mr-sm-2" name="description" placeholder="optional">
+    </div>
+
+<!-- Recurrent Entry -->
+  <h5 class="title">If Recurrent Entry, please fill out the form below:</h5>
+  
+  <div class="input-group mb-2">
+    <div class="input-group-prepend">
+      <label for="inputStopDate" class="sr-only">Stop Date</label>
+      <span class="input-group-text" for="inlineForm">Stop Date</span>
+    </div>
+      <input type="date" id="inputStopDate" class="form-control mr-sm-2" name="stop_date">
+  </div>
+
+  <div class="input-group mb-2">
+    <div class="input-group-prepend">
+      <label for="inputFrequencyInt" class="sr-only">Frequency</label>
+      <span class="input-group-text" for="inlineForm">Frequency: Every</span>
+    </div>
+      <input type="number" id="inputFrequencyInt" class="form-control mr-sm-2" name="frequency_int" step=1 value=0 min=0>
+      <div class="input-group-append">
+        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="frequency_unit">
+          <option value="days" value=0>day(s)</option>
+          <option value="weeks" value=0>week(s)</option>
+        </select>
+      </div>
+  </div>
+      <label for="inputFrequencyUnit" class="sr-only">Frequency Unit</label>
+      
   <br>
-  <button type="submit" class="btn btn-success mb-2">Submit</button>
+    <button type="submit" class="btn btn-success mb-2">Submit</button>
+  </div>
 </form>
 
 {% endblock %}

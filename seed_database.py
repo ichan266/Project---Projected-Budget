@@ -25,6 +25,9 @@ for n in range(1,11):
     password = f'test{n}'
     crud.create_user(first_name, last_name, email, password)
 
+#* Miss Piggy *#
+crud.create_user("Miss", "Piggy", "MsPiggy@muppets.com", "kermit") 
+
 ### Seeding Account ###
 for n in range(1,5):
     """Seeding accounts table for user_id 1."""
@@ -41,7 +44,13 @@ for n in range(5,9):
     user_id = 2
     account_type = "Checking"
     account_nickname = f"Nickname{n}"
-    crud.create_account(user_id, account_type, account_nickname) 
+    crud.create_account(user_id, account_type, account_nickname)
+
+#* Miss Piggy *#
+crud.create_account(11, "Checking", "Wedding Fund") # account id = 10
+crud.create_account(11, "Checking", "Shopping - Clothes")
+crud.create_account(11, "Checking", "Shopping - Jewelries") #account id = 12
+crud.create_account(11, "Checking", "Shopping - MakeUp")
 
 
 ### Seeding EntryLog ###
@@ -71,7 +80,6 @@ for n in range (5,10):
                           description, 
                           amount)
 
-
 for n in range (11,15):
     """Seeding recurrent entries into entry_logs table with account_id #3."""
     account_id = 8
@@ -88,3 +96,7 @@ for n in range (11,15):
                           amount,
                           stop_date,
                           frequency)
+
+#* Miss Piggy *#
+crud.create_entry_log(9, datetime.date(2020, 12, 1), "Income", "Gig", 10000)
+crud.create_entry_log(9, datetime.date(2020, 12, 10), "Expense", "Flowers", -1000)
