@@ -32,7 +32,7 @@ for (const item of entryRows) {
       }
       $(sameEntryId).css('background-color', '#7fe6e8');
     }, function() {
-      $(sameEntryId).css('background-color', 'white');
+      $(sameEntryId).css('background-color', '');
     }
   );
 }

@@ -5,17 +5,17 @@
 <div class="font-up-bold text-uppercase alert-success">
   <nav class="navbar justify-content-between" aria-label="breadcrumb">
     <ol class="breadcrumb m-0 alert-success align-items-center">
-      <li class="breadcrumb-item"><a href="/profile">Profile</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Account Details</li>
+      <li class="breadcrumb-item"><a href="/profile">{{ session['user_name'] }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ account.account_nickname }} - {{ account.account_type }}</li>
     </ol>
     <form class="form-inline m-10" action="/logout">
       <button type="submit" class="btn btn-secondary my-2 my-sm-0" name="logout">Log Out</button>
     </form>  
   </nav>
 </div>
-<h1>Welcome! {{ session['user_name'] }}</h1>
+<!-- <h1>Welcome! {{ session['user_name'] }}</h1>
 {% if entries %}
-<h3>{{ account.account_nickname }} - {{ account.account_type }}</h3>
+<h3>{{ account.account_nickname }} - {{ account.account_type }}</h3> -->
 <!-- <h3>Account ID: {{ account.account_id }}</h3> -->
   <table id="transaction_table" class="table table-bordered table-sm">
     <caption>Note: Click on amount to edit.</caption> 

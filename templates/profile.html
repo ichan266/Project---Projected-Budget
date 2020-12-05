@@ -38,26 +38,34 @@
 <br>
 <br>
 <h4 class="title">Create a New Account</h4>
-<form id="create_account" action="/create_account" method="POST">
-  <div class="form-row align-items-center">
-    <div class="col-auto my-2">
-      <label class="mr-sm-2" for="inlineFormCustomSelect">Account Type</label>
-      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="account_type">
-        <option selected>Choose one</option>  
-        <option value="Checking">Checking</option>
-        <option value="Saving">Saving</option>
-        <option value="Other">Other</option>
-      </select>
-    </div>
-    <br>
-    <div class="col-auto my-2">
-      <label class="mr-sm-2" for="account_nickname">Account Nickname (Optional)</label>
-      <input type="text" class="form-control" name="account_nickname" placeholder="Account Nickname">
-    </div>
+<form id="create_account" class="form" action="/create_account" method="POST">
+  <div class="form-group">
+    <div class="form-row align-items-center">
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <label for="inlineFormCustomSelect" class="sr-only">Account Type</label>
+          <span class="input-group-text" for="inlineFormCustomSelect">Account Type</span>
+        </div>
+          <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="account_type">
+            <option selected>Choose one</option>  
+            <option value="Checking">Checking</option>
+            <option value="Saving">Saving</option>
+            <option value="Other">Other</option>
+          </select>
+      </div>
+    
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <label for="inputAccountNickname" class="sr-only">Account Nickname (Optional)</label>
+          <span class="input-group-text" for="inlineForm">Account Nickname</span>
+        </div>
+          <input type="text" class="form-control mr-sm-2" name="account_nickname" placeholder="Optional">
+      </div>
   </div>
     <div class="form-row align-items-center">
       <button type="submit" class="btn btn-success mb-2">Submit</button>
     </div>
+  </div>
 </form>
 {% endblock %}
 

@@ -1,7 +1,11 @@
 body {
   font-family: sans-serif;
-  /* background: url(/static/Thistle.jpg) no-repeat center center;
-  background-size: cover; */
+  background: url(/static/ThistleBackground.jpg) no-repeat center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center 0%;
+  background-size: 100%;
+  background-color: rgb(155, 155, 155);
 }
 
 fieldset {
@@ -18,7 +22,7 @@ fieldset label {
   color:rgb(20, 67, 220);
 }
 
-.form {
+.form, #subtitle {
   width: 100%;
   max-width: 330px;
   padding: 15px;
@@ -29,16 +33,23 @@ fieldset label {
     display: inline-block;
   }
 
-#create_transaction {
+#create_transaction, #create_account {
   width: 100%;
   max-width: 555px;
   padding: 0;
   margin: 0;
 }
 
+#main-container {
+  background-color: rgba(255, 255, 255, 0.493);
+}
 
 #note {
   font-size: smaller;
+}
+
+nav {
+  background-color: rgb(69, 58, 95);
 }
 
 .nothing {
@@ -46,7 +57,17 @@ fieldset label {
   color:deeppink;
 }
 
+#transaction_table {
+  background-color: rgba(255, 255, 255, 0.493);
+}
+
+#subtitle {
+  font: bold;
+  color: rgb(111, 25, 151);
+}
+
 .title {
   font: bold;
-  color: rgb(111, 25, 151)
+  color: rgb(111, 25, 151);
 }
+
