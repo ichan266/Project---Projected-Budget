@@ -1,3 +1,7 @@
+.amount {
+
+}
+
 body {
   font-family: sans-serif;
   background: url(/static/ThistleBackground.jpg) no-repeat center;
@@ -71,3 +75,6 @@ nav {
   color: rgb(111, 25, 151);
 }
 
+.form-label {
+  width: 160px;
+}

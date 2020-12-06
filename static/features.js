@@ -3,6 +3,7 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip();
 });
 
+
 // Confirm window for removing specific account or entry
 $('.remove_form').submit( (evt) => {  
   const removeMessage = confirm('Warning! You are about to remove this permanently!');
@@ -11,6 +12,7 @@ $('.remove_form').submit( (evt) => {
     evt.preventDefault();
   }
 });
+
 
 /// *** Account Details Page *** ///
 // Assign rows of entries into a variable, entryRows
@@ -30,7 +32,7 @@ for (const item of entryRows) {
           sameEntryId.push(entry);
         };
       }
-      $(sameEntryId).css('background-color', '#7fe6e8');
+      $(sameEntryId).css('background-color', '#c9ccf7');
     }, function() {
       $(sameEntryId).css('background-color', '');
     }
@@ -50,6 +52,7 @@ const highlightBalanceBelowZero = () => {
 };
 
 highlightBalanceBelowZero();
+
 
 // Edit Entry Form Part 1: 
 // Show the form
