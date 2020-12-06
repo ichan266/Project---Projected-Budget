@@ -99,4 +99,8 @@ for n in range (11,15):
 
 #* Miss Piggy *#
 crud.create_entry_log(9, datetime.date(2020, 12, 1), "Income", "Gig", 10000)
-crud.create_entry_log(9, datetime.date(2020, 12, 10), "Expense", "Flowers", -1000)
+crud.create_entry_log(9, datetime.date(2020, 12, 10), "Expense", "Venue", -20000)
+crud.create_entry_log(9, datetime.date(2020, 12, 30), "Expense", "Flowers", -3000)
+crud.create_entry_log(9, datetime.date(2020, 12, 10), "Expense", "Pretty Clothes", -3000, datetime.date(2021, 3, 31), datetime.timedelta(30))
+crud.create_entry_log(9, datetime.date(2021, 1, 1), "Expense", "Makeup", -3000)
+crud.create_entry_log(9, datetime.date(2021, 1, 20), "Expense", "Band", -6000)
