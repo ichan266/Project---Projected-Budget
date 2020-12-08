@@ -8,7 +8,7 @@ Thistle is a web application that empower users to make better financial plans b
 **Languages** | Python, JavaScript (AJAX), HTML, CSS, SQL <br>
 **Frameworks & Libraries** | Flask, Flask_SQLAlchemy, jQuery, Bootstrap, Jinja, datetime <br>
 **Database & Industry Tools** | PostgreSQL, Git, GitHub, Command Line <br>
-**Tools/Software** | VS Code, Microsoft Office
+**Testing** | Python unittest, coverage
 
 ## Features
 * User can add new accounts with description
