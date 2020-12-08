@@ -6,9 +6,12 @@ Thistle is a web application that provides users a better tool to keep track of 
 
 ## Tech Stack
 
-**Languages** | Python, JavaScript (AJAX), HTML, CSS <br>
-**Frameworks & Libraries** | Flask, Flask_SQLAlchemy, jQuery, Bootstrap, Jinja, datetime <br>
-**Database** | PostgreSQL<br>
+**Languages** | Python, JavaScript (AJAX), HTML, CSS
+
+**Frameworks & Libraries** | Flask, Flask_SQLAlchemy, jQuery, Bootstrap, Jinja, datetime
+
+**Database** | PostgreSQL
+
 **Testing** | Python unittest, coverage
 
 ## Features
@@ -20,6 +23,5 @@ Thistle is a web application that provides users a better tool to keep track of 
 * Negative balances are highlighted in red
 * Edit amount inline
 * Add one-time or recurrent entry
-
 
 ## How to Use
