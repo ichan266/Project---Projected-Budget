@@ -18,12 +18,12 @@ Users can log in or sign up here.
 ![Thistle Homepage](/static/homepage.png)
 
 ### Profile
-After logging in, it will take users to their profile page. User can:
+After logging in, it will take users to their profile page. Users can:
 
 * See their list of accounts
-* Add new accounts with description
+* Add new accounts with descriptions
 * Remove an account
-* Click on an account will take them to the next page, account details
+* Click on an account will direct users to the next page, account details
 
 **Profile Page**
 ![Profile Page](/static/profile_page.png)
@@ -53,9 +53,9 @@ Recurrent entry* with the same entry ID highlighted in the same color. Negative 
 
 ## <a name="installation"></a>Installation
 
-This project was developed in a virtual environment using [VirturalBox](https://www.virtualbox.org/wiki/Downloads) and [Vagrant](https://www.vagrantup.com/downloads.html)
+This project was developed in a virtual environment using [VirtualBox](https://www.virtualbox.org/wiki/Downloads) and [Vagrant](https://www.vagrantup.com/downloads.html)
 
-Other Sysytem requirements include:
+Other system requirements include:
 
 * [Python3](https://www.python.org/downloads/) - Server
 * [PostgreSQL](https://www.postgresql.org/download/) - Database
@@ -95,3 +95,5 @@ $ python3 server.py
 Iris was a pharmacist before enrolling in [Hackbright Software Engineering](https://hackbrightacademy.com/) Boot Camp. She always likes to find different ways to help improve efficiency. She wholeheartedly believes that technology together with software can help us achieve that, and more.
 
 For her capstone project at Hackbright, she created this website to enable users to see their projected budget for the next 12 months. By providing a clearer picture, she believes it can empower users to better foresee their financial future.
+
+Connect with her on [LinkedIn](https://www.linkedin.com/in/iris-kuhn/) and [GitHub](https://github.com/ichan266/)
