@@ -9,6 +9,7 @@ Thistle is a web application that provides users a better tool to keep track of 
 * [Features](#features)
 * [Tech Stack](#tech-stack)
 * [Installation](#installation)
+* [About the Author](#about-author)
 
 ## <a name="features"></a>Features
 
@@ -24,7 +25,7 @@ After logging in, it will take users to their profile page. User can:
 * Remove an account
 * Click on an account will take them to the next page, account details
 
-Profile Page
+**Profile Page**
 ![Profile Page](/static/profile_page.png)
 
 ### Account Details
@@ -34,10 +35,10 @@ Recurrent entry* with the same entry ID highlighted in the same color. Negative 
 ![Highlight recurrent entry](/static/recurrent_entry_highlight.gif)
 *Recurrent entry is an entry with specific time interval, such as every 2 weeks, with a stop date specified by the user. In account details, any recurrent entries will be calculated for a one-year interval from the time of login.
 
-Edit amount inline
+**Edit amount inline**
 ![Edit amount](/static/edit_amount.gif)
 
-Add one-time or recurrent entry using this form
+**Add one-time or recurrent entry using this form**
 ![Create new entry](/static/create_new_transaction.png)
 
 ## <a name="tech-stack"></a>Tech Stack
@@ -87,5 +88,10 @@ $ python3 seed_database.py
 $ python3 server.py
 ```
 
-6. Go to localhost:5000 in your browswer
+6. Go to localhost:5000 in your browser. The website should be up and running! :wink:
 
+## <a name="about-author"></a>About the Author
+
+Iris was a pharmacist before enrolling in [Hackbright Software Engineering](https://hackbrightacademy.com/) Boot Camp. She always likes to find different ways to help improve efficiency. She wholeheartedly believes that technology together with software can help us achieve that, and more.
+
+For her capstone project at Hackbright, she created this website to enable users to see their projected budget for the next 12 months. By providing a clearer picture, she believes it can empower users to better foresee their financial future.
