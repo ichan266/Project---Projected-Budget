@@ -13,6 +13,8 @@ Thistle is a web application that provides users a better tool to keep track of 
 
 ## <a name="features"></a>Features
 
+[Link to Demo on YouTube](https://www.youtube.com/watch?v=G3zVo_hxHpk)
+
 ### Homepage
 Users can log in or sign up here.
 ![Thistle Homepage](/static/homepage.png)
