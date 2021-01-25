@@ -3,6 +3,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import (datetime, date, timedelta)
 from datetime import date
+import os
 
 db = SQLAlchemy()
 
@@ -19,7 +20,7 @@ class User(db.Model):
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
-    password = db.Column(db.String, nullable=False)    
+    password = db.Column(db.String, nullable=False)
 
     accounts = db.relationship('Account')
 
@@ -61,8 +62,9 @@ class EntryLog(db.Model):
     category = db.Column(db.String)
     description = db.Column(db.String)
     amount = db.Column(db.Integer)
-    stop_date = db.Column(db.Date, nullable=True) # new for recurrent entries
-    frequency = db.Column(db.Interval, nullable=True) # new for recurrent entries
+    stop_date = db.Column(db.Date, nullable=True)  # new for recurrent entries
+    # new for recurrent entries
+    frequency = db.Column(db.Interval, nullable=True)
 
     accounts = db.relationship('Account')
 
@@ -70,8 +72,10 @@ class EntryLog(db.Model):
         return f'<Entry Log: entry_id={self.entry_id}, account_id={self.account_id}, date={self.date}, category={self.category}, description={self.description}, amount={self.amount}, stop date={self.stop_date}, frequency={self.frequency}>'
 
 
-def connect_to_db(flask_app, db_uri='postgresql:///pb', echo=True):
-    flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+def connect_to_db(flask_app, echo=True):
+    pguser = os.environ.get("PGUSER")
+    pgpassword = os.environ.get("PGPASSWORD")
+    flask_app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://' + pguser + ':' + pgpassword + '@localhost:5432/pb'
     # flask_app.config['SQLALCHEMY_ECHO'] = echo
     flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -79,7 +83,7 @@ def connect_to_db(flask_app, db_uri='postgresql:///pb', echo=True):
     db.init_app(flask_app)
 
     print('Connected to the db!')
-
+  
 
 if __name__ == '__main__':
     from server import app

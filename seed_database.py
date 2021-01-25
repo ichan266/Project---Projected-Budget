@@ -5,82 +5,85 @@ import os
 import datetime
 # import calendar
 
-import crud, model, server
+import crud
+import model
+from model import (User, Account, EntryLog, db, connect_to_db)
+import server
 
 
 os.system('dropdb pb')
 os.system('createdb pb')
 
-model.connect_to_db(server.app)
-model.db.create_all()
+connect_to_db(server.app)
+db.create_all()
 
 
 ### Seeding User ###
-for n in range(1,11):
+for n in range(1, 11):
     """Seeding users table."""
-    
+
     first_name = f'Bob{n}'
     last_name = f'Bobby{n}'
-    email = f'test{n}@test.com' # A unique email!
+    email = f'test{n}@test.com'  # A unique email!
     password = f'test{n}'
     crud.create_user(first_name, last_name, email, password)
 
 #* Miss Piggy *#
-crud.create_user("Miss", "Piggy", "MsPiggy@muppets.com", "kermit") 
+crud.create_user("Miss", "Piggy", "MsPiggy@muppets.com", "kermit")
 
 ### Seeding Account ###
-for n in range(1,5):
+for n in range(1, 5):
     """Seeding accounts table for user_id 1."""
-    
+
     user_id = 1
     account_type = "Checking"
     account_nickname = f"Nickname{n}"
     crud.create_account(user_id, account_type, account_nickname)
 
 
-for n in range(5,9):
+for n in range(5, 9):
     """Seeding accounts table for user_id 2."""
-    
+
     user_id = 2
     account_type = "Checking"
     account_nickname = f"Nickname{n}"
     crud.create_account(user_id, account_type, account_nickname)
 
 #* Miss Piggy *#
-crud.create_account(11, "Checking", "Wedding Fund") # account id = 10
+crud.create_account(11, "Checking", "Wedding Fund")  # account id = 10
 crud.create_account(11, "Checking", "Shopping - Clothes")
-crud.create_account(11, "Checking", "Shopping - Jewelries") #account id = 12
+crud.create_account(11, "Checking", "Shopping - Jewelries")  # account id = 12
 crud.create_account(11, "Checking", "Shopping - MakeUp")
 
 
 ### Seeding EntryLog ###
-for n in range (1,5):
+for n in range(1, 5):
     """Seeding entry_logs table with account_id #1."""
     account_id = 1
     date = datetime.date.today() + datetime.timedelta(days=n*10)
     category = 'Income'
     description = f'trial {n}'
     amount = 1000 + (n*100)
-    crud.create_entry_log(account_id, 
-                          date, 
-                          category, 
-                          description, 
+    crud.create_entry_log(account_id,
+                          date,
+                          category,
+                          description,
                           amount)
 
-for n in range (5,10):
+for n in range(5, 10):
     """Seeding entry_logs table with account_id #2."""
     account_id = 2
     date = datetime.date.today() + datetime.timedelta(days=n*21)
     category = 'Income'
     description = f'trial {n}'
     amount = 2000 + (n*200)
-    crud.create_entry_log(account_id, 
-                          date, 
-                          category, 
-                          description, 
+    crud.create_entry_log(account_id,
+                          date,
+                          category,
+                          description,
                           amount)
 
-for n in range (11,15):
+for n in range(11, 15):
     """Seeding recurrent entries into entry_logs table with account_id #3."""
     account_id = 8
     date = datetime.date.today() + datetime.timedelta(n)
@@ -88,19 +91,23 @@ for n in range (11,15):
     description = f'trial {n}'
     amount = 10000 + (n*200)
     stop_date = datetime.date.today() + datetime.timedelta(days=n+80)
-    frequency = datetime.timedelta(weeks=2) #? SQL Alchemy will change this to days
-    crud.create_entry_log(account_id, 
-                          date, 
-                          category, 
-                          description, 
+    # ? SQL Alchemy will change this to days
+    frequency = datetime.timedelta(weeks=2)
+    crud.create_entry_log(account_id,
+                          date,
+                          category,
+                          description,
                           amount,
                           stop_date,
                           frequency)
 
 #* Miss Piggy *#
 crud.create_entry_log(9, datetime.date(2020, 12, 1), "Income", "Gig", 10000)
-crud.create_entry_log(9, datetime.date(2020, 12, 10), "Expense", "Venue", -20000)
-crud.create_entry_log(9, datetime.date(2020, 12, 30), "Expense", "Flowers", -3000)
-crud.create_entry_log(9, datetime.date(2020, 12, 10), "Expense", "Pretty Clothes", -3000, datetime.date(2021, 3, 31), datetime.timedelta(30))
+crud.create_entry_log(9, datetime.date(2020, 12, 10),
+                      "Expense", "Venue", -20000)
+crud.create_entry_log(9, datetime.date(2020, 12, 30),
+                      "Expense", "Flowers", -3000)
+crud.create_entry_log(9, datetime.date(2020, 12, 10), "Expense",
+                      "Pretty Clothes", -3000, datetime.date(2021, 3, 31), datetime.timedelta(30))
 crud.create_entry_log(9, datetime.date(2021, 1, 1), "Expense", "Makeup", -3000)
 crud.create_entry_log(9, datetime.date(2021, 1, 20), "Expense", "Band", -6000)
