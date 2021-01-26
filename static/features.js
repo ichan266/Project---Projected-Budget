@@ -3,7 +3,6 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip();
 });
 
-
 // Confirm window for removing specific account or entry
 $('.remove_form').submit( (evt) => {  
   const removeMessage = confirm('Warning! You are about to remove this permanently!');
@@ -21,6 +20,10 @@ const entryRows = $('tr.entry_rows');
 // Assign projected balances into a variable, projectedBalance
 const projectedBalances = $('td.projected_balance');
 
+// Display Projected Balance with $ and comma separator
+for (const item of projectedBalances) {
+  item.innerText = new Intl.NumberFormat('us-US', {style: 'currency', currency: 'USD'}).format(Number(item.innerText));
+};
 
 // Highlight entries with the same entry_id
 for (const item of entryRows) {
@@ -39,11 +42,10 @@ for (const item of entryRows) {
   );
 }
 
-
 // Highlight projected balances that are below zero
 const highlightBalanceBelowZero = () => {
   for (const item of projectedBalances) {
-    if ((Number(item.innerText.slice(1))) <= 0) {
+    if ((Number(item.innerText.replace(/[^\-0-9\.]+/g, ""))) <= 0) {
       $(item).css('color', 'red');
     } else {
       $(item).css('color', 'black');
@@ -52,7 +54,6 @@ const highlightBalanceBelowZero = () => {
 };
 
 highlightBalanceBelowZero();
-
 
 // Edit Entry Form Part 1: 
 // Show the form
