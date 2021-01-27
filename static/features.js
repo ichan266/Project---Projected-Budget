@@ -1,8 +1,14 @@
-// Enable tooltip
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip();
-});
+//? Declaring Variables //
+// Assign rows of entries into a variable, entryRows
+const entryRows = $('tr.entry_rows');
 
+// Assign all amounts as a list of jQuery elements into a variable, amounts
+const amounts = $('td.amount')
+
+// Assign all projected balances as a list of jQuery elements into a variable, projectedBalance
+const projectedBalances = $('td.projected_balance');
+
+/// *** Profile Page & Account Details Page *** ///
 // Confirm window for removing specific account or entry
 $('.remove_form').submit( (evt) => {  
   const removeMessage = confirm('Warning! You are about to remove this permanently!');
@@ -14,17 +20,7 @@ $('.remove_form').submit( (evt) => {
 
 
 /// *** Account Details Page *** ///
-// Assign rows of entries into a variable, entryRows
-const entryRows = $('tr.entry_rows');
-
-// Assign all amounts as a list of jQuery elements into a variable, amounts
-const amounts = $('td.amount')
-
-// Assign all projected balances as a list of jQuery elements into a variable, projectedBalance
-const projectedBalances = $('td.projected_balance');
-
-
-// Display Amounts and Projected Balances with $ and comma separator
+// Display Balances with $ and comma separator & Highlight in red if negative
 const displayBalances = (jElements) => {
   for (const item of jElements) {
     item.innerText = new Intl.NumberFormat('us-US', {style: 'currency', currency: 'USD', minimumFractionDigits:0}).format(Number(item.innerText));
@@ -36,6 +32,10 @@ const displayBalances = (jElements) => {
   };
 }
 
+// Enable tooltip
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
 
 // Highlight entries with the same entry_id
 for (const item of entryRows) {
@@ -56,13 +56,13 @@ for (const item of entryRows) {
 
 // Highlight projected balances that are below zero in red
 displayBalances(projectedBalances);
-
+// displayBalances(amounts);
 
 // Edit Entry Form Part 1: 
 // Show the form
-for (const item of $('.amount')) {   
+for (const item of amounts) {   
   $(item).on('click', (evt) => {
-    $(this).attr('style', "None");
+    $(this).attr('style', 'None');
     const singleForm = $(evt.target.querySelector('.amount_form'));
     singleForm.show();
     $(evt.target.querySelector('.new_amount')).focus();
@@ -71,7 +71,7 @@ for (const item of $('.amount')) {
 
 // Edit Entry Form Part 2: 
 // Use AJAX to submit data and recalculate projected balance
-for (const item of $('.amount_form')) {
+for (const item of amounts) {
   $(item).submit( (evt) => {
     evt.preventDefault();
     const formInputs = $(evt.target).serialize();
@@ -84,6 +84,7 @@ for (const item of $('.amount_form')) {
         item.querySelector('.projected_balance').innerText = `${balance}`;
       };
       $('.amount_form').hide();
+      displayBalances(projectedBalances);
     });
   });
 };
