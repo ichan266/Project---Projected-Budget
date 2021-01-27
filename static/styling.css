@@ -40,6 +40,19 @@ fieldset label {
   margin: 0;
 }
 
+.profile-title {
+  color: #c2b8f5; 
+}
+
+.profile-title:hover {
+  color: #ddd9f8;
+  text-decoration: none;
+}
+
+.amount {
+  cursor: pointer;
+}
+
 #main-container {
   background-color: rgba(255, 255, 255, 0.493);
 }
