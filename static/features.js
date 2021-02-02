@@ -3,7 +3,8 @@
 const entryRows = $('tr.entry_rows');
 
 // Assign all amounts as a list of jQuery elements into a variable, amounts
-const amounts = $('td.amount')
+const amounts = $('td.amount');   // This is used for inline form with AJAX
+const amountValues = $('span.amount_value');   // This is used for displaying amount correctly
 
 // Assign all projected balances as a list of jQuery elements into a variable, projectedBalance
 const projectedBalances = $('td.projected_balance');
@@ -56,14 +57,16 @@ for (const item of entryRows) {
 
 // Highlight projected balances that are below zero in red
 displayBalances(projectedBalances);
-// displayBalances(amounts);
+displayBalances(amountValues);
+
 
 // Edit Entry Form Part 1: 
 // Show the form
-for (const item of amounts) {   
+for (const item of amounts) {
   $(item).on('click', (evt) => {
     $(this).attr('style', 'None');
     const singleForm = $(evt.target.querySelector('.amount_form'));
+    // console.log(singleForm)
     singleForm.show();
     $(evt.target.querySelector('.new_amount')).focus();
   });
@@ -80,11 +83,34 @@ for (const item of amounts) {
       let balance = 0;
       for (const item of document.querySelectorAll('.entry_rows')) {
         let current_amount = Number(item.querySelector('.amount_value').innerText);
+        // console.log(current_amount);
         balance = current_amount + balance;
+        console.log(balance);
         item.querySelector('.projected_balance').innerText = `${balance}`;
       };
       $('.amount_form').hide();
-      displayBalances(projectedBalances);
+      // displayBalances(projectedBalances);
+      // displayBalances(amountValues);
     });
   });
 };
+
+// Toast Calendar UI
+// var Calendar = tui.Calendar;
+
+// import Calendar from 'tui-calendar'; /* ES6 */
+// import "tui-calendar/dist/tui-calendar.css";
+// import 'tui-date-picker/dist/tui-date-picker.css';
+// import 'tui-time-picker/dist/tui-time-picker.css';
+
+// var Calendar = require('tui-calendar'); /* CommonJS */
+// require("tui-calendar/dist/tui-calendar.css");
+// require("tui-date-picker/dist/tui-date-picker.css");
+// require("tui-time-picker/dist/tui-time-picker.css");
+
+
+
+var cal = new tui.Calendar('#calendar', {
+  usageStatistics: false,
+  defaultView: 'month' // monthly view option
+});

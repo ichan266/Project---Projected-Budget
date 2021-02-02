@@ -4,3 +4,5 @@ secrets.sh
 __pycache__
 htmlcov
 .pytest_cache
+node_modules
+*.bat

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Thistle - Account Details{% endblock %}
 
+
 {% block body %}
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(102, 86, 138);">
   <a class="navbar-brand" href="/">
@@ -25,46 +26,48 @@
 </nav>
 
 {% if entries %}
-  <table id="transaction_table" class="table table-bordered table-sm">
-    <caption class="text-dark">Note: Click on amount to edit.</caption> 
-    <thead>
-      <tr>
-        <th scope="col">Date</th>
-        <th scope="col">Amount</th>
-        <th scope="col">Projected Balance</th>
-        <th scope="col">Category</th>
-        <th scope="col">Description</th>
-        <th scope="col" style="display:none;"></th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      {% set ns = namespace(balance=0) %}
-      {% for entry in entries %}
-        <tr class="entry_rows">
-          <th scope="row" class="entry_date">{{ entry.date }}</td>
-          <td class="amount" data-toggle="tooltip" title="click to edit"><span class="amount_value" style="pointer-events: none">{{ entry.amount }}</span>
-            <form class="amount_form" style="display:none;" method="POST">
-              <input class = "entry_id_edit" type="hidden" name="entry_id" value="{{ entry.entry_id }}">
-              <input class ="new_amount" name="amount" type="number" placeholder="Please enter a new amount">
-              <button type="submit" name="save_button" value="{{ entry.amount }}">Save</button>
-            </form>
-          </td>
-          <td class="projected_balance">{{ entry.amount + ns.balance }}</td>
-          <td>{{ entry.category }}</td>
-          <td>{{ entry.description }}</td>
-          <td id="entry_id" style="display:none;">{{ entry.entry_id }}</td>
-          <td>
-            <form class="remove_form" action="/handle_entry_removal">
-              <input type="hidden" name="account_id" value="{{ account.account_id }}">
-              <button class="btn-sm btn-outline-danger" type="submit" name="entry_id" value="{{ entry.entry_id }}">Remove</button>
-            </form>
-          </td>
-        </tr>
-        {% set ns.balance = entry.amount + ns.balance %}  
-      {% endfor %}  
-    </tbody>
-  </table>
+<table id="transaction_table" class="table table-bordered table-sm">
+  <caption class="text-dark">Note: Click on amount to edit.</caption>
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Projected Balance</th>
+      <th scope="col">Category</th>
+      <th scope="col">Description</th>
+      <th scope="col" style="display:none;"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% set ns = namespace(balance=0) %}
+    {% for entry in entries %}
+    <tr class="entry_rows">
+      <th scope="row" class="entry_date">{{ entry.date }}</td>
+      <td class="amount" data-toggle="tooltip" title="click to edit"><span class="amount_value" id="amount_value"
+          style="pointer-events: none">{{ entry.amount }}</span>
+        <form class="amount_form" style="display:none;" method="POST">
+          <input class="entry_id_edit" type="hidden" name="entry_id" value="{{ entry.entry_id }}">
+          <input class="new_amount" name="amount" type="number" placeholder="Please enter a new amount">
+          <button type="submit" name="save_button" value="{{ entry.amount }}">Save</button>
+        </form>
+      </td>
+      <td class="projected_balance">{{ entry.amount + ns.balance }}</td>
+      <td>{{ entry.category }}</td>
+      <td>{{ entry.description }}</td>
+      <td id="entry_id" style="display:none;">{{ entry.entry_id }}</td>
+      <td>
+        <form class="remove_form" action="/handle_entry_removal">
+          <input type="hidden" name="account_id" value="{{ account.account_id }}">
+          <button class="btn-sm btn-outline-danger" type="submit" name="entry_id"
+            value="{{ entry.entry_id }}">Remove</button>
+        </form>
+      </td>
+    </tr>
+    {% set ns.balance = entry.amount + ns.balance %}
+    {% endfor %}
+  </tbody>
+</table>
 {% else %}
 <div class="nothing">You currently do not have any entries. Please add an entry.</div>
 <br>
@@ -72,7 +75,7 @@
 <br>
 
 <h4 class="title">Create a New Transaction</h4>
-<form id="create_transaction" class="form" action="/create_transaction" method="POST">  
+<form id="create_transaction" class="form" action="/create_transaction" method="POST">
   <div class="form-group">
     <input type="hidden" name="account_id" value="{{ account.account_id }}">
   </div>
@@ -82,66 +85,90 @@
       <div class="input-group-prepend">
         <span class="input-group-text form-label" for="inlineFormCustomSelect">Category</span>
       </div>
-        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="category">
-          <option selected>Choose one</option>  
-          <option value="Income">Income</option>
-          <option value="Expense">Expense</option>
-        </select>  
+      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="category">
+        <option selected>Choose one</option>
+        <option value="Income">Income</option>
+        <option value="Expense">Expense</option>
+      </select>
     </div>
-    
+
     <div class="input-group mb-2">
       <div class="input-group-prepend">
         <label for="inputTransaction" class="sr-only">Amount</label>
         <span class="input-group-text form-label" for="inlineForm">Amount</span>
       </div>
-        <input type="number" id="inputTransaction" class="form-control mr-sm-2" name="amount" placeholder="positive for income; negative for expense" required>
+      <input type="number" id="inputTransaction" class="form-control mr-sm-2" name="amount"
+        placeholder="positive for income; negative for expense" required>
     </div>
-  
+
     <div class="input-group mb-2">
       <div class="input-group-prepend">
         <label for="inputStartDate" class="sr-only">Date</label>
         <span class="input-group-text form-label" for="inlineForm">Date</span>
       </div>
-        <input type="date" id="inputStartDate" class="form-control mr-sm-2" name="date">
+      <input type="date" id="inputStartDate" class="form-control mr-sm-2" name="date">
     </div>
-    
+
     <div class="input-group mb-5">
       <div class="input-group-prepend">
         <label for="inputDescription" class="sr-only">Description</label>
         <span class="input-group-text form-label" for="inlineForm">Description</span>
       </div>
-        <input type="text" id="inputDescription" class="form-control mr-sm-2" name="description" placeholder="optional">
+      <input type="text" id="inputDescription" class="form-control mr-sm-2" name="description" placeholder="optional">
     </div>
 
-<!-- Recurrent Entry -->
-  <h5 class="title">If Recurrent Entry, please fill out the form below:</h5>
-  
-  <div class="input-group mb-2">
-    <div class="input-group-prepend">
-      <label for="inputStopDate" class="sr-only">Stop Date</label>
-      <span class="input-group-text form-label" for="inlineForm">Stop Date</span>
-    </div>
+    <!-- Recurrent Entry -->
+    <h5 class="title">If Recurrent Entry, please fill out the form below:</h5>
+
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <label for="inputStopDate" class="sr-only">Stop Date</label>
+        <span class="input-group-text form-label" for="inlineForm">Stop Date</span>
+      </div>
       <input type="date" id="inputStopDate" class="form-control mr-sm-2" name="stop_date">
-  </div>
-
-  <div class="input-group mb-2">
-    <div class="input-group-prepend">
-      <label for="inputFrequencyInt" class="sr-only">Frequency</label>
-      <span class="input-group-text form-label" for="inlineForm">Frequency: Every</span>
     </div>
-      <input type="number" id="inputFrequencyInt" class="form-control mr-sm-2" name="frequency_int" step=1 value=0 min=0>
+
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <label for="inputFrequencyInt" class="sr-only">Frequency</label>
+        <span class="input-group-text form-label" for="inlineForm">Frequency: Every</span>
+      </div>
+      <input type="number" id="inputFrequencyInt" class="form-control mr-sm-2" name="frequency_int" step=1 value=0
+        min=0>
       <div class="input-group-append">
         <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="frequency_unit">
           <option value="days" value=0>day(s)</option>
           <option value="weeks" value=0>week(s)</option>
         </select>
       </div>
-  </div>
-      <label for="inputFrequencyUnit" class="sr-only">Frequency Unit</label>
-      
-  <br>
+    </div>
+    <label for="inputFrequencyUnit" class="sr-only">Frequency Unit</label>
+
+    <br>
     <button type="submit" class="btn btn-success mb-2">Submit</button>
   </div>
 </form>
 
+<!-- Toast UI -->
+<script src="https://uicdn.toast.com/tui.code-snippet/v1.5.2/tui-code-snippet.min.js"></script>
+<script src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js"></script>
+<script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.min.js"></script>
+<script src="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.js"></script>
+{% endblock %}
+
+{% block after_body %}
+<div id="menu">
+  <span id="menu-navi">
+    <button type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
+    <button type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">
+      <i class="calendar-icon ic-arrow-line-left" data-action="move-prev"></i>
+    </button>
+    <button type="button" class="btn btn-default btn-sm move-day" data-action="move-next">
+      <i class="calendar-icon ic-arrow-line-right" data-action="move-next"></i>
+    </button>
+  </span>
+  <span id="renderRange" class="render-range"></span>
+</div>
+
+<div id="calendar"></div>
 {% endblock %}
