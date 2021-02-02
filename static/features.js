@@ -33,6 +33,18 @@ const displayBalances = (jElements) => {
   };
 }
 
+// Display amounts with income as green and expense as red
+const displayAmounts = (jElements) => {
+  for (const item of jElements) {
+    item.innerText = new Intl.NumberFormat('us-US', {style: 'currency', currency: 'USD', minimumFractionDigits:0}).format(Number(item.innerText));
+    if ((+(item.innerText.replace(/[^\-0-9\.]+/g, ""))) <= 0) {
+      $(item).css('color', 'rgb(243, 135, 34)');
+    } else {
+      $(item).css('color', 'rgb(0, 138, 0)');
+    };
+  };
+}
+
 // Enable tooltip
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();
@@ -57,7 +69,7 @@ for (const item of entryRows) {
 
 // Highlight projected balances that are below zero in red
 displayBalances(projectedBalances);
-displayBalances(amountValues);
+displayAmounts(amountValues);
 
 
 // Edit Entry Form Part 1: 
@@ -66,7 +78,6 @@ for (const item of amounts) {
   $(item).on('click', (evt) => {
     $(this).attr('style', 'None');
     const singleForm = $(evt.target.querySelector('.amount_form'));
-    // console.log(singleForm)
     singleForm.show();
     $(evt.target.querySelector('.new_amount')).focus();
   });
@@ -79,18 +90,16 @@ for (const item of amounts) {
     evt.preventDefault();
     const formInputs = $(evt.target).serialize();
     $.post('/handle_entry_edit', formInputs, (res) => {
-      evt.target.parentElement.querySelector('.amount_value').innerText = res;
+      evt.target.parentElement.querySelector('#amount_value').innerText = res;
       let balance = 0;
       for (const item of document.querySelectorAll('.entry_rows')) {
-        let current_amount = Number(item.querySelector('.amount_value').innerText);
-        // console.log(current_amount);
+        let current_amount = +(item.querySelector('.amount_value').innerText.replace(/[^\-0-9\.]+/g, ''));
         balance = current_amount + balance;
-        console.log(balance);
         item.querySelector('.projected_balance').innerText = `${balance}`;
       };
       $('.amount_form').hide();
-      // displayBalances(projectedBalances);
-      // displayBalances(amountValues);
+      displayBalances(projectedBalances);
+      evt.target.parentElement.querySelector('#amount_value').innerText = new Intl.NumberFormat('us-US', {style: 'currency', currency: 'USD', minimumFractionDigits:0}).format(Number(item.innerText));
     });
   });
 };
@@ -110,7 +119,7 @@ for (const item of amounts) {
 
 
 
-var cal = new tui.Calendar('#calendar', {
-  usageStatistics: false,
-  defaultView: 'month' // monthly view option
-});
+// var cal = new tui.Calendar('#calendar', {
+//   usageStatistics: false,
+//   defaultView: 'month' // monthly view option
+// });
