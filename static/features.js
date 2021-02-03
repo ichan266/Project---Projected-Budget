@@ -90,7 +90,8 @@ for (const item of amounts) {
     evt.preventDefault();
     const formInputs = $(evt.target).serialize();
     $.post('/handle_entry_edit', formInputs, (res) => {
-      evt.target.parentElement.querySelector('#amount_value').innerText = res;
+      evtAmountValue = evt.target.parentElement.querySelector('#amount_value')
+      evtAmountValue.innerText = res;
       let balance = 0;
       for (const item of document.querySelectorAll('.entry_rows')) {
         let current_amount = +(item.querySelector('.amount_value').innerText.replace(/[^\-0-9\.]+/g, ''));
@@ -99,7 +100,7 @@ for (const item of amounts) {
       };
       $('.amount_form').hide();
       displayBalances(projectedBalances);
-      evt.target.parentElement.querySelector('#amount_value').innerText = new Intl.NumberFormat('us-US', {style: 'currency', currency: 'USD', minimumFractionDigits:0}).format(Number(item.innerText));
+      evtAmountValue.innerText = new Intl.NumberFormat('us-US', {style: 'currency', currency: 'USD', minimumFractionDigits:0}).format(Number(item.innerText));
     });
   });
 };
