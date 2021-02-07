@@ -73,15 +73,16 @@ class EntryLog(db.Model):
 
 
 def connect_to_db(flask_app, echo=True):
-    pguser = os.environ.get("USER-pg")
-    pgpassword = os.environ.get("PASSWORD-pg")
-    
-    #* This is for local
-    # flask_app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://' + pguser + ':' + pgpassword + '@localhost:5432/pb'
 
-    #* This is for Deployment
-    flask_app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://' + pguser + ':' + pgpassword + '@ec2-54-90-13-87.compute-1.amazonaws.com:5432/dc9uura5en4oc2'
-    
+    # * This is for local
+    # * pguser = os.environ.get("USER-pg")
+    # * pgpassword = os.environ.get("PASSWORD-pg")
+    # * flask_app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://' + pguser + ':' + pgpassword + '@localhost:5432/pb'
+
+    #! This is for Deployment
+    flask_app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+        "DATABASE_URL")
+
     # flask_app.config['SQLALCHEMY_ECHO'] = echo
     flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -89,7 +90,7 @@ def connect_to_db(flask_app, echo=True):
     db.init_app(flask_app)
 
     print('Connected to the db!')
-  
+
 
 if __name__ == '__main__':
     from server import app
