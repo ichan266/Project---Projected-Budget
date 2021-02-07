@@ -1,1 +1,1 @@
-web: python server.py
+web: python seed_database.py
