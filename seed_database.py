@@ -11,7 +11,7 @@ from model import (User, Account, EntryLog, db, connect_to_db)
 import server
 
 
-os.system('dropdb pb')
+# os.system('dropdb pb')
 os.system('createdb pb')
 
 connect_to_db(server.app)
