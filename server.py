@@ -215,11 +215,11 @@ def not_found(error):
     return "Oops. You got to the 404 page..."
 
 
+local = "-local" in sys.argv
+connect_to_db(app, local=local)
+
 if __name__ == "__main__":
 
-    local = "-local" in sys.argv
-
-    connect_to_db(app, local=local)
     if local:
         app.run(debug=True, host="0.0.0.0")
     else:
