@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import (datetime, date, timedelta)
 from datetime import date
 import os
+import sys
 
 db = SQLAlchemy()
 
@@ -72,16 +73,16 @@ class EntryLog(db.Model):
         return f'<Entry Log: entry_id={self.entry_id}, account_id={self.account_id}, date={self.date}, category={self.category}, description={self.description}, amount={self.amount}, stop date={self.stop_date}, frequency={self.frequency}>'
 
 
-def connect_to_db(flask_app, echo=True):
+def connect_to_db(flask_app, echo=True, local=False):
 
-    # * This is for local
-    # * pguser = os.environ.get("USER-pg")
-    # * pgpassword = os.environ.get("PASSWORD-pg")
-    # * flask_app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://' + pguser + ':' + pgpassword + '@localhost:5432/pb'
-
-    #! This is for Deployment
-    flask_app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-        "DATABASE_URL")
+    if local:
+        pguser = os.environ.get("USER-pg")
+        pgpassword = os.environ.get("PASSWORD-pg")
+        flask_app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://' + \
+            pguser + ':' + pgpassword + '@localhost:5432/pb'
+    else:
+        flask_app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+            "DATABASE_URL")
 
     # flask_app.config['SQLALCHEMY_ECHO'] = echo
     flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -94,5 +95,5 @@ def connect_to_db(flask_app, echo=True):
 
 if __name__ == '__main__':
     from server import app
-
-    connect_to_db(app)
+    local = "-local" in sys.argv
+    connect_to_db(app, local=local)

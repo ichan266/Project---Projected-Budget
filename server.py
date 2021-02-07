@@ -5,6 +5,7 @@ from flask import (Flask, render_template, request, flash, session,
 from jinja2 import StrictUndefined
 import datetime
 import os
+import sys
 
 from model import connect_to_db, db
 import crud
@@ -214,9 +215,11 @@ def not_found(error):
 
 
 if __name__ == "__main__":
-    connect_to_db(app)
-    # * Local
-    # app.run(debug=True, host="0.0.0.0")
 
-    # * Deployment
-    app.run()
+    local = "-local" in sys.argv
+
+    connect_to_db(app, local=local)
+    if local:
+        app.run(debug=True, host="0.0.0.0")
+    else:
+        app.run()

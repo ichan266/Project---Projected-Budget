@@ -1,6 +1,7 @@
 """Script to seed database."""
 
 import os
+import sys
 # import json
 import datetime
 # import calendar
@@ -11,10 +12,13 @@ from model import (User, Account, EntryLog, db, connect_to_db)
 import server
 
 
-# os.system('dropdb pb')
-os.system('createdb pb')
+local = "-local" in sys.argv
 
-connect_to_db(server.app)
+if "-resetdb" in sys.argv:
+    os.system('dropdb pb')
+    os.system('createdb pb')
+
+connect_to_db(server.app, local=local)
 db.create_all()
 
 
