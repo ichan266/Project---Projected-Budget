@@ -215,4 +215,8 @@ def not_found(error):
 
 if __name__ == "__main__":
     connect_to_db(app)
-    app.run(debug=True, host="0.0.0.0")
+    # * Local
+    # app.run(debug=True, host="0.0.0.0")
+
+    # * Deployment
+    app.run()
