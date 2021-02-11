@@ -5,6 +5,7 @@ from flask import (Flask, render_template, request, flash, session,
 from jinja2 import StrictUndefined
 import datetime
 import os
+import sys
 
 from model import connect_to_db, db
 import crud
@@ -18,6 +19,7 @@ if "SECRET_KEY" in os.environ:
 else:
     app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 @app.route("/")
@@ -34,18 +36,18 @@ def check_account():
     email = request.form.get("email")
     password = request.form.get("password")
     user = crud.get_user_by_email(email)
-    
-    if  user == None or password != user.password:
+
+    if user == None or password != user.password:
         flash("Email and password did not match our records. Please try again.")
     else:
         flash("Successfully logged in!")
         session['user_name'] = f"{user.first_name} {user.last_name}"
         session['user_id'] = user.user_id
-        
+
         print(f"THE SESSION FOR USER NAME IS {session['user_name']}")
         print(f"THE SESSION FOR USER ID IS {session['user_id']}")
         print(f"THE SESSION IS {session}")
-        
+
         return redirect("/profile")
 
     return redirect("/")
@@ -81,7 +83,7 @@ def show_profile():
         return redirect("/")
 
     accounts = crud.get_accounts_by_user_id(session['user_id'])
-    
+
     return render_template("profile.html", accounts=accounts)
 
 
@@ -92,9 +94,9 @@ def create_account():
     account_type = request.form.get("account_type")
     account_nickname = request.form.get("account_nickname")
 
-    crud.create_account(user_id = session['user_id'],
-                         account_type = account_type,
-                         account_nickname = account_nickname)
+    crud.create_account(user_id=session['user_id'],
+                        account_type=account_type,
+                        account_nickname=account_nickname)
 
     return redirect("/profile")
 
@@ -116,26 +118,28 @@ def remove_account():
 @app.route("/profile/<account_id>")
 def show_budget(account_id):
     """Show projected budget for a particular account."""
-      
+
     account = crud.get_account_by_account_id(account_id)
     if account == None or session['user_id'] != account.user_id:
         flash("Access denied!!!")
         return redirect('/profile')
-   
-    list_of_recurrent_entries = crud.retrieve_recurrent_entries_by_account_id(account_id)
-    all_recurrent_entries_list = crud.list_of_recurrent_entries_with_all_dates(list_of_recurrent_entries)
-    
+
+    list_of_recurrent_entries = crud.retrieve_recurrent_entries_by_account_id(
+        account_id)
+    all_recurrent_entries_list = crud.list_of_recurrent_entries_with_all_dates(
+        list_of_recurrent_entries)
+
     single_entries = crud.get_entry_logs_by_account_id(account_id)
     complete_list = single_entries + all_recurrent_entries_list
 
     def sortfxn(entry):
         return entry.date
-    
+
     complete_list.sort(key=sortfxn)
 
     return render_template("account_details.html",
-                            account = account,
-                            entries = complete_list)
+                           account=account,
+                           entries=complete_list)
 
 
 @app.route("/create_transaction", methods=["POST"])
@@ -152,20 +156,21 @@ def create_transaction():
         stop_date = date
     frequency_int = int(request.form.get("frequency_int"))
     frequency_unit = request.form.get("frequency_unit")
-    frequency = crud.convert_frequency_to_num_of_day(frequency_int, frequency_unit)
+    frequency = crud.convert_frequency_to_num_of_day(
+        frequency_int, frequency_unit)
     if frequency_int == 0:
         frequency = None
 
-    crud.create_entry_log(account_id, 
-                          date, 
-                          category, 
-                          description, 
+    crud.create_entry_log(account_id,
+                          date,
+                          category,
+                          description,
                           amount,
                           stop_date,
                           frequency)
-  
+
     return redirect(f"/profile/{account_id}")
-   
+
 
 @app.route("/handle_entry_edit", methods=["POST"])
 def edit_entry():
@@ -173,7 +178,7 @@ def edit_entry():
 
     entry_id = request.form.get('entry_id')
     new_amount = request.form.get('amount')
-    crud.edit_entry_amount_by_entry_id(entry_id, new_amount)    
+    crud.edit_entry_amount_by_entry_id(entry_id, new_amount)
 
     return new_amount
 
@@ -210,6 +215,12 @@ def not_found(error):
     return "Oops. You got to the 404 page..."
 
 
+local = "-local" in sys.argv
+connect_to_db(app, local=local)
+
 if __name__ == "__main__":
-    connect_to_db(app)
-    app.run(debug=True, host="0.0.0.0")
+
+    if local:
+        app.run(debug=True, host="0.0.0.0")
+    else:
+        app.run()

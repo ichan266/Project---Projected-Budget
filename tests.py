@@ -4,7 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 import datetime
 
 from server import app
-import crud, model
+import crud
+import model
 
 
 class ProjectTestsHomepage(TestCase):
@@ -16,12 +17,12 @@ class ProjectTestsHomepage(TestCase):
         self.client = app.test_client()
         app.config["TESTING"] = True
 
-   
     def test_index(self):
         """Test homepage page."""
 
         result = self.client.get("/")
-        self.assertIn(b"Empower You to Better Foresee Your Financial Future", result.data)
+        self.assertIn(
+            b"Empower You to Better Foresee Your Financial Future", result.data)
 
 
 class ProjectTestsLogInProfileAccountDetails(TestCase):
@@ -35,13 +36,13 @@ class ProjectTestsLogInProfileAccountDetails(TestCase):
         app.config["SECRET_KEY"] = 'key'
 
         os.system("createdb testpb")
-        
+
         model.connect_to_db(app, "postgresql:///testpb")
         model.db.create_all()
         mock_data()    # def mock_data is close to the bottom of this page
 
+    # Database ### - like unit test
 
-    ### Database ###
     def test_crud_user_in_database(self):
         """Test database by looking up a user by using a function defined in crud."""
 
@@ -50,57 +51,58 @@ class ProjectTestsLogInProfileAccountDetails(TestCase):
         self.assertEqual(test_user.user_id, 1)
         self.assertEqual(test_user.email, test_user_email)
 
-
     ### Log In Page ###
+
     def test_successful_login(self):
         """Test login with matched email and password for successful login."""
 
         result = self.client.post("/confirm_account",
-                                  data={"email": "randomly@random", 
+                                  data={"email": "randomly@random",
                                         "password": "randomly123"},
                                   follow_redirects=True)
         self.assertIn(b"Successfully logged in!", result.data)
-        self.assertNotIn(b"Email and password did not match our records.", result.data)
-        
-    
+        self.assertNotIn(
+            b"Email and password did not match our records.", result.data)
+
     def test_failed_login(self):
         """Test login with unmatched email and password for unsuccessful login."""
 
         result = self.client.post("/confirm_account",
-                                  data={"email": "jon@jon", 
+                                  data={"email": "jon@jon",
                                         "password": "abc"},
                                   follow_redirects=True)
-        self.assertIn(b"Email and password did not match our records.", result.data)
+        self.assertIn(
+            b"Email and password did not match our records.", result.data)
         self.assertNotIn(b"Successfully logged in!", result.data)
-
 
     def test_successful_creating_new_user(self):
         """Test to successfully create a new user."""
 
         result = self.client.post("/create_user",
-                                  data={"first_name": "Water", 
-                                        "last_name": "Melon", 
-                                        "email": "water@melon", 
+                                  data={"first_name": "Water",
+                                        "last_name": "Melon",
+                                        "email": "water@melon",
                                         "password": "water123"},
                                   follow_redirects=True)
         self.assertIn(b"Account Created!", result.data)
-        self.assertNotIn(b"Account already exists. Please try again.", result.data)
-
+        self.assertNotIn(
+            b"Account already exists. Please try again.", result.data)
 
     def test_failed_creating_user(self):
         """Test to unsuccessfully create new account (email already in database)."""
 
         result = self.client.post("/create_user",
-                                  data={"first_name": "Water", 
-                                        "last_name": "Melon", 
-                                        "email": "johnny@john", 
+                                  data={"first_name": "Water",
+                                        "last_name": "Melon",
+                                        "email": "johnny@john",
                                         "password": "water123"},
                                   follow_redirects=True)
-        self.assertIn(b"Account already exists. Please try again.", result.data)
+        self.assertIn(
+            b"Account already exists. Please try again.", result.data)
         self.assertNotIn(b"Account Created!", result.data)
 
-
     ### Profile Page ###
+
     def test_profile_page(self):
         """Test successful login and redirect to profile page."""
 
@@ -112,7 +114,6 @@ class ProjectTestsLogInProfileAccountDetails(TestCase):
         result = self.client.get("/profile")
         self.assertIn(b"Hi! Jane Doe", result.data)
 
-
     def test_profile_page_with_account_name(self):
         """Test to see if correct account name and account name displays 
         on profile page correctly."""
@@ -121,11 +122,10 @@ class ProjectTestsLogInProfileAccountDetails(TestCase):
             with test_client.session_transaction() as sess:
                 sess["user_name"] = "Randomly Random"
                 sess["user_id"] = 3
-        
+
         result = self.client.get("/profile")
         self.assertIn(b"Hi! Randomly Random", result.data)
         self.assertIn(b"testing3 - Other", result.data)
-
 
     def test_profile_page_with_no_account(self):
 
@@ -133,11 +133,10 @@ class ProjectTestsLogInProfileAccountDetails(TestCase):
             with test_client.session_transaction() as sess:
                 sess["user_name"] = "Honey Dew"
                 sess["user_id"] = 4
-        
+
         result = self.client.get("/profile")
         self.assertIn(b"Hi! Honey Dew", result.data)
         self.assertIn(b"You currently do not have any accounts.", result.data)
-
 
     def test_creating_new_account(self):
         """Test to create a new account. 
@@ -149,14 +148,14 @@ class ProjectTestsLogInProfileAccountDetails(TestCase):
                 sess["user_id"] = 4
 
         result = self.client.post("/create_account",
-                                  data={"account_type": "Saving", 
+                                  data={"account_type": "Saving",
                                         "account_nickname": "Honey's first account"},
                                   follow_redirects=True)
         self.assertIn(b"first", result.data)
         self.assertNotIn(b"Please add an account.", result.data)
 
-
     ### Acount Details Page ###
+
     def test_entries_displayed(self):
         """Test if entries is displayed correctly with correct user."""
 
@@ -172,7 +171,6 @@ class ProjectTestsLogInProfileAccountDetails(TestCase):
         self.assertIn(b"Saving", result.data)
         self.assertIn(b"500", result.data)
 
-
     def test_creating_new_transaction(self):
         """Test to create a new transaction."""
 
@@ -183,17 +181,16 @@ class ProjectTestsLogInProfileAccountDetails(TestCase):
         today = datetime.date.today()
 
         result = self.client.post("/create_transaction",
-                                 data={"account_id": 2, 
-                                       "date": today, 
-                                       "category": "Saving", 
-                                       "description": "unittest",
-                                       "amount": 12345, 
-                                       "frequency_int": 0,
-                                       "frequency_unit": "days"},
-                                 follow_redirects=True)
+                                  data={"account_id": 2,
+                                        "date": today,
+                                        "category": "Saving",
+                                        "description": "unittest",
+                                        "amount": 12345,
+                                        "frequency_int": 0,
+                                        "frequency_unit": "days"},
+                                  follow_redirects=True)
         self.assertIn(b"12345", result.data)
         self.assertIn(b"unittest", result.data)
-
 
     ### Removal ###
     """ Note: Due to use of confirmation windows with JavaScript, 
@@ -212,7 +209,7 @@ class ProjectTestsLogInProfileAccountDetails(TestCase):
         result = self.client.get("/profile")
         self.assertIn(b"Hi! Johnny John", result.data)
         self.assertNotIn(b"testing1", result.data)
-      
+
     #* Remove Entry *#
     def test_crud_removing_entry(self):
         """Test for removing an entry with a function in crud."""
@@ -227,8 +224,8 @@ class ProjectTestsLogInProfileAccountDetails(TestCase):
         self.assertIn(b"Jane", result.data)
         self.assertNotIn(b"testing2", result.data)
 
-
     ### Log Out ###
+
     def test_logout(self):
         """Test logout route."""
 
@@ -242,8 +239,7 @@ class ProjectTestsLogInProfileAccountDetails(TestCase):
             self.assertNotIn(b'user_name', sess)
             self.assertNotIn(b"user_id", sess)
             self.assertIn(b'You are logged out.', result.data)
-    
-    
+
     def tearDown(self):
         """Tear down test."""
 
@@ -269,12 +265,13 @@ def mock_data():
     future_date = datetime.date.today() + datetime.timedelta(120)
 
     crud.create_entry_log(1, n, "Income", "testing1: x1", 500)
-    crud.create_entry_log(2, n, "Income", "testing2: with q20Days", 1000, future_date, datetime.timedelta(20))
+    crud.create_entry_log(2, n, "Income", "testing2: with q20Days",
+                          1000, future_date, datetime.timedelta(20))
     crud.create_entry_log(3, n, "Expense", "desc-testing3", -500)
 
 
 # Automate all test
 if __name__ == "__main__":
     import unittest
-   
+
     unittest.main()
