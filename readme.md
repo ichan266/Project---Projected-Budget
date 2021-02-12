@@ -6,26 +6,29 @@ Thistle is a web application that provides users a better tool to keep track of 
 
 ## Contents
 
-* [Features](#features)
-* [Tech Stack](#tech-stack)
-* [Installation](#installation)
-* [About the Author](#about-author)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Installation](#installation)
+- [About the Author](#about-author)
 
 ## <a name="features"></a>Features
 
-[Link to Demo on YouTube](https://www.youtube.com/watch?v=G3zVo_hxHpk)
+[Demo on YouTube](https://www.youtube.com/watch?v=G3zVo_hxHpk)
+[Deployment Website](https://hb-thistle.herokuapp.com/)
 
 ### Homepage
+
 Users can log in or sign up here.
 ![Thistle Homepage](/static/homepage.png)
 
 ### Profile
+
 After logging in, it will take users to their profile page. Users can:
 
-* See their list of accounts
-* Add new accounts with descriptions
-* Remove an account
-* Click on an account will direct users to the next page, account details
+- See their list of accounts
+- Add new accounts with descriptions
+- Remove an account
+- Click on an account will direct users to the next page, account details
 
 **Profile Page**
 ![Profile Page](/static/profile_page.png)
@@ -59,33 +62,38 @@ This project was developed in a virtual environment using [VirtualBox](https://w
 
 Other system requirements include:
 
-* [Python3](https://www.python.org/downloads/) - Server
-* [PostgreSQL](https://www.postgresql.org/download/) - Database
+- [Python3](https://www.python.org/downloads/) - Server
+- [PostgreSQL](https://www.postgresql.org/download/) - Database
 
 Once system requirements above are met, please follow the following steps:
 
 1. Clone this repo
+
 ```
 $ git clone https://github.com/ichan266/Project---Projected-Budget.git
 ```
 
 2. Create and activate a virtual environment
+
 ```
 $ virtualenv env
 $ source env/bin/activate
 ```
 
 3. Install dependencies
+
 ```
 $ pip3 install -r requirements.txt
 ```
 
 4. Seed database: this repo comes with seed_database.py. Simply run this command in the terminal
+
 ```
 $ python3 seed_database.py
 ```
 
 5. Start the server
+
 ```
 $ python3 server.py
 ```

@@ -10,6 +10,14 @@ body {
   background-color: rgb(155, 155, 155);
 }
 
+.logo {
+  width: 50px;
+}
+
+.container.footer {
+  padding: 30px;
+}
+
 fieldset {
   margin-top: 1em;
   margin-bottom: 1em;
