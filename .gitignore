@@ -7,3 +7,4 @@ htmlcov
 node_modules
 *.bat
 Procfile.windows
+.vscode

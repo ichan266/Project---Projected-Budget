@@ -14,10 +14,7 @@ import crud
 #! in the terminal before starting the server
 
 app = Flask(__name__)
-if "SECRET_KEY" in os.environ:
-    app.secret_key = os.environ["SECRET_KEY"]
-else:
-    app.secret_key = "dev"
+app.secret_key = os.environ["SECRET_KEY"]
 app.jinja_env.undefined = StrictUndefined
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
