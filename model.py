@@ -23,9 +23,13 @@ class User(db.Model):
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
-    password = db.Column(db.String, nullable=False)
+    password = db.Column(db.String, nullable=False)  # 'd password value
 
-    def set_password(self, password):
+    def __init__(self, first_name, last_name, email, password):
+        super().__init__()
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
         self.password = generate_password_hash(
             method='pbkdf2:sha512:150000', password=password
         )
