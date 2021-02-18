@@ -5,6 +5,8 @@ from datetime import (datetime, date, timedelta)
 from datetime import date
 import os
 import sys
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 db = SQLAlchemy()
 
@@ -22,6 +24,14 @@ class User(db.Model):
     last_name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
+
+    def set_password(self, password):
+        self.password = generate_password_hash(
+            method='pbkdf2:sha512:150000', password=password
+        )
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
 
     accounts = db.relationship('Account')
 

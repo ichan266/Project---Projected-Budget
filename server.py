@@ -34,7 +34,7 @@ def check_account():
     password = request.form.get("password")
     user = crud.get_user_by_email(email)
 
-    if user == None or password != user.password:
+    if user == None or not user.check_password(password):
         flash("Email and password did not match our records. Please try again.")
     else:
         flash("Successfully logged in!")
