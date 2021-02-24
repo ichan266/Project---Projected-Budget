@@ -26,6 +26,13 @@ def homepage():
     return render_template("homepage.html")
 
 
+@app.route("/aboutme")
+def aboutme():
+    """Render aboutme.html."""
+
+    return render_template("/aboutme.html")
+
+
 @app.route("/confirm_account", methods=["POST"])
 def check_account():
     """Confirm account and take user to welcome page."""

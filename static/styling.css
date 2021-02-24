@@ -80,6 +80,17 @@ nav {
   color:deeppink;
 }
 
+img#portrait {
+  width: 200px;
+  border-radius: 100px;
+}
+
+#aboutme {
+  align-items: center;
+  border: 20px;
+  padding: 40px;
+}
+
 #transaction_table {
   background-color: rgba(255, 255, 255, 0.493);
 }
@@ -96,4 +107,13 @@ nav {
 
 .form-label {
   width: 160px;
+}
+
+.warning {
+  font-size: large;
+  color:deeppink;
+}
+
+p {
+  margin: 10px;
 }
