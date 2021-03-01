@@ -13,8 +13,7 @@ const projectedBalances = $('td.projected_balance');
 /// *** Homepage - Sign-Up Password Confirmation *** ///
 $('#create_user').submit((evt) => {
   if ($('#new_password').val() !== $('#new_password_conf').val()) {
-    const unMatchPW = alert('Passwords do not match. Please try again.');
-    unMatchPW;
+    alert('Passwords do not match. Please try again.');
     evt.preventDefault();
   } 
 })

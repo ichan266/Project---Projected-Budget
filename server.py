@@ -42,9 +42,9 @@ def check_account():
     user = crud.get_user_by_email(email)
 
     if user == None or not user.check_password(password):
-        flash("Email and password did not match our records. Please try again.")
+        flash("Email and password did not match our records. Please try again.", "danger")
     else:
-        flash("Successfully logged in!")
+        flash("Successfully logged in!", "success")
         session['user_name'] = f"{user.first_name} {user.last_name}"
         session['user_id'] = user.user_id
 
@@ -68,15 +68,15 @@ def register_user():
     new_password_conf = request.form.get("new_password_conf")
 
     if crud.get_user_by_email(email) != None:
-        flash("Account already exists. Please try again.")
+        flash("Account already exists. Please try again.", "danger")
     elif new_password == new_password_conf:
         user = crud.create_user(first_name, last_name, email, new_password)
         session['user_name'] = f"{user.first_name} {user.last_name}"
         session['user_id'] = user.user_id
-        flash("Account Created!")
+        flash("Account Created!", "success")
         return redirect("/profile")
     else:
-        flash("Passwords do not match. Please try again.")
+        flash("Passwords do not match. Please try again.", "danger")
 
     return redirect("/")
 
@@ -86,7 +86,7 @@ def show_profile():
     """Show user profile with all user's accounts."""
 
     if session.get("user_id") == None:
-        flash("Please Log In")
+        flash("Please Log In", "info")
         return redirect("/")
 
     accounts = crud.get_accounts_by_user_id(session['user_id'])
@@ -128,7 +128,7 @@ def show_budget(account_id):
 
     account = crud.get_account_by_account_id(account_id)
     if account == None or session['user_id'] != account.user_id:
-        flash("Access denied!!!")
+        flash("Access denied!!!", "danger")
         return redirect('/profile')
 
     list_of_recurrent_entries = crud.retrieve_recurrent_entries_by_account_id(
@@ -211,7 +211,7 @@ def process_logout():
 
     session.pop("user_name", None)
     session.pop("user_id", None)
-    flash("You are logged out.")
+    flash("You are logged out.", "info")
     print(f"SESSION SHOULD BE RESEST TO {session}")
 
     return redirect("/")

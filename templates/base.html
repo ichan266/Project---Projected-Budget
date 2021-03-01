@@ -24,9 +24,17 @@
     crossorigin="anonymous"></script>
   <section id="main-container" class="centering-content container">
     {% for msg in get_flashed_messages() %}
-    <p class="flash-msg">
-      {{ msg }}
-    </p>
+    <div class="flash-msg">
+      {% with msg = get_flashed_messages(with_categories=true) %}
+      {% if msg %}
+      {% for category, message in msg %}
+      <div class="alert alert-{{ category }}">
+        <p>{{ message }}</p>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    </div>
     {% endfor %}
     {% block body %}{% endblock %}
     {% block after_body %}{% endblock %}
