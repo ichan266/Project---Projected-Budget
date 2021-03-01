@@ -64,16 +64,19 @@ def register_user():
     first_name = request.form.get("first_name")
     last_name = request.form.get("last_name")
     email = request.form.get("email")
-    password = request.form.get("password")
+    new_password = request.form.get("new_password")
+    new_password_conf = request.form.get("new_password_conf")
 
     if crud.get_user_by_email(email) != None:
         flash("Account already exists. Please try again.")
-    else:
-        user = crud.create_user(first_name, last_name, email, password)
+    elif new_password == new_password_conf:
+        user = crud.create_user(first_name, last_name, email, new_password)
         session['user_name'] = f"{user.first_name} {user.last_name}"
         session['user_id'] = user.user_id
         flash("Account Created!")
         return redirect("/profile")
+    else:
+        flash("Passwords do not match. Please try again.")
 
     return redirect("/")
 
