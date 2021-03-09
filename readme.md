@@ -6,10 +6,14 @@ Thistle is a web application that provides users a better tool to keep track of 
 
 ## Contents
 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Installation](#installation)
-- [About the Author](#about-author)
+- [Contents](#contents)
+- [<a name="features"></a>Features](#features)
+  - [Homepage](#homepage)
+  - [Profile](#profile)
+  - [Account Details](#account-details)
+- [<a name="tech-stack"></a>Tech Stack](#tech-stack)
+- [<a name="installation"></a>Installation](#installation)
+- [<a name="about-author"></a>About the Author](#about-the-author)
 
 ## <a name="features"></a>Features
 
@@ -18,7 +22,9 @@ Thistle is a web application that provides users a better tool to keep track of 
 
 ### Homepage
 
-Users can log in or sign up here.
+- Users can log in or sign up here.
+- Storage of password in database is hashed using Werkzeug security
+
 ![Thistle Homepage](/static/homepage.png)
 
 ### Profile
@@ -58,9 +64,9 @@ Recurrent entry* with the same entry ID highlighted in the same color. Negative 
 
 ## <a name="installation"></a>Installation
 
-This project was developed in a virtual environment using [VirtualBox](https://www.virtualbox.org/wiki/Downloads) and [Vagrant](https://www.vagrantup.com/downloads.html)
+This project was created on Windows.
 
-Other system requirements include:
+System requirements include:
 
 - [Python3](https://www.python.org/downloads/) - Server
 - [PostgreSQL](https://www.postgresql.org/download/) - Database
@@ -70,40 +76,42 @@ Once system requirements above are met, please follow the following steps:
 1. Clone this repo
 
 ```
-$ git clone https://github.com/ichan266/Project---Projected-Budget.git
+git clone https://github.com/ichan266/Project---Projected-Budget.git
 ```
 
 2. Create and activate a virtual environment
 
 ```
-$ virtualenv env
-$ source env/bin/activate
+virtualenv env
+env\Scripts\activate
 ```
 
 3. Install dependencies
 
 ```
-$ pip3 install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 4. Seed database: this repo comes with seed_database.py. Simply run this command in the terminal
 
 ```
-$ python3 seed_database.py
+python3 seed_database.py
 ```
 
 5. Start the server
 
 ```
-$ python3 server.py
+python3 server.py
 ```
 
 6. Go to localhost:5000 in your browser. The website should be up and running! :wink:
 
 ## <a name="about-author"></a>About the Author
 
-Iris was a pharmacist before enrolling in [Hackbright Software Engineering](https://hackbrightacademy.com/) Boot Camp. She always likes to find different ways to help improve efficiency. She wholeheartedly believes that technology together with software can help us achieve that, and more.
+Iris was a hospital pharmacist before enrolling in [Hackbright Software Engineering](https://hackbrightacademy.com/) Software Engineering Boot Camp. She always likes to find different ways to help improve efficiency. She wholeheartedly believes that technology together with software can help us achieve that, and more.
 
 For her capstone project at Hackbright, she created this website to enable users to see their projected budget for the next 12 months. By providing a clearer picture, she believes it can empower users to better foresee their financial future.
 
-Connect with her on [LinkedIn](https://www.linkedin.com/in/iris-kuhn/) and [GitHub](https://github.com/ichan266/)
+Since her graduation from Hackbright in December 2020, she has been continuing her effort in improving this project. You can find her project website at https://hb-thistle.herokuapp.com/
+
+Connect with her on [LinkedIn](https://www.linkedin.com/in/iris-kuhn/), [GitHub](https://github.com/ichan266/), and [Twitter](https://twitter.com/ichan266)

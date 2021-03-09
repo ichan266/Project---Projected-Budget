@@ -117,3 +117,7 @@ img#portrait {
 p {
   margin: 10px;
 }
+
+.alert {
+  margin-bottom: 0.5rem;
+}
