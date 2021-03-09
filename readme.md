@@ -92,16 +92,22 @@ env\Scripts\activate
 pip3 install -r requirements.txt
 ```
 
-4. Seed database: this repo comes with seed_database.py. Simply run this command in the terminal
+4. Seed database: this repo comes with seed_database.py. Simply run this command in the terminal.
 
 ```
-python3 seed_database.py
+python3 seed_database.py -local
+```  
+
+Please note once the database is seeded, it will need to be reset. Add `-resetdb` in addition to the command above:
+
+```
+python3 seed_database.py -local -resetdb
 ```
 
 5. Start the server
 
 ```
-python3 server.py
+python3 server.py -local
 ```
 
 6. Go to localhost:5000 in your browser. The website should be up and running! :wink:
