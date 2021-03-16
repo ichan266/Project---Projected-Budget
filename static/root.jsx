@@ -15,7 +15,6 @@ function About() {
   return <div> A tiny react demo site </div>
 }
 
-
 function SearchBar() {
   return (
     <div>
@@ -29,6 +28,43 @@ function Search() {
     <div> 
       Search for some stuff
       <SearchBar />
+    </div>
+  )
+}
+// * Here, we call the SearchBar component. So we can break things up when it gets too big
+
+function LogIn() {
+
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+
+  function handleLogin(evt) {
+    evt.preventDefault();
+    const options = {'method': 'POST'}
+    fetch('/api/login', options)
+  }
+
+  function handleEmailChange(evt) {
+    // let what_they_just_typed = evt.target.value
+    // console.log(what_they_just_typed)
+    setEmail(evt.target.value)
+  }
+
+  function handlePasswordChange(evt) {
+    // let what_they_just_typed = evt.target.value
+    // console.log(what_they_just_typed)
+    setPassword(evt.target.value)
+  }
+
+  return (
+    <div>
+      <form onSubmit={handleLogin}>
+        Username:
+        <input value={email} onChange={handleEmailChange} type="text"></input>
+        Password:
+        <input value={password} onChange={handlePasswordChange} type="text"></input>
+        <button>Login</button>
+      </form>
     </div>
   )
 }
@@ -48,10 +84,17 @@ function App() {
             <li>
               <Link to="/search"> Search </Link> 
             </li>
+            <li>
+              <Link to="/login"> Login </Link> 
+            </li>
           </ul>
         </nav>
 
         <Switch>
+          <Route path="/login">
+            <LogIn />
+          </Route>
+          
           <Route path="/about">
             <About />
           </Route>
@@ -75,6 +118,13 @@ ReactDOM.render(<App />, document.getElementById('root'));
 //* `Link` only changes in the URL but there was not HTTP request sent to the server
 
 // $ 3/14/21
-// $ What pages do I want to have for the users, ie. what is my main components
-// $ There are stuff you want to render in every page (just like base.html), such as nav bar
+// @ What pages do I want to have for the users, ie. what is my main components
+// @ There are stuff you want to render in every page (just like base.html), such as nav bar
 // ! Make sure after you write the link, you also need to put Route and call the component
+
+// $ 3/15/21
+// @ Start off with building one component for each view for my site
+// @ We will now pass information with JSON
+// @ ~ Make sure to check out the mdn doc for fetch! Fetch is vanilla JS
+// @ https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+// @ fetch('/api/login') makes a GET request to that URL

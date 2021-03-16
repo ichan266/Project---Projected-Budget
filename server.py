@@ -17,6 +17,14 @@ app = Flask(__name__)
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
+@app.route("/api/login")
+def login():
+    return "hi"
+
+
+@app.route("/login")
+@app.route("/about")
+@app.route("/search")
 @app.route("/")
 def root():
     """Render homepage."""
