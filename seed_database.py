@@ -53,11 +53,11 @@ for n in range(5, 9):
     account_nickname = f"Nickname{n}"
     crud.create_account(user_id, account_type, account_nickname)
 
-#* Miss Piggy *#
+#@ Miss Piggy @#
 crud.create_account(11, "Checking", "Wedding Fund")  # account id = 10
-crud.create_account(11, "Checking", "Shopping - Clothes")
-crud.create_account(11, "Checking", "Shopping - Jewelries")  # account id = 12
-crud.create_account(11, "Checking", "Shopping - MakeUp")
+# crud.create_account(11, "Checking", "Shopping - Clothes")
+# crud.create_account(11, "Checking", "Shopping - Jewelries")  # account id = 12
+# crud.create_account(11, "Checking", "Shopping - MakeUp")
 
 
 ### Seeding EntryLog ###
@@ -105,7 +105,7 @@ for n in range(11, 15):
                           stop_date,
                           frequency)
 
-#* Miss Piggy *#
+#@ Miss Piggy @#
 crud.create_entry_log(9, datetime.date.today(), "Income", "Gig", 10000)
 crud.create_entry_log(9, datetime.date.today(),
                       "Expense", "Venue", -20000)
@@ -117,3 +117,5 @@ crud.create_entry_log(9, (datetime.date.today() +
                           datetime.timedelta(days=40)), "Expense", "Makeup", -3000)
 crud.create_entry_log(9, (datetime.date.today() +
                           datetime.timedelta(days=50)), "Expense", "Band", -6000)
+crud.create_entry_log(9, (datetime.date.today() +
+                          datetime.timedelta(days=120)), "Income", "Sell the Theater", 100000)
