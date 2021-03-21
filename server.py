@@ -17,8 +17,13 @@ app = Flask(__name__)
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
-@app.route("/api/login")
+@app.route("/api/login", methods=["POST"])
 def login():
+    data = request.get_json()  # * request.get_json() is a built-in flask object
+    print('I GOT SOME DATA!')
+    print(data)
+    email = data["email"]
+    password = data["password"]
     return "hi"
 
 

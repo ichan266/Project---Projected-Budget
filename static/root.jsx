@@ -40,19 +40,33 @@ function LogIn() {
 
   function handleLogin(evt) {
     evt.preventDefault();
-    const options = {'method': 'POST'}
-    fetch('/api/login', options)
+    const data = {
+      email: email,
+      password: password
+    }
+    // console.log(email)
+    // console.log(password)
+    // alert('you submitted the form')
+
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(data),  
+      headers: {  
+        'Content-Type': 'application/json'
+      }
+    } 
+    fetch('/api/login', options) 
   }
 
   function handleEmailChange(evt) {
-    // let what_they_just_typed = evt.target.value
-    // console.log(what_they_just_typed)
+    let what_they_just_typed = evt.target.value
+    console.log(what_they_just_typed)
     setEmail(evt.target.value)
   }
 
   function handlePasswordChange(evt) {
-    // let what_they_just_typed = evt.target.value
-    // console.log(what_they_just_typed)
+    let what_they_just_typed = evt.target.value
+    console.log(what_they_just_typed)
     setPassword(evt.target.value)
   }
 
@@ -125,6 +139,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // $ 3/15/21
 // @ Start off with building one component for each view for my site
 // @ We will now pass information with JSON
-// @ ~ Make sure to check out the mdn doc for fetch! Fetch is vanilla JS
+// @ ~ Make sure to check out the mdn doc for fetch! Fetch in vanilla JS
 // @ https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-// @ fetch('/api/login') makes a GET request to that URL
+// @ options = {method: "POST"}
+// @ fetch('/api/login', options) makes a POST request to that URL. Without the 2nd argument, it will be a GET request
