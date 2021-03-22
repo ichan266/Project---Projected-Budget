@@ -1,5 +1,5 @@
 from flask import (Flask, render_template, request, flash, session,
-                   redirect, url_for)
+                   redirect, url_for, jsonify)
 # from jinja2 import StrictUndefined
 # import datetime
 import os
@@ -24,7 +24,12 @@ def login():
     print(data)
     email = data["email"]
     password = data["password"]
-    return "hi"
+
+    valid_user = True  # Using crud to confirm user
+    if valid_user:
+        return jsonify("banana bunny muffins")
+    else:
+        return jsonify("login failed")
 
 
 @app.route("/login")
@@ -43,3 +48,12 @@ if __name__ == "__main__":
         app.run(debug=True, host="0.0.0.0")
     else:
         app.run()
+
+# @ 6 valid data types for JSON
+# @ strings
+# @ arrays
+# @ object
+# @ numbers
+# @ boolean
+# @ null
+#! It won't be able to take SQLAlchemy objects!!!

@@ -53,10 +53,20 @@ function LogIn() {
       body: JSON.stringify(data),  
       headers: {  
         'Content-Type': 'application/json'
-      }
+      },
     } 
     fetch('/api/login', options) 
+    .then(response => response.json())
+    .then(data => {
+      if (data === 'banana bunny muffins') {
+        alert(data)
+      } else {
+        alert('no muffins, very sad')
+      }
+    })
   }
+  // * JSON.stringify turns JavaScript objects (i.e. data) into a string
+  // * .then is a method used with a promise. Once we capture the information as `response` from the server, we call a function. Once we received it, we want to "hydrate" it (i.e. turning it back to JavaScript Object)
 
   function handleEmailChange(evt) {
     let what_they_just_typed = evt.target.value
@@ -143,3 +153,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // @ https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 // @ options = {method: "POST"}
 // @ fetch('/api/login', options) makes a POST request to that URL. Without the 2nd argument, it will be a GET request
+
+// $ 3/21/21
+// ! HTTP ONLY SUPPORT STRING!!!!!
+// @ JavaScript objects are not string, but JSON is! So we can send everything back and forth as JSON
