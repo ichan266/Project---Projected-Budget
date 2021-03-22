@@ -6,7 +6,7 @@ import os
 import sys
 
 # from model import connect_to_db, db
-# import crud
+import crud
 
 #! In order to use the secret key, I need to type in "source secrets.sh"
 #! in the terminal before starting the server
@@ -19,17 +19,23 @@ app = Flask(__name__)
 
 @app.route("/api/login", methods=["POST"])
 def login():
+    """ Confirm account and take user to welcome page."""
+
     data = request.get_json()  # * request.get_json() is a built-in flask object
-    print('I GOT SOME DATA!')
-    print(data)
     email = data["email"]
     password = data["password"]
+    user = crud.get_user_by_email(email)
 
-    valid_user = True  # Using crud to confirm user
-    if valid_user:
-        return jsonify("banana bunny muffins")
+    if user == None or not user.check_password(password):
+        return jsonify("Email and password did not match our records. Please try again.", "danger")
     else:
-        return jsonify("login failed")
+        return jsonify(user)
+
+    # valid_user = True  # Using crud to confirm user
+    # if valid_user:
+    #     return jsonify("banana bunny muffins")
+    # else:
+    #     return jsonify("login failed")
 
 
 @app.route("/login")

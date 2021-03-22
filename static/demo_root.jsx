@@ -11,24 +11,9 @@ function Homepage() {
   return <div> Welcome to my site </div>
 }
 
-function AboutMe() {
-  return <a href="/templates/aboutme.html">About Me</a>
+function About() {
+  return <div> A tiny react demo site </div>
 }
-
-// function ConnectWithMe() {
-//   return (
-//     <>
-//       <a href="https://github.com/ichan266/Project---Projected-Budget">
-//         <img class="logo" src="/static/GitHub-Mark-Light-64px.png"></a>
-//       <a href="https://www.linkedin.com/in/iris-kuhn/">
-//         <img class="logo" src="/static/LI-In-Bug.png"></a>
-//       <a href="https://twitter.com/ichan266">
-//         <img class="logo" src="/static/Twitter-icon.png"></a>
-//       <a href="https://youtu.be/G3zVo_hxHpk">
-//         <img class="logo" src="/static/youtube_logo.png"></a>
-//     <>
-//   )
-// }
 
 function SearchBar() {
   return (
@@ -73,7 +58,7 @@ function LogIn() {
     fetch('/api/login', options) 
     .then(response => response.json())
     .then(data => {
-      if (data) {
+      if (data === 'banana bunny muffins') {
         alert(data)
       } else {
         alert('no muffins, very sad')
@@ -118,13 +103,13 @@ function App() {
               <Link to="/"> Home </Link>
             </li>
             <li>
-              <Link to="/aboutme"> About Me</Link> 
+              <Link to="/about"> About </Link> 
             </li>
             <li>
               <Link to="/search"> Search </Link> 
             </li>
             <li>
-              <LogIn /> //@
+              <Link to="/login"> Login </Link> 
             </li>
           </ul>
         </nav>
@@ -134,8 +119,8 @@ function App() {
             <LogIn />
           </Route>
           
-          <Route path="/aboutme">
-            <AboutMe />
+          <Route path="/about">
+            <About />
           </Route>
 
           <Route path="/search">
