@@ -124,7 +124,7 @@ function App() {
               <Link to="/search"> Search </Link> 
             </li>
             <li>
-              <LogIn /> //@
+              <LogIn />
             </li>
           </ul>
         </nav>
