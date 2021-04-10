@@ -33,6 +33,29 @@ def aboutme():
     return render_template("/aboutme.html")
 
 
+@app.route("/demo", methods=["POST"])
+def piggy_account():
+    """Log into Ms. Piggy's account."""
+
+    email = "MsPiggy@muppets.com"
+    user = crud.get_user_by_email(email)
+
+    if user == None:
+        flash("Demo Account DELETED!!!", "danger")
+    else:
+        flash("Successfully logged in!", "success")
+        session['user_name'] = f"{user.first_name} {user.last_name}"
+        session['user_id'] = user.user_id
+
+        print(f"THE SESSION FOR USER NAME IS {session['user_name']}")
+        print(f"THE SESSION FOR USER ID IS {session['user_id']}")
+        print(f"THE SESSION IS {session}")
+
+        return redirect("/profile")
+
+    return redirect("/")
+
+
 @app.route("/confirm_account", methods=["POST"])
 def check_account():
     """Confirm account and take user to welcome page."""
