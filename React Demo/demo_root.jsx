@@ -1,18 +1,18 @@
 const Router = ReactRouterDOM.BrowserRouter;
-const Route =  ReactRouterDOM.Route;
-const Link =  ReactRouterDOM.Link;
-const Prompt =  ReactRouterDOM.Prompt;
+const Route = ReactRouterDOM.Route;
+const Link = ReactRouterDOM.Link;
+const Prompt = ReactRouterDOM.Prompt;
 const Switch = ReactRouterDOM.Switch;
 const Redirect = ReactRouterDOM.Redirect;
 const useParams = ReactRouterDOM.useParams;
 const useHistory = ReactRouterDOM.useHistory;
 
 function Homepage() {
-  return <div> Welcome to my site </div>
+  return <div> Welcome to my site </div>;
 }
 
 function About() {
-  return <div> A tiny react demo site </div>
+  return <div> A tiny react demo site </div>;
 }
 
 function SearchBar() {
@@ -20,64 +20,63 @@ function SearchBar() {
     <div>
       <input type="text"></input>
     </div>
-  )
+  );
 }
 
 function Search() {
   return (
-    <div> 
+    <div>
       Search for some stuff
       <SearchBar />
     </div>
-  )
+  );
 }
 // * Here, we call the SearchBar component. So we can break things up when it gets too big
 
 function LogIn() {
-
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   function handleLogin(evt) {
     evt.preventDefault();
     const data = {
       email: email,
-      password: password
-    }
+      password: password,
+    };
     // console.log(email)
     // console.log(password)
     // alert('you submitted the form')
 
     const options = {
-      method: 'POST',
-      body: JSON.stringify(data),  
-      headers: {  
-        'Content-Type': 'application/json'
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
       },
-    } 
-    fetch('/api/login', options) 
-    .then(response => response.json())
-    .then(data => {
-      if (data === 'banana bunny muffins') {
-        alert(data)
-      } else {
-        alert('no muffins, very sad')
-      }
-    })
+    };
+    fetch("/api/login", options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data === "banana bunny muffins") {
+          alert(data);
+        } else {
+          alert("no muffins, very sad");
+        }
+      });
   }
-  // * JSON.stringify turns JavaScript objects (i.e. data) into a string
+  // * JSON.stringify (line 53) turns JavaScript objects (i.e. data) into a string
   // * .then is a method used with a promise. Once we capture the information as `response` from the server, we call a function. Once we received it, we want to "hydrate" it (i.e. turning it back to JavaScript Object)
 
   function handleEmailChange(evt) {
-    let what_they_just_typed = evt.target.value
-    console.log(what_they_just_typed)
-    setEmail(evt.target.value)
+    let what_they_just_typed = evt.target.value;
+    console.log(what_they_just_typed);
+    setEmail(evt.target.value);
   }
 
   function handlePasswordChange(evt) {
-    let what_they_just_typed = evt.target.value
-    console.log(what_they_just_typed)
-    setPassword(evt.target.value)
+    let what_they_just_typed = evt.target.value;
+    console.log(what_they_just_typed);
+    setPassword(evt.target.value);
   }
 
   return (
@@ -86,11 +85,15 @@ function LogIn() {
         Username:
         <input value={email} onChange={handleEmailChange} type="text"></input>
         Password:
-        <input value={password} onChange={handlePasswordChange} type="text"></input>
+        <input
+          value={password}
+          onChange={handlePasswordChange}
+          type="text"
+        ></input>
         <button>Login</button>
       </form>
     </div>
-  )
+  );
 }
 
 function App() {
@@ -103,13 +106,13 @@ function App() {
               <Link to="/"> Home </Link>
             </li>
             <li>
-              <Link to="/about"> About </Link> 
+              <Link to="/about"> About </Link>
             </li>
             <li>
-              <Link to="/search"> Search </Link> 
+              <Link to="/search"> Search </Link>
             </li>
             <li>
-              <Link to="/login"> Login </Link> 
+              <Link to="/login"> Login </Link>
             </li>
           </ul>
         </nav>
@@ -118,7 +121,7 @@ function App() {
           <Route path="/login">
             <LogIn />
           </Route>
-          
+
           <Route path="/about">
             <About />
           </Route>
@@ -126,18 +129,17 @@ function App() {
           <Route path="/search">
             <Search />
           </Route>
-          
+
           <Route path="/">
             <Homepage />
           </Route>
         </Switch>
-
       </div>
     </Router>
   );
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 
 //* `Link` only changes in the URL but there was not HTTP request sent to the server
 
