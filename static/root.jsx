@@ -1,3 +1,5 @@
+// import github from "static/GitHub-Mark-Light-64px.png";
+
 const Router = ReactRouterDOM.BrowserRouter;
 const Route = ReactRouterDOM.Route;
 const Link = ReactRouterDOM.Link;
@@ -16,7 +18,13 @@ function Homepage() {
 // }
 
 function ConnectWithMe() {
-  return <img className="logo" src="/static/GitHub-Mark-Light-64px.png"></img>;
+  return (
+    <img
+      className="logo"
+      src={require("static/GitHub-Mark-Light-64px.png")}
+      alt="GitHub logo"
+    />
+  );
 }
 
 function SearchBar() {
@@ -104,24 +112,37 @@ function App() {
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/"> Home </Link>
-            </li>
-            <li>
-              <Link to="/connectwithme"> Connect With Me</Link>
-            </li>
-            <li>
-              <Link to="/search"> Search </Link>
-            </li>
-            <li>
-              <LogIn />
-            </li>
-          </ul>
-        </nav>
+        <form className="form" action="/api/login" method="POST">
+          <h3>Please Sign In</h3>
+          <label htmlFor="sign_in_email" className="sr-only">
+            Email address
+          </label>
+          <input
+            type="email"
+            id="sign_in_email"
+            className="form-control"
+            name="email"
+            placeholder="Email address"
+            required
+            autoFocus
+          />
+          <label htmlFor="inputPassword" className="sr-only">
+            Password
+          </label>
+          <input
+            type="password"
+            id="inputPassword"
+            className="form-control"
+            name="password"
+            placeholder="Password"
+            required
+          />
+          <button className="btn btn-lg btn-success btn-block" onSubmit={LogIn}>
+            Sign In
+          </button>
+        </form>
 
-        <Switch>
+        {/* <Switch>
           <Route path="/login">
             <LogIn />
           </Route>
@@ -137,7 +158,7 @@ function App() {
           <Route path="/">
             <Homepage />
           </Route>
-        </Switch>
+        </Switch> */}
       </div>
     </Router>
   );
