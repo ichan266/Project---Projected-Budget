@@ -46,6 +46,7 @@ function Search() {
 // * Here, we call the SearchBar component. So we can break things up when it gets too big
 
 function LogIn() {
+  console.log(email);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -57,7 +58,7 @@ function LogIn() {
     };
     // console.log(email)
     // console.log(password)
-    // alert('you submitted the form')
+    // alert("you submitted the form");
 
     const options = {
       method: "POST",
@@ -93,16 +94,36 @@ function LogIn() {
 
   return (
     <div>
-      <form onSubmit={handleLogin}>
-        Username:
-        <input value={email} onChange={handleEmailChange} type="text"></input>
-        Password:
+      <form className="form" onSubmit={handleLogin}>
+        <h3>Please Sign In</h3>
+        <label htmlFor="sign_in_email" className="sr-only">
+          Email address
+        </label>
+        <input
+          value={email}
+          onChange={handleEmailChange}
+          type="email"
+          id="sign_in_email"
+          className="form-control"
+          name="email"
+          placeholder="Email address"
+          required
+          autoFocus
+        />
+        <label htmlFor="inputPassword" className="sr-only">
+          Password
+        </label>
         <input
           value={password}
           onChange={handlePasswordChange}
-          type="text"
-        ></input>
-        <button>Login</button>
+          type="password"
+          id="inputPassword"
+          className="form-control"
+          name="password"
+          placeholder="Password"
+          required
+        />
+        <button className="btn btn-lg btn-success btn-block">Sign In</button>
       </form>
     </div>
   );
@@ -112,35 +133,7 @@ function App() {
   return (
     <Router>
       <div>
-        <form className="form" action="/api/login" method="POST">
-          <h3>Please Sign In</h3>
-          <label htmlFor="sign_in_email" className="sr-only">
-            Email address
-          </label>
-          <input
-            type="email"
-            id="sign_in_email"
-            className="form-control"
-            name="email"
-            placeholder="Email address"
-            required
-            autoFocus
-          />
-          <label htmlFor="inputPassword" className="sr-only">
-            Password
-          </label>
-          <input
-            type="password"
-            id="inputPassword"
-            className="form-control"
-            name="password"
-            placeholder="Password"
-            required
-          />
-          <button className="btn btn-lg btn-success btn-block" onSubmit={LogIn}>
-            Sign In
-          </button>
-        </form>
+        <LogIn />
 
         {/* <Switch>
           <Route path="/login">
