@@ -47,8 +47,15 @@ function Search() {
 
 function LogIn() {
   console.log(email);
+  // Login for users
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+
+  // Registration for new users
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [newEmail, setNewEmail] = React.useState("");
+  const [newPassword, setNewPassword] = React.useState("");
 
   function handleLogin(evt) {
     evt.preventDefault();
@@ -92,6 +99,26 @@ function LogIn() {
     setPassword(evt.target.value);
   }
 
+  function handleNewUser(evt) {
+    evt.preventDefault();
+    const newData = {
+      firstName: firstName,
+      lastName: lastName,
+      newEmail: newEmail,
+      newPassword: newPassword,
+      newPasswordConf: newPasswordConf,
+    };
+
+    const newOptions = {
+      method: "POST",
+      body: JSON.stringify(newData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    fetch("/api/");
+  }
+
   return (
     <div>
       <form className="form" onSubmit={handleLogin}>
@@ -124,6 +151,68 @@ function LogIn() {
           required
         />
         <button className="btn btn-lg btn-success btn-block">Sign In</button>
+      </form>
+
+      <form className="form" id="create_user" onSubmit={handleNewUser}>
+        <h3>Sign Up Here</h3>
+        <label htmlFor="inputFirstName" className="sr-only">
+          First Name
+        </label>
+        <input
+          value={firstName}
+          type="text"
+          id="inputFirstName"
+          className="form-control"
+          name="first_name"
+          placeholder="First Name"
+          required
+        />
+        <label htmlFor="inputLastName" className="sr-only">
+          Last Name
+        </label>
+        <input
+          value={lastName}
+          type="text"
+          id="inputLastName"
+          className="form-control"
+          name="last_name"
+          placeholder="Last Name"
+          required
+        />
+        <label htmlFor="inputNewEmail" className="sr-only">
+          Email address
+        </label>
+        <input
+          value={newEmail}
+          type="email"
+          id="inputEmail"
+          className="form-control"
+          name="new_email"
+          placeholder="Email"
+          required
+        />
+        <label htmlFor="newPassword" className="sr-only">
+          Password
+        </label>
+        <input
+          value={newPassword}
+          type="password"
+          id="inputPassword"
+          className="form-control"
+          name="newPassword"
+          placeholder="Password"
+          required
+        />
+        <input
+          value={newPasswordConf}
+          type="password"
+          id="new_password_conf"
+          className="form-control"
+          name="newPasswordConf"
+          placeholder="Please Confirm Password"
+          required
+        />
+        <button className="btn btn-lg btn-primary btn-block">Sign Up</button>
       </form>
     </div>
   );

@@ -41,6 +41,31 @@ def login():
     # else:
     #     return jsonify("login failed")
 
+@app.route("/api/create_user", methods=["POST"])
+def register_user():
+    """Create a new user."""
+
+    newData = request.get_json()
+    first_name = newData["firstName"]
+    last_name = newData["lastName"]
+    new_email = newData["newEmail"]
+    new_password = newData["newPassword"]
+    new_password_conf = newData["new_password_conf"]
+
+    if crud.get_user_by_email(new_email) != None:
+        flash("Account already exists. Please try again.", "danger")
+    elif new_password == new_password_conf:
+        user = crud.create_user(first_name, last_name, new_email, new_password)
+        # session['user_name'] = f"{user.first_name} {user.last_name}"
+        # session['user_id'] = user.user_id
+        # flash("Account Created!", "success")
+        # return redirect("/profile")
+        return jsonify("Hi {user.first_name}")
+    else:
+        flash("Passwords do not match. Please try again.", "danger")
+
+    return redirect("/")
+
 
 @app.route("/login")
 @app.route("/about")
