@@ -7,7 +7,14 @@ body {
   background-repeat: no-repeat;
   background-position: center 0%;
   background-size: 100%;
-  background-color: rgb(155, 155, 155);
+  background-color: rgb(157, 165, 112);
+}
+
+@media only screen and (max-width: 767px) {
+  body {
+    background: url(/static/ThistleBackground-cropped.jpg) no-repeat center;
+    background-color: rgb(138, 146, 189);
+  }
 }
 
 .logo {
