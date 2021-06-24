@@ -4,98 +4,108 @@
 {% block body %}
 
 <body class="text-center">
-  <img src="/static/ThistleLogo.png" />
-  <!-- <h1 class="title">Thistle</h1> -->
-  <h3 id="subtitle">Empower You to Better Foresee Your Financial Future</h3>
-  <br>
-  <br>
-  <h5 class="warning">This site is in development. Data will be reset periodically. <br>Your account and entries may
-    be
-    reset!</h5>
-  <form class="form"
-        action="/demo"
-        method="POST">
-    <button type="submit"
-            class="btn btn-lg btn-info btn-block"
-            data-toggle="tooltip"
-            title="Ms Piggy's Profile">Demo</button>
-  </form>
+       <img src="/static/ThistleLogo.png" />
+       <!-- <h1 class="title">Thistle</h1> -->
+       <h3 id="subtitle">Empower You to Better Foresee Your Financial Future</h3>
+       <br>
+       <br>
+       <h5 class="warning">This site is in development. Data will be reset periodically. <br>Your account and entries
+              may
+              be
+              reset!</h5>
+       <form class="form"
+             action="/demo"
+             method="POST">
+              <button type="submit"
+                      class="btn btn-lg btn-info btn-block"
+                      data-toggle="tooltip"
+                      title="Ms Piggy's Profile">Demo</button>
+       </form>
 
-  <form class="form"
-        action="/confirm_account"
-        method="POST">
-    <h3>Please Sign In</h3>
-    <label for="sign_in_email"
-           class="sr-only">Email address</label>
-    <input type="email"
-           id="sign_in_email"
-           class="form-control"
-           name="email"
-           placeholder="Email address"
-           required
-           autofocus>
-    <label for="inputPassword"
-           class="sr-only">Password</label>
-    <input type="password"
-           id="inputPassword"
-           class="form-control"
-           name="password"
-           placeholder="Password"
-           required>
-    <button class="btn btn-lg btn-success btn-block"
-            type="submit">Sign In</button>
-  </form>
-  <br>
-  <br>
-  <br>
-  <h3>Sign Up Here</h3>
-  <form id="create_user"
-        class="form"
-        action="/create_user"
-        method="POST">
-    <label for="inputFirstName"
-           class="sr-only">First Name</label>
-    <input type="text"
-           id="inputFirstName"
-           class="form-control"
-           name="first_name"
-           placeholder="First Name"
-           required>
+       <form class="form"
+             action="/confirm_account"
+             method="POST">
+              <h3>Please Sign In</h3>
+              <label for="sign_in_email"
+                     class="sr-only">Email address</label>
+              <input type="email"
+                     id="sign_in_email"
+                     class="form-control"
+                     name="email"
+                     placeholder="Email address"
+                     required
+                     autofocus>
+              <label for="inputPassword"
+                     class="sr-only">Password</label>
+              <input type="password"
+                     id="inputPassword"
+                     class="form-control"
+                     name="password"
+                     placeholder="Password"
+                     required>
+              <button class="btn btn-lg btn-success btn-block"
+                      type="submit">Sign In</button>
+       </form>
+       <br>
+       <br>
+       <br>
+       <h3>Sign Up Here</h3>
+       <form id="create_user"
+             class="form"
+             action="/create_user"
+             method="POST">
+              <label for="inputFirstName"
+                     class="sr-only">First Name</label>
+              <input type="text"
+                     id="inputFirstName"
+                     class="form-control"
+                     name="first_name"
+                     placeholder="First Name"
+                     required>
 
-    <label for="inputLastName"
-           class="sr-only">Last Name</label>
-    <input type="text"
-           id="inputLastName"
-           class="form-control"
-           name="last_name"
-           placeholder="Last Name"
-           required>
+              <label for="inputLastName"
+                     class="sr-only">Last Name</label>
+              <input type="text"
+                     id="inputLastName"
+                     class="form-control"
+                     name="last_name"
+                     placeholder="Last Name"
+                     required>
 
-    <label for="inputEmail"
-           class="sr-only">Email address</label>
-    <input type="email"
-           id="new_email"
-           class="form-control"
-           name="email"
-           placeholder="Email address"
-           required>
+              <label for="inputEmail"
+                     class="sr-only">Email address</label>
+              <input type="email"
+                     id="new_email"
+                     class="form-control"
+                     name="email"
+                     placeholder="Email address"
+                     required>
 
-    <label for="new-password"
-           class="sr-only">Password</label>
-    <input type="password"
-           id="new_password"
-           class="form-control"
-           name="new_password"
-           placeholder="Password"
-           required>
-    <input type="password"
-           id="new_password_conf"
-           class="form-control"
-           name="new_password_conf"
-           placeholder="Please Confirm Password"
-           required>
-    <button class="btn btn-lg btn-primary btn-block"
-            type="submit">Sign Up</button>
-  </form>
+              <label for="new-password"
+                     class="sr-only">Password</label>
+              <input type="password"
+                     id="new_password"
+                     class="form-control"
+                     name="new_password"
+                     placeholder="Password"
+                     required>
+              <input type="password"
+                     id="new_password_conf"
+                     class="form-control"
+                     name="new_password_conf"
+                     placeholder="Please Confirm Password"
+                     required>
+              <button class="btn btn-lg btn-primary btn-block"
+                      type="submit">Sign Up</button>
+       </form>
+       <br>
+       <br>
+       <iframe width="560"
+               height="315"
+               src="https://www.youtube-nocookie.com/embed/G3zVo_hxHpk"
+               title="YouTube video player"
+               frameborder="0"
+               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+               allowfullscreen></iframe>
 </body>
 {% endblock %}

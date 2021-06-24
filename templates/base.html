@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-US">
 
 <head>
   <meta charset="utf-8">
@@ -19,6 +19,8 @@
         type="image/png"
         sizes="32x32"
         href="/static/favicon-32x32.png">
+  <script src='/static/features.js'
+          defer></script>
   {% block head %}{% endblock %}
 </head>
 
@@ -48,7 +50,7 @@
     {% endfor %}
     {% block body %}{% endblock %}
     {% block after_body %}{% endblock %}
-    <script src='/static/features.js'></script>
+
 
     <div class="container footer">
       <h6><b>Connect with me</b></h6>
