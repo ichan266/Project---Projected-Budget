@@ -12,9 +12,9 @@
   <meta property="og:url"
         content="https://hb-thistle.herokuapp.com/" />
   <meta property="og:image"
-        content="https://hb-thistle.herokuapp.com/static/homepage-og.png">
+        content="https://hb-thistle.herokuapp.com/static/homepage-og.png" />
   <meta name="description"
-        content="Thistle: Empower you to better foresee your financial future." />
+        content="Empower you to better foresee your financial future." />
   <title>
     {% block title %}{% endblock %}
   </title>
@@ -43,55 +43,57 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
           crossorigin="anonymous"></script>
-  <section id="main-container"
-           class="centering-content container">
-    {% for msg in get_flashed_messages() %}
-    <div class="flash-msg">
-      {% with msg = get_flashed_messages(with_categories=true) %}
-      {% if msg %}
-      {% for category, message in msg %}
-      <div class="alert alert-{{ category }} alert-dismissible fade show">
-        <p>{{ message }}</p>
-      </div>
+  <main>
+    <section id="main-container"
+             class="centering-content container">
+      {% for msg in get_flashed_messages() %}
+      <header class="flash-msg">
+        {% with msg = get_flashed_messages(with_categories=true) %}
+        {% if msg %}
+        {% for category, message in msg %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show">
+          <p>{{ message }}</p>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+      </header>
       {% endfor %}
-      {% endif %}
-      {% endwith %}
-    </div>
-    {% endfor %}
-    {% block body %}{% endblock %}
-    {% block after_body %}{% endblock %}
-
-
-    <div class="container footer">
-      <h6><b>Connect with me</b></h6>
-      <a href="https://github.com/ichan266/Project---Projected-Budget">
-        <img class="logo"
-             src="/static/GitHub-Mark-Light-64px.png"
-             data-toggle="tooltip"
-             title="Project Repo"></a>
-      <a href="https://www.linkedin.com/in/iris-kuhn/">
-        <img class="logo"
-             src="/static/LI-In-Bug.png"
-             data-toggle="tooltip"
-             title="My LinkedIn Profile"></a>
-      <a href="https://twitter.com/ichan266">
-        <img class="logo"
-             src="/static/Twitter-icon.png"
-             data-toggle="tooltip"
-             title="My Twitter"></a>
-      <a href="https://youtu.be/G3zVo_hxHpk">
-        <img class="logo"
-             src="/static/youtube_logo.png"
-             data-toggle="tooltip"
-             title="Demo Video"></a>
-      <p>
-        <a href="/aboutme">About Me</a>
-      </p>
-      <p>
-        <a href="/">Back To Homepage</a>
-      </p>
-    </div>
-  </section>
+      {% block body %}{% endblock %}
+      {% block after_body %}{% endblock %}
+    </section>
+    <section>
+      <footer class="container footer">
+        <h6><b>Connect with me</b></h6>
+        <a href="https://github.com/ichan266/Project---Projected-Budget">
+          <img class="logo"
+               src="/static/GitHub-Mark-Light-64px.png"
+               data-toggle="tooltip"
+               title="Project Repo"></a>
+        <a href="https://www.linkedin.com/in/iris-kuhn/">
+          <img class="logo"
+               src="/static/LI-In-Bug.png"
+               data-toggle="tooltip"
+               title="My LinkedIn Profile"></a>
+        <a href="https://twitter.com/ichan266">
+          <img class="logo"
+               src="/static/Twitter-icon.png"
+               data-toggle="tooltip"
+               title="My Twitter"></a>
+        <a href="https://youtu.be/G3zVo_hxHpk">
+          <img class="logo"
+               src="/static/youtube_logo.png"
+               data-toggle="tooltip"
+               title="Demo Video"></a>
+        <p>
+          <a href="/aboutme">About Me</a>
+        </p>
+        <p>
+          <a href="/">Back To Homepage</a>
+        </p>
+      </footer>
+    </section>
+  </main>
 </body>
 
 </html>
