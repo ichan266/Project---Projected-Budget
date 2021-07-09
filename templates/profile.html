@@ -2,18 +2,31 @@
 {% block title %}Thistle - Profile{% endblock %}
 
 {% block body %}
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(102, 86, 138);">
-  <a class="navbar-brand" href="/">
-    <img src="/static/ThistleLogo.png" width="100" height="50" alt="" loading="lazy">
+<nav role="navigation"
+     class="navbar navbar-expand-lg navbar-dark"
+     style="background-color: rgb(102, 86, 138);">
+  <a class="navbar-brand"
+     href="/">
+    <img src="/static/ThistleLogo.png"
+         data-toggle="tooltip"
+         title="Return to Homepage"
+         width="100"
+         height="50"
+         alt=""
+         loading="lazy">
   </a>
-  <div class="collapse navbar-collapse" id="navbarText">
+  <div class="collapse navbar-collapse"
+       id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item mt-1">
         <h4 style="color: white">{{ session['user_name'] }}'s Profile</h4>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0" action="/logout">
-      <button type="submit" class="btn btn-secondary my-2 my-sm-0" name="logout">Log Out</button>
+    <form class="form-inline my-2 my-lg-0"
+          action="/logout">
+      <button type="submit"
+              class="btn btn-secondary my-2 my-sm-0"
+              name="logout">Log Out</button>
     </form>
   </div>
 </nav>
@@ -22,53 +35,73 @@
 {% if accounts %}
 <br>
 <h3 class="title">Your Accounts</h3>
-  <div class="list-group">
-    <ol class="p-0">
-  {% for account in accounts %}
-      <li class="list-group list-group-item list-group-item-action p-3" style="background-color: #c9ccf7;">
-        <a href="/profile/{{ account.account_id }}" class="text-dark">
-          <b>{{ account.account_nickname }} - {{account.account_type}}</b>
-        </a>
-        <form class="remove_form form-inline my-2 my-lg-0" style="float: right; overflow: auto; padding-top: -10px" action="/handle_account_removal">
-          <button class="btn-sm btn-outline-danger my-2 my-sm-0" type="submit" name="account_id" value="{{ account.account_id }}">Remove</button>
-        </form>
-      </li>
-      <br>
-  {% endfor %}
-    </ol>
-{% else %}
-    <div class="nothing">You currently do not have any accounts. Please add an account.</div>
-{% endif %}  
-  </div>
+<div class="list-group">
+  <ol class="p-0">
+    {% for account in accounts %}
+    <li class="list-group list-group-item list-group-item-action p-3"
+        style="background-color: #c9ccf7;">
+      <a href="/profile/{{ account.account_id }}"
+         class="text-dark">
+        <b>{{ account.account_nickname }} - {{account.account_type}}</b>
+      </a>
+      <form class="remove_form form-inline my-2 my-lg-0"
+            style="float: right; overflow: auto; padding-top: -10px"
+            action="/handle_account_removal">
+        <button class="btn-sm btn-outline-danger my-2 my-sm-0"
+                type="submit"
+                name="account_id"
+                value="{{ account.account_id }}">Remove</button>
+      </form>
+    </li>
+    <br>
+    {% endfor %}
+  </ol>
+  {% else %}
+  <div class="nothing">You currently do not have any accounts. Please add an account.</div>
+  {% endif %}
+</div>
 <br>
 <br>
 <h4 class="title">Create a New Account</h4>
-<form id="create_account" class="form" action="/create_account" method="POST">
+<form id="create_account"
+      class="form"
+      action="/create_account"
+      method="POST">
   <div class="form-group">
     <div class="form-row align-items-center">
       <div class="input-group mb-2">
         <div class="input-group-prepend">
-          <label for="inlineFormCustomSelect" class="sr-only">Account Type</label>
-          <span class="input-group-text form-label" for="inlineFormCustomSelect">Account Type</span>
+          <label for="inlineFormCustomSelect"
+                 class="sr-only">Account Type</label>
+          <span class="input-group-text form-label"
+                for="inlineFormCustomSelect">Account Type</span>
         </div>
-          <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="account_type">
-            <option selected>Choose one</option>  
-            <option value="Checking">Checking</option>
-            <option value="Saving">Saving</option>
-            <option value="Other">Other</option>
-          </select>
+        <select class="custom-select mr-sm-2"
+                id="inlineFormCustomSelect"
+                name="account_type">
+          <option selected>Choose one</option>
+          <option value="Checking">Checking</option>
+          <option value="Saving">Saving</option>
+          <option value="Other">Other</option>
+        </select>
       </div>
-    
+
       <div class="input-group mb-2">
         <div class="input-group-prepend">
-          <label for="inputAccountNickname" class="sr-only">Account Nickname (Optional)</label>
-          <span class="input-group-text form-label" for="inlineForm">Account Nickname</span>
+          <label for="inputAccountNickname"
+                 class="sr-only">Account Nickname (Optional)</label>
+          <span class="input-group-text form-label"
+                for="inlineForm">Account Nickname</span>
         </div>
-          <input type="text" class="form-control mr-sm-2" name="account_nickname" placeholder="Optional">
+        <input type="text"
+               class="form-control mr-sm-2"
+               name="account_nickname"
+               placeholder="Optional">
       </div>
-  </div>
+    </div>
     <div class="form-row align-items-center">
-      <button type="submit" class="btn btn-success mb-2">Submit</button>
+      <button type="submit"
+              class="btn btn-success mb-2">Submit</button>
     </div>
   </div>
 </form>

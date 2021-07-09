@@ -8,6 +8,8 @@
   <a class="navbar-brand"
      href="/">
     <img src="/static/ThistleLogo.png"
+         data-toggle="tooltip"
+         title="Return to Homepage"
          width="100"
          height="50"
          alt=""
@@ -18,7 +20,9 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active mt-2">
         <h4 style="color: white"><a href="/profile"
-             class="profile-title">{{ session['user_name'] }}'s Profile</a> </h4>
+             class="profile-title"
+             data-toggle="tooltip"
+             title="Return to Profile">{{ session['user_name'] }}'s Profile</a> </h4>
       </li>
       <li class="nav-item active mt-2">
         <h4 style="color: rgb(158, 227, 236)">&nbsp;|&nbsp;</h4>
