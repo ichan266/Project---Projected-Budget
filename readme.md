@@ -25,7 +25,7 @@ Thistle is a web application that provides users a better tool to keep track of 
 - Users can log in or sign up here.
 - Storage of password in database is hashed using Werkzeug security
 
-![Thistle Homepage](/static/homepage.png)
+![Thistle Homepage](/static/readme/homepage.png)
 
 ### Profile
 
@@ -37,20 +37,23 @@ After logging in, it will take users to their profile page. Users can:
 - Click on an account will direct users to the next page, account details
 
 **Profile Page**
-![Profile Page](/static/profile_page.png)
+![Profile Page](/static/readme/profile_page.png)
+
+**Remove Account**
+![Remove Account](/static/readme/account_removal.gif)
 
 ### Account Details
 
 See a list of entries, sorted by date
 Recurrent entry* with the same entry ID highlighted in the same color. Negative balances are highlighted in red
-![Highlight recurrent entry](/static/recurrent_entry_highlight.gif)
+![Highlight recurrent entry](/static/readme/recurrent_entry_highlight.gif)
 *Recurrent entry is an entry with specific time interval, such as every 2 weeks, with a stop date specified by the user. In account details, any recurrent entries will be calculated for a one-year interval from the time of login.
 
 **Edit amount inline**
-![Edit amount](/static/edit_amount.gif)
+![Edit amount](/static/readme/edit_amount.gif)
 
 **Add one-time or recurrent entry using this form**
-![Create new entry](/static/create_new_transaction.png)
+![Create new entry](/static/readme/create_new_transaction.png)
 
 ## <a name="tech-stack"></a>Tech Stack
 
