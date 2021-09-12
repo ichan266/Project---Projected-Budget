@@ -15,7 +15,6 @@ Flask==1.1.2
 Flask-BabelEx==0.9.4
 Flask-Login==0.5.0
 Flask-Mail==0.9.1
-Flask-OAuth==0.12
 Flask-Principal==0.4.0
 Flask-Security==3.0.0
 Flask-SQLAlchemy==2.4.4
@@ -28,7 +27,6 @@ itsdangerous==1.1.0
 Jinja2==2.11.2
 kombu==5.0.2
 MarkupSafe==1.1.1
-oauth2==1.9.0.post1
 oauthlib==3.1.0
 passlib==1.7.4
 prompt-toolkit==3.0.14
